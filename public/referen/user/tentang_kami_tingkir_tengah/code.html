@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us | Ekowisata Tingkir Tengah</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e9e8e3",
+                        "tertiary-fixed": "#bbf37c",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "tertiary-fixed-dim": "#a0d663",
+                        "on-secondary-container": "#004d6a",
+                        "on-tertiary-fixed-variant": "#2e4f00",
+                        "on-background": "#1b1c19",
+                        "primary-container": "#008378",
+                        "on-tertiary-container": "#f9ffea",
+                        "surface-bright": "#faf9f4",
+                        "secondary": "#00668a",
+                        "on-secondary": "#ffffff",
+                        "outline": "#6d7a77",
+                        "surface-tint": "#006a61",
+                        "surface-container-highest": "#e3e3de",
+                        "secondary-container": "#40c2fd",
+                        "inverse-primary": "#6bd8cb",
+                        "error-container": "#ffdad6",
+                        "primary": "#00685f",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1b1c19",
+                        "surface-container": "#efeee9",
+                        "secondary-fixed": "#c4e7ff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#30312e",
+                        "surface-variant": "#e3e3de",
+                        "primary-fixed": "#89f5e7",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#0f2000",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "tertiary": "#3d6700",
+                        "on-secondary-fixed": "#001e2c",
+                        "background": "#faf9f4",
+                        "on-primary-container": "#f4fffc",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f2f1ec",
+                        "surface-container-low": "#f5f4ef",
+                        "tertiary-container": "#528115",
+                        "surface-dim": "#dbdad5",
+                        "surface": "#faf9f4",
+                        "on-primary-fixed": "#00201d",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#005049",
+                        "outline-variant": "#bcc9c6",
+                        "on-surface-variant": "#3d4947"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "sm": "16px",
+                        "lg": "40px",
+                        "base": "4px",
+                        "container-max": "1280px",
+                        "xs": "8px",
+                        "md": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "display-lg-mobile": ["Lexend"],
+                        "body-md": ["Lexend"],
+                        "body-lg": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .organic-blob {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        .ambient-shadow {
+            box-shadow: 0 20px 40px rgba(13, 148, 136, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-white/20 shadow-lg">
+<div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-primary font-bold tracking-tight">Ekowisata Tingkir Tengah</div>
+<div class="hidden md:flex gap-md items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="#">Explore</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="#">UMKM</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="#">Eco-Tours</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">About</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all p-2 rounded-full hover:bg-primary-container/10">search</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold hover:opacity-80 active:scale-95 transition-all">Sign In</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative pt-32 pb-xl overflow-hidden min-h-[614px] flex items-center">
+
+<div class="max-w-container-max mx-auto px-gutter relative z-10 grid md:grid-cols-2 gap-xl items-center">
+<div class="space-y-md">
+<div class="inline-flex items-center gap-xs bg-primary-fixed px-4 py-1 rounded-full text-on-primary-fixed font-label-sm uppercase tracking-widest">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                    Our Legacy
+                </div>
+<h1 class="font-display-lg text-display-lg md:text-display-lg leading-tight text-primary">Preserving Culture, <br/>Nurturing Nature.</h1>
+<p class="text-body-lg text-on-surface-variant max-w-lg">Nestled in the heart of Salatiga, Tingkir Tengah is more than just a destination. It is a living testament to how local wisdom and sustainable tourism can dance in harmony.</p>
+<div class="flex gap-sm pt-base">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all ambient-shadow">Discover Our Story</button>
+<button class="border border-outline text-on-surface-variant px-8 py-4 rounded-full font-bold hover:bg-surface-container transition-all">Meet the Locals</button>
+</div>
+</div>
+<div class="relative">
+<div class="organic-blob w-full aspect-square bg-cover bg-center ambient-shadow transform rotate-3" data-alt="A cinematic, sun-drenched wide shot of the lush green landscapes of Tingkir Tengah village, featuring traditional Javanese wooden houses peeking through dense tropical foliage and vibrant community gardens. The lighting is golden-hour warm, casting soft long shadows, and the overall mood is serene, welcoming, and deeply connected to nature in a high-end eco-tourism style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6B8WtMS2_b6ml_wVWOCeMhD7WhzNJJRicYx1gCrP1By7uBVTfB-aZAU2XiSXC8t75OtEgTFBIHt7SQbzG1JH_JBETYDpLJ53xfszu0g_qa5YZZW1pblgTBY3-NNJuNW7DUUZnExq_y98CXg5v9aZiHHeFVevEagGBaQzvF0yDVA_jzpA4k-tGsVEY1ue3mPNd_vbwn0B0NwklPpE-1iukOINYuCL1R1ryRiOdD5RZtxfji0vR-Tm7LQK_oV1gJ2_V6_Y5cxcGcQg')">
+</div>
+<div class="absolute -bottom-xs -left-xs glass-effect p-md rounded-lg ambient-shadow">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 bg-tertiary rounded-full flex items-center justify-center text-on-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<div class="font-bold text-headline-md">100%</div>
+<div class="text-label-sm opacity-70">Community Driven</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Narrative Section: The Village Story -->
+<section class="py-xl bg-surface-container-low">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col md:flex-row gap-xl items-start">
+<div class="w-full md:w-1/3 sticky top-32">
+<h2 class="font-headline-md text-headline-md text-primary mb-sm">The Story of Tingkir Tengah</h2>
+<p class="text-on-surface-variant">From humble beginnings to a beacon of sustainable innovation, our journey is defined by the resilience of our people.</p>
+<div class="mt-md space-y-md">
+<div class="p-sm bg-white rounded-lg border border-outline-variant flex gap-sm items-center">
+<span class="text-tertiary font-bold text-headline-md">1990</span>
+<span class="text-label-sm">Foundations of Local Artisans</span>
+</div>
+<div class="p-sm bg-white rounded-lg border border-outline-variant flex gap-sm items-center">
+<span class="text-tertiary font-bold text-headline-md">2015</span>
+<span class="text-label-sm">Eco-Tourism Initiative Launch</span>
+</div>
+<div class="p-sm bg-white rounded-lg border border-outline-variant flex gap-sm items-center">
+<span class="text-tertiary font-bold text-headline-md">2024</span>
+<span class="text-label-sm">Global Recognition for UMKM</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-2/3 grid gap-md">
+<div class="bg-white p-xl rounded-lg ambient-shadow border border-white">
+<h3 class="font-headline-md text-headline-md text-secondary mb-md">Our Vision</h3>
+<p class="text-body-lg leading-relaxed text-on-surface-variant mb-md">
+                            We envision Ekowisata Tingkir Tengah as a global model for community-based tourism where environmental preservation and economic prosperity are not mutually exclusive. We strive to empower every local household, ensuring that our heritage survives for generations to come.
+                        </p>
+<div class="grid grid-cols-2 gap-md mt-lg">
+<div class="space-y-base">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">diversity_3</span>
+<div class="font-bold">Social Equality</div>
+<div class="text-body-md opacity-70">Direct profit sharing for over 50 local families.</div>
+</div>
+<div class="space-y-base">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">recycling</span>
+<div class="font-bold">Waste-Free Living</div>
+<div class="text-body-md opacity-70">Implemented village-wide organic composting systems.</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="h-80 rounded-lg overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-quality close-up photograph of a local Tingkir Tengah craftsperson meticulously weaving a traditional bamboo basket. The lighting is soft and natural, coming from a nearby window, highlighting the texture of the bamboo and the weathered, experienced hands of the artisan. The background is a blurred workshop with earthy tones, embodying the spirit of local wisdom and community empowerment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnXAkPqQOuWfSRzGQo9BaHOoQ_hWGqnvPad3K6FHIx8r2qoExbKoMYAXZFqmQPZ-Fe1PMYNI-Py7QJwzE2TyXMAao7tmf-Hy8zD4LozVYVUkeFlFTkccVufOdonlTpeWnX5-jwze4a9KcUgz4y8n9DD_bD2z8BG9lcvSRFr3bLn5OQglPr0ruluyXG0IZAT1lDNeS99y7DEbU4NOj3S5Y8O23WiAlDGitX4hS8VMuB0C4P0zNcZiDt-Hpd9wMJzgu3QT5WLdxDT5Y"/>
+</div>
+<div class="bg-secondary-container p-lg rounded-lg flex flex-col justify-center text-on-secondary-container">
+<h4 class="font-headline-md text-headline-md mb-sm">Community First</h4>
+<p class="opacity-80">90% of our staff and tour guides are residents of Tingkir Tengah, trained to provide authentic experiences while preserving their way of life.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Section: Sustainability Pillars -->
+<section class="py-xl">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="text-center mb-xl">
+<h2 class="font-display-lg text-display-lg text-primary mb-sm">How We Empower</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Our commitment to the environment and community is built on four core pillars of sustainable growth.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md h-auto md:h-[600px]">
+<!-- Bento Item 1 -->
+<div class="md:col-span-4 bg-surface-container-highest p-lg rounded-lg flex flex-col justify-between ambient-shadow">
+<span class="material-symbols-outlined text-primary text-[48px]" style="font-variation-settings: 'FILL' 0;">agriculture</span>
+<div>
+<h3 class="font-bold text-headline-md mt-md">Regenerative Farming</h3>
+<p class="text-body-md mt-sm text-on-surface-variant">We teach local farmers organic techniques that restore soil health and produce premium quality crops.</p>
+</div>
+</div>
+<!-- Bento Item 2 -->
+<div class="md:col-span-8 relative rounded-lg overflow-hidden group ambient-shadow">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="An expansive panoramic view of a community-led reforestation project in the Tingkir Tengah hills. Dozens of local volunteers, including children and elders, are seen planting saplings under a clear blue sky. The landscape is a vibrant palette of deep greens and earthy browns, captured in a bright, optimistic light-mode aesthetic that emphasizes collective action and sustainability." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDwPjwXKrxk0sNTj1FI9AfCJSCXc2634mppt02OEHIjav1_rlkKZTxbMaJ5Rd5xy3MSffajhh_wTnABfqGV7pu1FwOMX4WftDDpqxl2habfDiRvEAbNCQaHWASfvwQOr_t4y7HyydiUR5_lp1udCG3g9pbPw8185Pep6upPGcBvMCj9ij6NiEIPfh2FSoDGsB3SAGzAQhjSj4Yj7Nkf9BgCr_0iiEv9uPz0hg1RWWUI15haMGRxgfEJzutaN8vtiEEuXw_5CKHAeoE')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-lg left-lg p-md">
+<div class="text-on-primary font-bold text-headline-md">Reforestation Program</div>
+<p class="text-on-primary/80">Planted over 10,000 native trees since 2020.</p>
+</div>
+</div>
+<!-- Bento Item 3 -->
+<div class="md:col-span-7 bg-tertiary-container p-lg rounded-lg flex items-center gap-lg ambient-shadow">
+<div class="flex-1 text-on-tertiary-container">
+<h3 class="font-bold text-headline-md">UMKM Incubation</h3>
+<p class="mt-sm">Supporting 30+ local micro-businesses with digital tools and international marketing pipelines.</p>
+<button class="mt-md text-label-sm font-bold underline">Learn More</button>
+</div>
+<div class="w-1/3 aspect-square organic-blob bg-on-tertiary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[64px] text-tertiary-fixed">storefront</span>
+</div>
+</div>
+<!-- Bento Item 4 -->
+<div class="md:col-span-5 bg-white p-lg rounded-lg border border-outline-variant flex flex-col justify-center ambient-shadow">
+<div class="flex items-baseline gap-xs">
+<span class="text-[56px] font-black text-primary">50k+</span>
+<span class="font-bold text-on-surface-variant">Visitors</span>
+</div>
+<p class="text-on-surface-variant">Hosted globally conscious travelers from over 20 countries, fostering cultural exchange.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonial/Quote Section -->
+<section class="py-xl bg-primary-container relative overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter relative z-10">
+<div class="max-w-3xl">
+<span class="material-symbols-outlined text-white/50 text-[120px] absolute -top-10 -left-10 select-none">format_quote</span>
+<h2 class="font-display-lg text-display-lg text-white italic leading-tight relative">
+                    "Tingkir Tengah is not just a place we live; it is a legacy we carry. We don't inherit the earth from our ancestors, we borrow it from our children."
+                </h2>
+<div class="flex items-center gap-md mt-lg">
+<div class="w-16 h-16 rounded-full border-4 border-white/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A dignified portrait of a village elder from Tingkir Tengah, wearing traditional batik attire. He has a warm, wise smile and clear eyes that reflect a lifetime of experience. The portrait is high-contrast with soft lighting on the face, set against a background of lush village foliage, capturing the essence of 'Local Wisdom' and community leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmCfh62qzw2UksM5e8t7lWL1gwPdBM4SzKUZClse2kArUIv58UIl87toJVrff6BidgciIi1hzPrqVLznv1SFCAvvonje8EXWUO7LnjP26oLbp4BPxjSVIM9ATfVYkuHh8rbWVzZJ5c1fQSulh4TdVL1Sm9iErVlbfjzykr_EKr7XKAcmIPOi8JIpC-GDcfVHkQquoCnjfwHJh88D-kyiM2tHXqFz5Kn9Qzt_17_y6dVpfJtim0EIAZZSMgCJtSDbFLOCVqGoqX9Dc"/>
+</div>
+<div class="text-white">
+<div class="font-bold text-headline-md">Mbah Joyo</div>
+<div class="text-body-md opacity-80">Village Elder &amp; Cultural Guardian</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-highest w-full py-xl">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto">
+<div class="mb-lg md:mb-0 space-y-sm">
+<div class="font-headline-md text-headline-md text-primary font-bold">Ekowisata Tingkir Tengah</div>
+<p class="text-on-surface-variant max-w-xs">Empowering local wisdom, preserving our nature, and building a sustainable future together.</p>
+<div class="flex gap-sm">
+<a class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</a>
+</div>
+</div>
+<div class="flex flex-wrap gap-md justify-center md:justify-end">
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all" href="#">Contact Support</a>
+</div>
+</div>
+<div class="mt-xl text-center border-t border-outline-variant pt-md text-on-surface-variant text-label-sm">
+            © 2024 Ekowisata Tingkir Tengah. Empowering Local Wisdom.
+        </div>
+</footer>
+<script>
+        // Simple scroll reveal interaction
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+
+        // Sticky Nav Blur on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        });
+    </script>
+</body></html>

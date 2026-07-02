@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ekowisata Tingkir Tengah - Pesona Air Tawar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#3d4947",
+                    "surface-container-high": "#e9e8e3",
+                    "background": "#faf9f4",
+                    "on-tertiary-container": "#f9ffea",
+                    "inverse-surface": "#30312e",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#6bd8cb",
+                    "outline": "#6d7a77",
+                    "secondary-container": "#40c2fd",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#528115",
+                    "on-primary-fixed-variant": "#005049",
+                    "secondary-fixed": "#c4e7ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#f4fffc",
+                    "on-error-container": "#93000a",
+                    "surface": "#faf9f4",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#006a61",
+                    "primary-fixed": "#89f5e7",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#0f2000",
+                    "surface-bright": "#faf9f4",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "surface-container": "#efeee9",
+                    "surface-container-low": "#f5f4ef",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#004c69",
+                    "on-background": "#1b1c19",
+                    "surface-container-highest": "#e3e3de",
+                    "outline-variant": "#bcc9c6",
+                    "tertiary-fixed": "#bbf37c",
+                    "primary-container": "#008378",
+                    "inverse-on-surface": "#f2f1ec",
+                    "on-secondary-fixed": "#001e2c",
+                    "on-primary-fixed": "#00201d",
+                    "on-tertiary-fixed-variant": "#2e4f00",
+                    "surface-variant": "#e3e3de",
+                    "on-secondary-container": "#004d6a",
+                    "surface-dim": "#dbdad5",
+                    "tertiary": "#3d6700",
+                    "tertiary-fixed-dim": "#a0d663",
+                    "on-surface": "#1b1c19",
+                    "secondary-fixed-dim": "#7bd0ff",
+                    "on-error": "#ffffff",
+                    "secondary": "#00668a",
+                    "primary": "#00685f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "xs": "8px",
+                    "sm": "16px",
+                    "md": "24px",
+                    "xl": "64px",
+                    "container-max": "1280px",
+                    "lg": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Lexend"],
+                    "label-sm": ["Lexend"],
+                    "display-lg-mobile": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "headline-md": ["Lexend"],
+                    "display-lg": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Lexend', sans-serif; }
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hero-clip {
+            border-radius: 4rem;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-white/20 dark:border-white/10 shadow-lg dark:shadow-none transition-all duration-300">
+<div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold tracking-tight" href="#">
+                Ekowisata Tingkir Tengah
+            </a>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Explore</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300 font-body-md text-body-md" href="#">UMKM</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300 font-body-md text-body-md" href="#">Eco-Tours</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300 font-body-md text-body-md" href="#">About</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="bg-primary text-on-primary font-label-sm text-label-sm px-md py-xs rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300">
+                    Portal Admin
+                </button>
+</div>
+</div>
+</nav>
+<main class="pt-xl">
+<!-- Hero Section -->
+<section class="relative px-sm md:px-lg mt-md">
+<div class="relative w-full h-[870px] overflow-hidden hero-clip shadow-2xl">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 hover:scale-110" data-alt="A breathtaking aerial view of lush green freshwater fish ponds in Tingkir Tengah, surrounded by vibrant tropical foliage and traditional Javanese structures. The scene is bathed in golden hour sunlight, reflecting off the calm water surfaces with soft teals and deep emeralds. The composition is artistic and serene, evoking a sense of sustainable harmony with nature." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBt8dbPudSoGmJBt60qgMrDp_fQTrz7kJKG2jL4gvsaBGoTkLWNNlTg2iWQkZtWcjU6GZ7jBS90M1dKcW_u5VJ7SBpNhjPDbu-LlPyF9dfqptPhgD5v-vjYEL6Hi8PktmZyAinBaO992Kpes89fn8qlJVxLUrdkL9-3WftjN7MIFRGEf9SDnPmPPrYit7w91K22kw1cgONFsb4QZ2bO1z0m1f7Inn97QA8gn_ckxNiRFUbUJzUQMIDHgUkRldZ-no-iHZVl_OV05DQ')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+<div class="absolute inset-0 flex flex-col justify-center items-start px-gutter md:px-xl max-w-container-max mx-auto">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-sm drop-shadow-lg">
+                            Pesona Air Tawar Tingkir
+                        </h1>
+<p class="font-body-lg text-body-lg text-white/90 mb-lg leading-relaxed max-w-lg drop-shadow-md">
+                            Temukan harmoni alam dan kearifan lokal dalam setiap tetes air. Ekowisata berkelanjutan yang memberdayakan masyarakat dan melestarikan ekosistem perikanan darat.
+                        </p>
+<button class="bg-primary-fixed text-on-primary-fixed font-headline-md text-headline-md px-xl py-sm rounded-full shadow-lg hover:bg-primary-container hover:text-on-primary-container transition-all transform active:scale-95 flex items-center gap-xs">
+                            Mulai Penjelajahan
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Floating Search Bar -->
+<div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-4xl px-gutter z-20">
+<div class="glass rounded-xl p-md shadow-2xl flex flex-col md:flex-row items-center gap-md">
+<div class="flex-1 w-full relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="w-full bg-white/50 border-none rounded-lg pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface" placeholder="Cari kolam pancing atau UMKM..." type="text"/>
+</div>
+<div class="flex-1 w-full relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">category</span>
+<select class="w-full bg-white/50 border-none rounded-lg pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface appearance-none">
+<option>Semua Kategori</option>
+<option>Olahan Ikan</option>
+<option>Kerajinan Tangan</option>
+<option>Wisata Edukasi</option>
+</select>
+</div>
+<button class="w-full md:w-auto bg-secondary-container text-on-secondary-container px-xl py-3 rounded-full font-bold flex items-center justify-center gap-xs hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined">search</span>
+                        Cari
+                    </button>
+</div>
+</div>
+</section>
+<!-- UMKM Section -->
+<section class="mt-xl py-xl bg-surface-container-low">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+<div>
+<span class="text-primary font-bold tracking-widest uppercase text-label-sm mb-xs block">Produk Lokal</span>
+<h2 class="font-display-lg text-display-lg-mobile md:text-headline-md text-on-surface">Geliat Ekonomi UMKM</h2>
+</div>
+<a class="text-primary font-semibold flex items-center gap-xs hover:underline decoration-2 underline-offset-4" href="#">
+                        Lihat Semua Produk
+                        <span class="material-symbols-outlined">trending_flat</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Product Card 1 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-lg p-sm shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
+<div class="relative overflow-hidden rounded-lg h-64 mb-sm">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A high-quality studio shot of premium smoked fish (Ikan Asap) from Tingkir Tengah, beautifully arranged on a rustic wooden platter with fresh lime and chili garnishes. The lighting is warm and inviting, highlighting the rich golden-brown texture of the fish. Minimalist light-mode aesthetic with a soft teal-tinted background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRnkhI4TUVycbqwcgNtdgwRPhuWNGRh0RNTfaCC-2Vher_AnctxoPxOiRUALwENiDKe5WL1_RN8iR7ePhUy3BoAaM_FgtRcI9CXrXqi3hNOOKytNakxtWE3blEqwjSN_Wm1f2A_K65zOu4ge5lUIEcqRhtCd1sZKzPXaHPVqVicaJKfORb8_ob5poAPYhNmPc1WRhpa8IktD2wyrXpM5fnNsI9MOWMOkn8u5nBP4vZgRcE4cwYMSTeF2JpSE3VzPdwau3bjwJbZtY"/>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary-fixed text-on-secondary-fixed text-label-sm px-md py-1 rounded-full font-bold backdrop-blur-md">Fishery</span>
+</div>
+</div>
+<div class="px-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Ikan Asap Premium Arwana</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mt-xs">Olahan ikan asap tradisional dengan bumbu rempah rahasia Tingkir Tengah.</p>
+<div class="mt-md flex items-center justify-between">
+<span class="text-primary font-bold text-headline-md">Rp 45.000</span>
+<button class="border-2 border-primary text-primary hover:bg-primary hover:text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                                    Beli via WA
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-lg p-sm shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
+<div class="relative overflow-hidden rounded-lg h-64 mb-sm">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Golden-fried crispy fish skin snack presented in a stylish, modern eco-friendly packaging. The background features a blurred serene pond environment. The lighting is bright and clean, characteristic of high-end food photography, with the primary teal color palette integrated subtly in the props." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPIMN1p81LyrWnZ4kSJS6wVr67q8tTnW1RcuDSNWZs6WE1SZu90DhoS2cbK5elmDf-gbmR1GzmCDf8mEzDqy1rUBuTxXGAkSwsV6iZwozT-23LP2nKQeZ3NAw8nNJZM-nbuXPGhaZdabv_VpZT93OXVX-Y1OfUTUlnARqe6-xrUNfN_nxTCut3vEsa9GBmJof4VtQIgayKlZ49L0MmFGsrpv3w_1eDCF_OlA1vfIoq8bkU2584EMJHsmHrdHmcuUYBj3kPqYz6BDk"/>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary-fixed text-on-secondary-fixed text-label-sm px-md py-1 rounded-full font-bold backdrop-blur-md">Fishery</span>
+</div>
+</div>
+<div class="px-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Keripik Kulit Ikan Nila</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mt-xs">Camilan renyah kaya protein, diproses secara higienis dari kolam budidaya mandiri.</p>
+<div class="mt-md flex items-center justify-between">
+<span class="text-primary font-bold text-headline-md">Rp 25.000</span>
+<button class="border-2 border-primary text-primary hover:bg-primary hover:text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                                    Beli via WA
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-lg p-sm shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
+<div class="relative overflow-hidden rounded-lg h-64 mb-sm">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Traditional handmade bamboo baskets and crafts from the Tingkir community, displayed in a minimalist gallery setting. Soft natural light flows from a window, creating organic shadows. The aesthetic is clean, modern, and emphasizes the sustainability and craftsmanship of local wisdom." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB09fFG4aoNnRBcK0V2FAyv03FLPiPe9hroyokkvRxQyvhz4rSG3UJcfEunwvC53tjqN8l-xzCzM6MOkHRW-D121GDkEPH4pspBHxi03kQO1Htv1bpxtm1nD86mV7uipJr2ckPD4dHo3k19kjZlBr_dawHsFgymM7suH85HDzzIZ_HWXIE-OowUW3mtNbUlLqpBPdkq2FszGw9sypD5iZS5yv6_Zg4MyFSH07H3VpiJiNhfcD3jk_6Q5OwnRQAoem3t2hJzOFcQov4"/>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-label-sm px-md py-1 rounded-full font-bold backdrop-blur-md">Craft</span>
+</div>
+</div>
+<div class="px-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Kerajinan Anyaman Bambu</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mt-xs">Wadah multifungsi estetik buatan pengrajin lokal untuk gaya hidup berkelanjutan.</p>
+<div class="mt-md flex items-center justify-between">
+<span class="text-primary font-bold text-headline-md">Rp 85.000</span>
+<button class="border-2 border-primary text-primary hover:bg-primary hover:text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                                    Beli via WA
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Community Section (Added for depth) -->
+<section class="py-xl overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<div class="relative">
+<div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 rounded-full animate-float blur-2xl"></div>
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full animate-float blur-3xl" style="animation-delay: 2s"></div>
+<div class="relative z-10 glass p-sm rounded-lg shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+<img class="rounded-lg shadow-inner" data-alt="A candid photo of smiling local MSME owners and fishery farmers in Tingkir Tengah, working together in a communal space. The environment is bright and hopeful, with traditional textures meeting modern sustainable practices. The color palette is cohesive with teals, creams, and natural wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNG9MrgG_5yLs3CfA-1N3ia7PKd8pLoeN-qjEHqPiNRNgOk_lOwGsFczKmaz5Ab4jwb1jsfQNttou9_nCMBRGj8odPwejmIiN9PA2MvdA4KVBzpPHOVNW_EQJrVd9WHePXo-CKoh6Bi_HGoIhVCuo4bDV_jwkJsTyWdhTcI6aL5F8HDCTvBou4B4-OVbTMmrhHZ_ZXj0q2Sk8VcE3uViJpQxs0_FbD5kSsKBfVbKx4nFMEFp3_RGTYNouohGoCXCyI6SKyN1nFPmw"/>
+</div>
+</div>
+<div class="space-y-md">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary leading-tight">Bersama Membangun Negeri dari Desa</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        Tingkir Tengah bukan sekadar destinasi, tapi sebuah gerakan. Kami menggabungkan pariwisata berbasis alam dengan pemberdayaan ekonomi mikro untuk menciptakan masa depan yang lebih hijau.
+                    </p>
+<div class="grid grid-cols-2 gap-md">
+<div class="p-md bg-white rounded-lg shadow-sm">
+<span class="text-secondary font-display-lg block">25+</span>
+<span class="text-on-surface-variant font-label-sm">UMKM Aktif</span>
+</div>
+<div class="p-md bg-white rounded-lg shadow-sm">
+<span class="text-tertiary font-display-lg block">150k</span>
+<span class="text-on-surface-variant font-label-sm">Pengunjung/Thn</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl bg-surface-container-highest dark:bg-inverse-surface mt-xl">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto gap-md">
+<div class="text-center md:text-left">
+<h4 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold">Ekowisata Tingkir Tengah</h4>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-outline-variant mt-xs">© 2024 Ekowisata Tingkir Tengah. Empowering Local Wisdom.</p>
+</div>
+<div class="flex gap-lg flex-wrap justify-center">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline-variant hover:underline decoration-primary transition-all" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline-variant hover:underline decoration-primary transition-all" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline-variant hover:underline decoration-primary transition-all" href="#">Contact Support</a>
+</div>
+<div class="flex gap-sm">
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-on-primary transition-all" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-on-primary transition-all" href="#">
+<span class="material-symbols-outlined">mail</span>
+</a>
+</div>
+</div>
+</footer>
+<script>
+        // Interactive scroll effect for NavBar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'shadow-xl');
+                nav.classList.remove('py-4', 'shadow-lg');
+            } else {
+                nav.classList.add('py-4', 'shadow-lg');
+                nav.classList.remove('py-2', 'shadow-xl');
+            }
+        });
+
+        // Micro-interaction for cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,26 +1,241 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ==============================
+   AQUATIC HARMONY DESIGN SYSTEM
+   ============================== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --- Primary (Teal) --- */
+  --color-primary: #00685f;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #008378;
+  --color-on-primary-container: #f4fffc;
+  --color-inverse-primary: #6bd8cb;
+  --color-primary-fixed: #89f5e7;
+  --color-primary-fixed-dim: #6bd8cb;
+  --color-on-primary-fixed: #00201d;
+  --color-on-primary-fixed-variant: #005049;
+
+  /* --- Secondary (Azure) --- */
+  --color-secondary: #00668a;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #40c2fd;
+  --color-on-secondary-container: #004d6a;
+  --color-secondary-fixed: #c4e7ff;
+  --color-secondary-fixed-dim: #7bd0ff;
+  --color-on-secondary-fixed: #001e2c;
+  --color-on-secondary-fixed-variant: #004c69;
+
+  /* --- Tertiary (Moss/Sage) --- */
+  --color-tertiary: #3d6700;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #528115;
+  --color-on-tertiary-container: #f9ffea;
+  --color-tertiary-fixed: #bbf37c;
+  --color-tertiary-fixed-dim: #a0d663;
+  --color-on-tertiary-fixed: #0f2000;
+  --color-on-tertiary-fixed-variant: #2e4f00;
+
+  /* --- Error --- */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* --- Surface / Neutral --- */
+  --color-surface: #faf9f4;
+  --color-surface-dim: #dbdad5;
+  --color-surface-bright: #faf9f4;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f5f4ef;
+  --color-surface-container: #efeee9;
+  --color-surface-container-high: #e9e8e3;
+  --color-surface-container-highest: #e3e3de;
+  --color-on-surface: #1b1c19;
+  --color-on-surface-variant: #3d4947;
+  --color-inverse-surface: #30312e;
+  --color-inverse-on-surface: #f2f1ec;
+  --color-outline: #6d7a77;
+  --color-outline-variant: #bcc9c6;
+  --color-surface-tint: #006a61;
+  --color-surface-variant: #e3e3de;
+  --color-background: #faf9f4;
+  --color-on-background: #1b1c19;
+
+  /* --- Font --- */
+  --font-lexend: "Lexend", sans-serif;
+
+  /* --- Spacing --- */
+  --spacing-base: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 40px;
+  --spacing-xl: 64px;
+  --spacing-gutter: 24px;
+  --spacing-container-max: 1280px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==============================
+   BASE STYLES
+   ============================== */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Offset for sticky navbar */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-lexend);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  overflow-x: hidden;
+}
+
+/* ==============================
+   GLASSMORPHISM UTILITY
+   ============================== */
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==============================
+   ANIMATION UTILITIES
+   ============================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #efeee9 25%, #e3e3de 50%, #efeee9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ==============================
+   AMBIENT SHADOWS & INTERACTIVE (Teal-tinted)
+   ============================== */
+
+.shadow-ambient {
+  box-shadow: 0 20px 40px rgba(0, 104, 95, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shadow-ambient-lg {
+  box-shadow: 0 30px 60px rgba(0, 104, 95, 0.12);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shadow-ambient-hover {
+  box-shadow: 0 25px 50px rgba(0, 104, 95, 0.15);
+  transform: translateY(-4px);
+}
+
+.interactive-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 30px 60px rgba(0, 104, 95, 0.12);
+}
+
+/* ==============================
+   HERO CLIP
+   ============================== */
+
+.hero-clip {
+  border-radius: 2rem;
+}
+
+@media (min-width: 768px) {
+  .hero-clip {
+    border-radius: 4rem;
+  }
+}
+
+/* ==============================
+   SCROLLBAR STYLING
+   ============================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-container-low);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline);
+}
+
+/* ==============================
+   LEAFLET MAP OVERRIDES
+   ============================== */
+
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem !important;
+  box-shadow: 0 20px 40px rgba(0, 104, 95, 0.1) !important;
+}
+
+.leaflet-popup-tip {
+  box-shadow: none !important;
 }

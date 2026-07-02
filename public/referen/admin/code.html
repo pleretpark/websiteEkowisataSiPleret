@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manage Tourism Spots - Ekowisata Tingkir Tengah</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f5f4ef",
+                        "secondary": "#00668a",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf9f4",
+                        "primary-fixed": "#89f5e7",
+                        "inverse-primary": "#6bd8cb",
+                        "inverse-on-surface": "#f2f1ec",
+                        "surface-tint": "#006a61",
+                        "inverse-surface": "#30312e",
+                        "tertiary-fixed-dim": "#a0d663",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#f9ffea",
+                        "on-secondary-container": "#004d6a",
+                        "background": "#faf9f4",
+                        "on-surface": "#1b1c19",
+                        "secondary-fixed": "#c4e7ff",
+                        "surface-variant": "#e3e3de",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#efeee9",
+                        "on-secondary-fixed": "#001e2c",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#528115",
+                        "secondary-container": "#40c2fd",
+                        "on-primary-fixed": "#00201d",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "surface-dim": "#dbdad5",
+                        "on-tertiary-fixed": "#0f2000",
+                        "tertiary-fixed": "#bbf37c",
+                        "on-tertiary-fixed-variant": "#2e4f00",
+                        "primary-container": "#008378",
+                        "on-surface-variant": "#3d4947",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "outline": "#6d7a77",
+                        "on-primary-container": "#f4fffc",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e9e8e3",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "surface-bright": "#faf9f4",
+                        "outline-variant": "#bcc9c6",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e3e3de",
+                        "on-background": "#1b1c19",
+                        "tertiary": "#3d6700",
+                        "on-primary-fixed-variant": "#005049",
+                        "primary": "#00685f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "md": "24px",
+                        "xs": "8px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "display-lg-mobile": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Lexend', sans-serif; background-color: #faf9f4; }
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bcc9c6; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low dark:bg-inverse-surface shadow-md flex flex-col p-sm gap-xs z-50">
+<div class="mb-lg px-4 pt-4">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-black">Admin Portal</h1>
+<p class="text-on-surface-variant font-label-sm text-label-sm opacity-70">Tingkir Tengah</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<!-- MSME Management -->
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">storefront</span>
+<span class="font-label-sm text-label-sm">MSME Management</span>
+</a>
+<!-- Eco-Tourism (Active) -->
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-3 font-bold scale-98 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">nature_people</span>
+<span class="font-label-sm text-label-sm">Eco-Tourism</span>
+</a>
+<!-- Sustainability Reports -->
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">eco</span>
+<span class="font-label-sm text-label-sm">Sustainability Reports</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-sm border-t border-outline-variant/20">
+<button class="w-full mb-4 bg-primary text-on-primary rounded-full py-3 font-bold shadow-lg hover:opacity-90 active:scale-95 transition-all">
+                Add New Listing
+            </button>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-error transition-colors">logout</span>
+<span class="font-label-sm text-label-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-40 bg-surface/80 backdrop-blur-xl border-b border-white/20 px-lg py-4 flex justify-between items-center shadow-lg">
+<div class="flex-1 max-w-md">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 font-body-md text-body-md" placeholder="Search spots, status, or location..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right hidden sm:block">
+<p class="font-label-sm text-label-sm font-bold">Admin Profile</p>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Super Admin</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold overflow-hidden border-2 border-primary/20 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged local community leader smiling warmly, clean aesthetic, soft studio lighting, high resolution photography with a blurred natural green garden background, representing the approachable admin persona of Ekowisata Tingkir Tengah." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1NuFbjz6TQVVSwP8VEcxNYx2CSeMv62JlRTSkVR1FYbwBuUphPOKyt6DYaczKtz1d3yR8chf7jc6IFnECT_WpBdQvUhdGGh9OX5bH8fhbVM8ds62HorQDH7ZWBr7SCEiCg1I2rwtE_xOpWy_5R5VjfcGQOZXlrJw5u2FLdja5LxBiVjTtSUOYC7HsiVqSsT3BqRrUiopVcBAG9co2ZCb7lgzJ65EgoyBVGccsSKKOMOZNVbeJPN4kuiAMG8zSEjMZkLisOPJawYo"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-lg space-y-lg">
+<!-- Hero Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tight">Manage Tourism Spots</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-xl mt-2 opacity-80">
+                        Oversee and curate the diverse ecological experiences of Tingkir Tengah.
+                    </p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-4 rounded-full font-bold shadow-xl hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+<span>Add New Spot</span>
+</button>
+</div>
+<!-- Filters & Stats -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex bg-surface-container-low p-1.5 rounded-full shadow-sm">
+<button class="px-6 py-2 rounded-full bg-white text-primary font-bold shadow-sm transition-all">All Spots</button>
+<button class="px-6 py-2 rounded-full text-on-surface-variant hover:text-primary transition-all">Aquaculture</button>
+<button class="px-6 py-2 rounded-full text-on-surface-variant hover:text-primary transition-all">Trekking</button>
+<button class="px-6 py-2 rounded-full text-on-surface-variant hover:text-primary transition-all">Culinary</button>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant px-4 py-2 border border-outline-variant/30 rounded-full bg-white/50">
+<span class="material-symbols-outlined text-[20px]">sort</span>
+<span class="font-label-sm">Sort: Latest</span>
+</div>
+</div>
+</div>
+<!-- Spots Grid (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Main Featured Spot Card -->
+<div class="lg:col-span-2 group">
+<div class="relative h-full min-h-[400px] rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 hover:-translate-y-2">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-1000" data-alt="A breathtaking wide-angle landscape shot of 'Mina Wisata Kolam' in Tingkir Tengah. The image features crystal clear freshwater ponds reflecting a vibrant sunset, lush green surrounding vegetation, and traditional bamboo gazebos. The lighting is golden and warm, capturing an serene aquatic harmony aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBrJbwCKLK6Cc9yTFM5c61Q-RiSkJL2H3gWrd9yiGRQkR1DRGs7IDk4e6FrPFactn1xKZxYQudSDgAK4WoXeRTQWBmUYGAy_lQc0KOngywA1YwTOv_GqgCBLO3uD1NEm2Y1YsY7TetrX0BC9D8PiWn2vCONUC7QVVIQuJ9P-DdgcMLXEVMe4PMMP6Y4kr_P-7rhpobyIz9TgFxtUPi9EdGGAbCcKyh1bKmSdctHXKqtzK99u02DXUE7h4LA9KSlZ-EnMAi1eumz89M')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="px-4 py-1 bg-primary text-on-primary rounded-full font-bold text-[12px] uppercase tracking-widest shadow-lg">Published</span>
+<span class="px-4 py-1 bg-white/20 backdrop-blur-md text-white rounded-full font-bold text-[12px] uppercase tracking-widest">Aquaculture</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-8">
+<h3 class="text-white font-display-lg-mobile text-display-lg-mobile font-bold">Mina Wisata Kolam</h3>
+<div class="flex items-center gap-2 text-white/80 font-body-md mt-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Tingkir Tengah, Sector A</span>
+</div>
+<div class="mt-6 flex gap-3">
+<button class="flex-1 bg-white text-primary font-bold py-3 rounded-full flex items-center justify-center gap-2 hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined">edit</span> Edit Spot
+                                </button>
+<button class="w-14 h-14 bg-white/20 backdrop-blur-lg text-white rounded-full flex items-center justify-center hover:bg-white/40 transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="w-14 h-14 bg-white/20 backdrop-blur-lg text-white rounded-full flex items-center justify-center hover:bg-error transition-all group">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Spots Column -->
+<div class="flex flex-col gap-md">
+<!-- Spot 2 -->
+<div class="glass-card rounded-xl p-sm shadow-lg hover:shadow-xl transition-all border border-outline-variant/10">
+<div class="h-32 rounded-lg overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover" data-alt="A close-up high-quality photo of the Merbabu Trekking Trail, showing a winding dirt path surrounded by mist-covered mountain trees and wild ferns. Cool, moody, and atmospheric lighting with deep forest greens and soft grey mist, high detail and professional nature photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMu99kmeQa9_s6r0DpEIZgJJ9QRxpGu0Y189DTmxrjUZY7C0Nd50QN9gWArCm1Qi-z6DvWwMj60vYive4F5h4b3OSSwnjTdtZipu5oyWYoqnyWsAsUBQSua-EfJMNv7F4FyoBjWrUgHvMxtiartQnLg2jxGtv-arHfDGge-IHrCaHFrxv1_kS9VD4m6jzXiOP0WC_-_PvkLwFSMZUIW-OLClo281mVvXolrIC4oFpPZrCBqMe_uFGrLJnnlxPIuleGdyT0Epbzpdc"/>
+<div class="absolute top-2 right-2 bg-tertiary-fixed text-on-tertiary-fixed px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Draft</div>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Jalur Trekking Merbabu</h4>
+<p class="text-on-surface-variant font-body-md text-body-md mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">map</span> Upper Hill District
+                        </p>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-full border border-primary text-primary font-bold text-sm hover:bg-primary/5 transition-all">Quick Edit</button>
+<button class="p-2 rounded-full bg-surface-container-high text-on-surface-variant hover:text-error transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Spot 3 -->
+<div class="glass-card rounded-xl p-sm shadow-lg hover:shadow-xl transition-all border border-outline-variant/10">
+<div class="h-32 rounded-lg overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover" data-alt="Authentic Indonesian culinary experience in a rustic outdoor setting. A beautifully plated 'Sego Berkat' on a banana leaf, surrounded by traditional wooden crafts and local spices. Warm, inviting, and organic feel, showcasing local wisdom and community-driven tourism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7CY2MgNR6CtMY2GOVke_-sHaV6WDCfkFNbiWh1yAlLh3qIPb1rTwcc0yHTOHmjF3DMz8GvzEl24CywvTTDCqmnMNjO2NaMqpZa4k4CMIOWbgGBC-TnxpVznYcIOooRdpzdeccNSvsWKa3C87sBQJDDjIqUl0AzeS3A6WQVkU9Qy4PyYc0AWeOmZS8n18lim8iSnjoF72L9o7yP0Z3E19aUcrhcuYVenjhDzK_RwovqPPb-0ybZBl8-pXiuHn0x7qX5EZ9u9ol5oo"/>
+<div class="absolute top-2 right-2 bg-primary text-on-primary px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Published</div>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Dapoer Ekowisata</h4>
+<p class="text-on-surface-variant font-body-md text-body-md mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">restaurant</span> Central Village Square
+                        </p>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-full border border-primary text-primary font-bold text-sm hover:bg-primary/5 transition-all">Quick Edit</button>
+<button class="p-2 rounded-full bg-surface-container-high text-on-surface-variant hover:text-error transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Management Table (For Detailed View) -->
+<div class="bg-white rounded-xl shadow-lg border border-outline-variant/20 overflow-hidden">
+<div class="px-md py-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-md text-on-surface">Activity Log</h3>
+<button class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
+                        View Full History <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant uppercase text-[11px] tracking-[0.1em] font-black">
+<th class="px-md py-4">Spot Name</th>
+<th class="px-md py-4">Category</th>
+<th class="px-md py-4">Last Updated</th>
+<th class="px-md py-4">Author</th>
+<th class="px-md py-4">Status</th>
+<th class="px-md py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-md py-4 font-bold text-on-surface">Taman Edukasi Air</td>
+<td class="px-md py-4"><span class="bg-secondary-container/20 text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold">Conservation</span></td>
+<td class="px-md py-4 text-on-surface-variant font-body-md">Oct 24, 2023</td>
+<td class="px-md py-4 text-on-surface-variant">Admin Budi</td>
+<td class="px-md py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-sm font-semibold text-primary">Live</span>
+</div>
+</td>
+<td class="px-md py-4 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-md py-4 font-bold text-on-surface">Kriya Bamboo Workshop</td>
+<td class="px-md py-4"><span class="bg-tertiary-container/20 text-on-tertiary-container px-3 py-1 rounded-full text-xs font-bold">Local Craft</span></td>
+<td class="px-md py-4 text-on-surface-variant font-body-md">Oct 21, 2023</td>
+<td class="px-md py-4 text-on-surface-variant">Admin Siti</td>
+<td class="px-md py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<span class="text-sm font-semibold text-outline">Offline</span>
+</div>
+</td>
+<td class="px-md py-4 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto w-full py-xl bg-surface-container-highest dark:bg-inverse-surface">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto gap-md">
+<div class="text-center md:text-left">
+<h4 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-2">Ekowisata Tingkir Tengah</h4>
+<p class="text-on-surface-variant dark:text-outline-variant font-body-md text-body-md max-w-sm">
+                        © 2024 Ekowisata Tingkir Tengah. Empowering Local Wisdom through sustainable tourism management.
+                    </p>
+</div>
+<div class="flex flex-wrap justify-center gap-lg">
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-primary font-bold uppercase tracking-widest">Navigation</span>
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all font-body-md" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all font-body-md" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all font-body-md" href="#">Contact Support</a>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-primary font-bold uppercase tracking-widest">Social</span>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">public</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</main>
+<!-- Micro-interactions Script -->
+<script>
+        // Simple search highlighting
+        document.querySelector('input').addEventListener('input', function(e) {
+            console.log('Searching for:', e.target.value);
+            // Interactive UI feedback logic here
+        });
+
+        // Hover effects on cards handled by Tailwind group-hover
+        // For dynamic sorting:
+        const filterBtns = document.querySelectorAll('.bg-surface-container-low button');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-white', 'text-primary', 'shadow-sm', 'font-bold');
+                    b.classList.add('text-on-surface-variant');
+                });
+                btn.classList.add('bg-white', 'text-primary', 'shadow-sm', 'font-bold');
+                btn.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>
