@@ -229,7 +229,7 @@ export default function UMKMPage() {
               {filteredProducts.map((item, index) => (
                 <div
                   key={item.id}
-                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-sm shadow-sm hover:shadow-ambient-hover transition-all duration-500 overflow-hidden animate-fade-in-up"
+                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-md shadow-sm hover:shadow-ambient transition-all duration-300 flex flex-col h-full animate-fade-in-up"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="relative overflow-hidden rounded-xl h-48 mb-sm">
@@ -250,13 +250,15 @@ export default function UMKMPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="px-xs">
-                    <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight">
-                      {item.nama_produk}
-                    </h3>
-                    <p className="text-on-surface-variant text-sm mt-xs line-clamp-2">
-                      {item.deskripsi}
-                    </p>
+                  <div className="px-xs flex flex-col flex-grow justify-between mt-sm">
+                    <div>
+                      <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight">
+                        {item.nama_produk}
+                      </h3>
+                      <p className="text-on-surface-variant text-sm mt-xs line-clamp-2">
+                        {item.deskripsi}
+                      </p>
+                    </div>
                     <div className="mt-md flex items-center justify-between gap-xs">
                       <span className="text-primary font-bold text-lg">
                         {formatPrice(item.harga)}
@@ -265,12 +267,9 @@ export default function UMKMPage() {
                         href={`https://wa.me/${item.nomor_wa}?text=Halo, saya tertarik dengan produk ${item.nama_produk}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-primary text-on-primary font-bold px-sm py-2 rounded-full transition-all flex items-center gap-1 text-xs hover:shadow-lg active:scale-95"
+                        className="bg-primary text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm hover:shadow-lg active:scale-95"
                       >
-                        <span className="material-symbols-outlined text-[16px]">
-                          shopping_cart
-                        </span>
-                        Beli via WA
+                        Beli
                       </a>
                     </div>
                   </div>

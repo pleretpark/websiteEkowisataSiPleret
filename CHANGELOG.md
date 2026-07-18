@@ -19,9 +19,10 @@ Dokumen ini mencatat seluruh perubahan, perbaikan bug, dan penambahan fitur yang
   - Menyesuaikan warna komponen *VisitorStats* kembali ke skema warna terang (light theme).
 
 ### 🛠️ Perbaikan & Pembaruan (Refactoring)
-- **Struktur Beranda (Homepage)**:
-  - Menyusun ulang urutan seksi: *Hero*, *Tentang Kami (Singkat)*, *UMKM*, *Kabar Desa & Acara*, dan *Bersama Membangun Negeri dari Desa*.
+- **Struktur Beranda (Homepage) & Katalog UMKM**:
+  - Menyusun ulang urutan seksi beranda: *Hero*, *Tentang Kami (Singkat)*, *UMKM*, *Kabar Desa & Acara*, dan *Bersama Membangun Negeri dari Desa*.
   - Menambahkan tombol "Lihat Semua Berita" pada seksi Kabar Desa di beranda.
+  - **(Terbaru)** Menyeragamkan desain kartu produk UMKM (di beranda maupun katalog UMKM) agar memiliki ukuran tinggi yang konsisten (flex-grow), meratakan posisi harga dan tombol di bagian bawah kartu secara horizontal, serta menyederhanakan teks tombol beli menjadi hanya **"Beli"** (tanpa ikon / "via WA").
 - **Kecocokan Database (Prisma vs UI Admin)**:
   - Memperbarui `lib/types.ts` agar *interface* `Berita` persis mengikuti `schema.prisma` yang baru (`slug`, `foto_cover`, `is_sorotan`).
   - Memperbaiki halaman **Admin Berita (`/admin/berita`)** agar:

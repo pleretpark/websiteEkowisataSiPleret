@@ -305,13 +305,15 @@ export default async function HomePage() {
                     </span>
                   </div>
                 </div>
-                <div className="px-xs">
-                  <h3 className="text-xl font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight">
-                    {item.nama_produk}
-                  </h3>
-                  <p className="text-on-surface-variant text-base mt-xs line-clamp-2">
-                    {item.deskripsi}
-                  </p>
+                <div className="px-xs flex flex-col flex-grow justify-between mt-sm">
+                  <div>
+                    <h3 className="text-xl font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight">
+                      {item.nama_produk}
+                    </h3>
+                    <p className="text-on-surface-variant text-base mt-xs line-clamp-2">
+                      {item.deskripsi}
+                    </p>
+                  </div>
                   <div className="mt-md flex items-center justify-between">
                     <span className="text-primary font-bold text-xl">
                       {formatPrice(item.harga)}
@@ -320,12 +322,9 @@ export default async function HomePage() {
                       href={`https://wa.me/${item.nomor_wa}?text=Halo, saya tertarik dengan produk ${item.nama_produk}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="border-2 border-primary text-primary hover:bg-primary hover:text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
+                      className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
                     >
-                      <span className="material-symbols-outlined text-[20px]">
-                        shopping_cart
-                      </span>
-                      Beli via WA
+                      Beli
                     </a>
                   </div>
                 </div>
