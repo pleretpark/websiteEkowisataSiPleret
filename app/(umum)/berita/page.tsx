@@ -8,7 +8,7 @@ const sampleBerita = [
     id: '1',
     judul: 'Transformasi Hijau: Tingkir Tengah Menuju Destinasi Eco-Tourism Kelas Dunia',
     slug: 'transformasi-hijau-tingkir-tengah',
-    konten: 'Melalui kolaborasi antara masyarakat lokal dan pakar lingkungan, desa kami memulai inisiatif baru untuk melestarikan sumber daya air sembari meningkatkan ekonomi warga melalui wisata edukasi.',
+    konten: 'Melalui kolaborasi antara masyarakat lokal dan pakar lingkungan, desa kami memulai inisiatif baru untuk melestarikan sumber daya air sembari meningkatkan ekonomi warga melalui wisata edukasi. Langkah strategis ini diharapkan dapat memosisikan desa Tingkir Tengah sebagai kiblat percontohan bagi pengembangan ekowisata mandiri di kancah nasional.',
     author: 'Admin',
     tanggal_publikasi: new Date('2024-05-24'),
     foto_cover: '/images/about-hero.png',
@@ -18,7 +18,7 @@ const sampleBerita = [
     id: '2',
     judul: 'Pemberdayaan Wanita Melalui Kerajinan Serat Alam',
     slug: 'pemberdayaan-wanita-kerajinan-serat-alam',
-    konten: 'Kelompok UMKM \'Melati Wangi\' berhasil memasarkan produk ramah lingkungan mereka ke pasar internasional, membuktikan kualitas kerajinan tangan lokal.',
+    konten: 'Kelompok UMKM \'Melati Wangi\' berhasil memasarkan produk ramah lingkungan mereka ke pasar internasional, membuktikan kualitas kerajinan tangan lokal. Inovasi produk ini memadukan keindahan seni rajut tradisional dengan bahan baku serat alam organik yang melimpah di lingkungan sekitar.',
     author: 'Admin',
     tanggal_publikasi: new Date('2024-05-20'),
     foto_cover: '/images/community.png',
@@ -28,7 +28,7 @@ const sampleBerita = [
     id: '3',
     judul: 'Festival Budaya \'Tingkir Harmoni\' Kembali Digelar',
     slug: 'festival-budaya-tingkir-harmoni-2024',
-    konten: 'Rayakan kekayaan budaya desa dengan pertunjukan musik tradisional, workshop kuliner, dan pameran teknologi tepat guna.',
+    konten: 'Rayakan kekayaan budaya desa dengan pertunjukan musik tradisional, workshop kuliner, dan pameran teknologi tepat guna. Kegiatan ini dihadiri ratusan warga dan wisatawan dari luar daerah yang antusias mengapresiasi kearifan lokal.',
     author: 'Admin',
     tanggal_publikasi: new Date('2024-05-18'),
     foto_cover: '/images/hero-banner.png',
@@ -38,7 +38,7 @@ const sampleBerita = [
     id: '4',
     judul: 'Inovasi Sistem Irigasi Pintar untuk Sawah Desa',
     slug: 'inovasi-sistem-irigasi-pintar-sawah-desa',
-    konten: 'Mengadopsi teknologi IoT, petani lokal kini dapat memantau kualitas air dan kelembapan tanah langsung dari smartphone mereka.',
+    konten: 'Mengadopsi teknologi IoT, petani lokal kini dapat memantau kualitas air dan kelembapan tanah langsung dari smartphone mereka. Sistem cerdas ini terbukti meningkatkan efisiensi penggunaan sumber daya air serta meminimalkan risiko gagal panen akibat kekeringan.',
     author: 'Admin',
     tanggal_publikasi: new Date('2024-05-12'),
     foto_cover: '/images/about-hero.png',
@@ -48,50 +48,13 @@ const sampleBerita = [
     id: '5',
     judul: 'Kebun Komunal: Mandiri Pangan di Tengah Pandemi',
     slug: 'kebun-komunal-mandiri-pangan',
-    konten: 'Melihat keberhasilan warga dalam mengelola lahan tidur menjadi kebun sayur produktif yang menyuplai kebutuhan harian warga.',
+    konten: 'Melihat keberhasilan warga dalam mengelola lahan tidur menjadi kebun sayur produktif yang menyuplai kebutuhan harian warga. Kolaborasi gotong royong ini menginspirasi gerakan mandiri pangan skala rukun tetangga di seluruh wilayah.',
     author: 'Admin',
     tanggal_publikasi: new Date('2024-05-10'),
     foto_cover: '/images/community.png',
     is_sorotan: false,
   },
 ]
-
-function getCategory(judul: string): string {
-  const titleLower = judul.toLowerCase()
-  if (titleLower.includes('hijau') || titleLower.includes('wisata') || titleLower.includes('bioflok') || titleLower.includes('eco')) {
-    return 'Eco-Tourism'
-  }
-  if (titleLower.includes('wanita') || titleLower.includes('kerajinan') || titleLower.includes('umkm') || titleLower.includes('kopi') || titleLower.includes('kuliner')) {
-    return 'UMKM'
-  }
-  if (titleLower.includes('festival') || titleLower.includes('budaya') || titleLower.includes('merti') || titleLower.includes('kunjungan') || titleLower.includes('studi')) {
-    return 'Acara Desa'
-  }
-  if (titleLower.includes('irigasi') || titleLower.includes('pintar') || titleLower.includes('teknologi') || titleLower.includes('iot')) {
-    return 'Teknologi'
-  }
-  if (titleLower.includes('pangan') || titleLower.includes('kebun') || titleLower.includes('ikan') || titleLower.includes('nila')) {
-    return 'Pangan'
-  }
-  return 'Warta Desa'
-}
-
-function getCategoryStyle(category: string): string {
-  switch (category) {
-    case 'Eco-Tourism':
-      return 'bg-sky-500 text-white shadow-sm'
-    case 'UMKM':
-      return 'bg-green-600 text-white shadow-sm'
-    case 'Acara Desa':
-      return 'bg-blue-600 text-white shadow-sm'
-    case 'Teknologi':
-      return 'bg-teal-600 text-white shadow-sm'
-    case 'Pangan':
-      return 'bg-lime-600 text-white shadow-sm'
-    default:
-      return 'bg-primary text-on-primary shadow-sm'
-  }
-}
 
 export default async function BeritaPage({
   searchParams,
@@ -100,7 +63,7 @@ export default async function BeritaPage({
 }) {
   const resolvedParams = await searchParams
   const currentPage = Number(resolvedParams.page) || 1
-  const itemsPerPage = 6 // Show more items per page since we don't have a sidebar now
+  const itemsPerPage = 6
 
   let beritaList = sampleBerita
 
@@ -172,10 +135,7 @@ export default async function BeritaPage({
             </div>
             {/* Content (right) */}
             <div className="w-full md:w-2/5 p-lg md:p-xl flex flex-col justify-center bg-white">
-              <div className="flex items-center gap-xs mb-sm">
-                <span className={`${getCategoryStyle(getCategory(spotlightNews.judul))} text-xs px-sm py-1 rounded-full font-bold`}>
-                  {getCategory(spotlightNews.judul)}
-                </span>
+              <div className="flex items-center mb-sm">
                 <span className="text-on-surface-variant/70 text-xs font-semibold">
                   {new Date(spotlightNews.tanggal_publikasi).toLocaleDateString('id-ID', {
                     day: 'numeric',
@@ -215,7 +175,6 @@ export default async function BeritaPage({
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
                 {paginatedNews.map((item) => {
-                  const category = getCategory(item.judul)
                   return (
                     <Link
                       key={item.id}
@@ -238,17 +197,12 @@ export default async function BeritaPage({
                       </div>
                       <div className="p-md flex flex-col flex-grow justify-between">
                         <div>
-                          <div className="flex items-center gap-xs mb-xs">
-                            <span className={`${getCategoryStyle(category)} text-[10px] px-2 py-0.5 rounded-full font-bold`}>
-                              {category}
-                            </span>
-                            <span className="text-on-surface-variant/60 text-xs font-semibold">
-                              {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric',
-                              })}
-                            </span>
+                          <div className="flex items-center text-on-surface-variant/60 text-xs font-semibold mb-xs">
+                            {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                            })}
                           </div>
                           <h3 className="text-base md:text-lg font-bold text-[#003d37] group-hover:text-primary transition-colors leading-tight line-clamp-2 mt-xs">
                             {item.judul}
