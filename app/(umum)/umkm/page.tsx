@@ -127,7 +127,7 @@ export default function UMKMPage() {
               <br />
               Tingkir Tengah
             </h1>
-            <p className="text-on-surface-variant text-lg mt-md leading-relaxed max-w-md">
+            <p className="text-on-surface-variant text-lg mt-md leading-relaxed max-w-[28rem]">
               Temukan produk asli buatan pengrajin dan produsen lokal. Dari ikan
               asap tradisional hingga kerajinan bambu berkelanjutan.
             </p>
@@ -189,7 +189,7 @@ export default function UMKMPage() {
           </div>
 
           {/* Search */}
-          <div className="mb-lg relative max-w-md">
+          <div className="mb-lg relative max-w-[28rem]">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">
               search
             </span>

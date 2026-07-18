@@ -43,6 +43,39 @@ const sampleUmkm: UMKM[] = [
   },
 ]
 
+const sampleBerita: Berita[] = [
+  {
+    id: '1',
+    judul: 'Pelatihan Budidaya Bioflok untuk Warga',
+    slug: 'pelatihan-budidaya-bioflok',
+    konten: 'Inisiatif meningkatkan produktivitas kolam rakyat dengan teknologi ramah lingkungan...',
+    author: 'Admin',
+    tanggal_publikasi: '2024-01-24',
+    foto_cover: '/images/community.png',
+    is_sorotan: false,
+  },
+  {
+    id: '2',
+    judul: 'Festival Kuliner Ikan Nusantara 2024',
+    slug: 'festival-kuliner-ikan-2024',
+    konten: 'Ajang pameran masakan ikan khas Tingkir Tengah yang menarik wisatawan mancanegara...',
+    author: 'Admin',
+    tanggal_publikasi: '2024-02-02',
+    foto_cover: '/images/hero-banner.png',
+    is_sorotan: false,
+  },
+  {
+    id: '3',
+    judul: 'Kunjungan Studi KKN Tematik UNDIP',
+    slug: 'kunjungan-studi-kkn-undip',
+    konten: 'Kolaborasi mahasiswa dalam pemetaan digital potensi ekonomi kreatif desa...',
+    author: 'Admin',
+    tanggal_publikasi: '2024-02-15',
+    foto_cover: '/images/about-hero.png',
+    is_sorotan: false,
+  },
+]
+
 function getCategoryStyle(kategori: string) {
   switch (kategori) {
     case 'Makanan':
@@ -78,7 +111,7 @@ function formatPrice(price: number) {
 
 export default async function HomePage() {
   let umkmData: UMKM[] = sampleUmkm
-  let beritaData: Berita[] = []
+  let beritaData: Berita[] = sampleBerita
 
   try {
     const supabase = await createClient()
@@ -95,11 +128,11 @@ export default async function HomePage() {
     const { data: berita } = await supabase
       .from('berita')
       .select('*')
-      .eq('status', 'published')
+      .order('is_sorotan', { ascending: false })
       .order('tanggal_publikasi', { ascending: false })
       .limit(3)
 
-    if (berita) {
+    if (berita && berita.length > 0) {
       beritaData = berita
     }
   } catch {
@@ -111,8 +144,8 @@ export default async function HomePage() {
       {/* ==============================
           HERO SECTION
           ============================== */}
-      <section className="relative px-sm md:px-lg mt-md">
-        <div className="relative w-full h-[500px] md:h-[700px] lg:h-[870px] overflow-hidden hero-clip shadow-2xl">
+      <section className="relative">
+        <div className="relative w-full h-[500px] md:h-[700px] lg:h-[870px] overflow-hidden">
           <Image
             src="/images/hero-banner.png"
             alt="Pesona Air Tawar Tingkir Tengah - kolam ikan dan vegetasi tropis"
@@ -122,13 +155,13 @@ export default async function HomePage() {
             priority
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-center items-start px-gutter md:px-xl max-w-container-max mx-auto">
-            <div className="max-w-2xl">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-center items-start px-gutter md:px-xl max-w-[1280px] mx-auto">
+            <div className="max-w-[42rem]">
               <h1 className="text-3xl md:text-5xl lg:text-[48px] leading-tight md:leading-[56px] font-bold text-white mb-sm drop-shadow-lg tracking-tight">
                 Pesona Air Tawar Tingkir
               </h1>
-              <p className="text-base md:text-lg text-white/90 mb-lg leading-relaxed max-w-lg drop-shadow-md">
+              <p className="text-base md:text-lg text-white/90 mb-lg leading-relaxed max-w-[32rem] drop-shadow-md">
                 Temukan harmoni alam dan kearifan lokal dalam setiap tetes air.
                 Ekowisata berkelanjutan yang memberdayakan masyarakat dan
                 melestarikan ekosistem perikanan darat.
@@ -145,14 +178,14 @@ export default async function HomePage() {
         </div>
 
         {/* Floating Search Bar */}
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-4xl px-gutter z-20">
-          <div className="glass rounded-xl p-md shadow-2xl flex flex-col md:flex-row items-center gap-md">
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-[56rem] px-gutter z-20">
+          <div className="bg-white rounded-full p-sm shadow-2xl flex flex-col md:flex-row items-center gap-sm">
             <div className="flex-1 w-full relative">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">
                 search
               </span>
               <input
-                className="w-full bg-white/50 border-none rounded-lg pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface placeholder:text-outline"
+                className="w-full bg-white border border-outline-variant rounded-full pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface placeholder:text-outline"
                 placeholder="Cari kolam pancing atau UMKM..."
                 type="text"
                 id="hero-search-input"
@@ -163,7 +196,7 @@ export default async function HomePage() {
                 category
               </span>
               <select
-                className="w-full bg-white/50 border-none rounded-lg pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface appearance-none"
+                className="w-full bg-white border border-outline-variant rounded-full pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface appearance-none"
                 id="hero-category-select"
               >
                 <option>Semua Kategori</option>
@@ -185,10 +218,50 @@ export default async function HomePage() {
       </section>
 
       {/* ==============================
+          TENTANG SINGKAT / ABOUT SECTION
+          ============================== */}
+      <section className="mt-32 md:mt-40 py-xl">
+        <div className="max-w-[1280px] mx-auto px-gutter">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+            <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg">
+              <Image
+                src="/images/about-hero.png"
+                alt="Panorama Tingkir Tengah"
+                width={600}
+                height={400}
+                className="w-full object-cover"
+              />
+            </div>
+            <div className="space-y-md">
+              <span className="inline-block bg-primary-fixed text-on-primary-fixed text-sm font-bold px-md py-1 rounded-full">
+                🌿 Tentang Kami
+              </span>
+              <h2 className="text-2xl md:text-4xl font-bold text-on-surface leading-tight tracking-tight">
+                Menjaga Budaya, Merawat Alam
+              </h2>
+              <p className="text-on-surface-variant text-base leading-relaxed">
+                Terletak di jantung Salatiga, Tingkir Tengah lebih dari sekadar
+                destinasi wisata. Ini adalah bukti hidup bagaimana kearifan lokal dan
+                pariwisata berkelanjutan bisa berdansa harmonis. Kami berkomitmen
+                untuk memberdayakan masyarakat dan melestarikan ekosistem perikanan darat.
+              </p>
+              <Link
+                href="/tentang"
+                className="inline-flex items-center gap-xs text-primary font-semibold hover:underline decoration-2 underline-offset-4"
+              >
+                Selengkapnya Tentang Kami
+                <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==============================
           UMKM SECTION
           ============================== */}
-      <section className="mt-32 md:mt-40 py-xl bg-surface-container-low">
-        <div className="max-w-container-max mx-auto px-gutter">
+      <section className="py-xl bg-surface-container-low">
+        <div className="max-w-[1280px] mx-auto px-gutter">
           <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
             <div>
               <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
@@ -263,10 +336,81 @@ export default async function HomePage() {
       </section>
 
       {/* ==============================
+          KABAR DESA & ACARA SECTION
+          ============================== */}
+      <section className="py-xl">
+        <div className="max-w-[1280px] mx-auto px-gutter">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-primary">
+                Kabar Desa & Acara
+              </h2>
+            </div>
+            <Link
+              href="/berita"
+              className="text-primary font-semibold flex items-center gap-xs hover:underline decoration-2 underline-offset-4"
+            >
+              Lihat Semua Berita
+              <span className="material-symbols-outlined">trending_flat</span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
+            {beritaData.map((item) => (
+              <div
+                key={item.id}
+                className="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient-hover transition-all duration-500"
+              >
+                {item.foto_cover && (
+                  <div className="relative h-52 overflow-hidden">
+                    <Image
+                      src={item.foto_cover}
+                      alt={item.judul}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {/* Date Badge */}
+                    <div className="absolute bottom-3 left-3 bg-primary text-on-primary text-xs font-bold px-sm py-1 rounded-full">
+                      {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </div>
+                    {item.is_sorotan && (
+                      <div className="absolute top-3 left-3 bg-tertiary text-on-tertiary text-xs font-bold px-sm py-1 rounded-full flex items-center gap-1 shadow-md">
+                        <span className="material-symbols-outlined text-[14px]">star</span>
+                        Sorotan
+                      </div>
+                    )}
+                  </div>
+                )}
+                <div className="p-md">
+                  <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2">
+                    {item.judul}
+                  </h3>
+                  <p className="text-on-surface-variant text-sm mt-xs line-clamp-2">
+                    {item.konten.substring(0, 120)}...
+                  </p>
+                  <Link
+                    href={`/berita/${item.slug}`}
+                    className="inline-flex items-center gap-1 text-primary font-semibold text-sm mt-md group-hover:underline"
+                  >
+                    Baca Selengkapnya
+                    <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ==============================
           COMMUNITY / STATISTICS SECTION
           ============================== */}
-      <section className="py-xl overflow-hidden">
-        <div className="max-w-container-max mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+      <section className="py-xl bg-surface-container-low overflow-hidden">
+        <div className="max-w-[1280px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
           <div className="relative">
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 rounded-full animate-float blur-2xl" />
             <div
@@ -309,59 +453,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ==============================
-          NEWS/ARTICLES SECTION
-          ============================== */}
-      {beritaData.length > 0 && (
-        <section className="py-xl bg-surface-container-low">
-          <div className="max-w-container-max mx-auto px-gutter">
-            <div className="text-center mb-xl">
-              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
-                Informasi Terkini
-              </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
-                Berita & Artikel
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
-              {beritaData.map((item) => (
-                <div
-                  key={item.id}
-                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient-hover transition-all duration-500"
-                >
-                  {item.gambar_sampul_url && (
-                    <div className="relative h-48 overflow-hidden">
-                      <Image
-                        src={item.gambar_sampul_url}
-                        alt={item.judul}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  )}
-                  <div className="p-md">
-                    <p className="text-sm text-outline mb-xs">
-                      {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </p>
-                    <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2">
-                      {item.judul}
-                    </h3>
-                    <p className="text-on-surface-variant text-sm mt-xs line-clamp-3">
-                      {item.konten.substring(0, 150)}...
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </>
   )
 }

@@ -102,7 +102,7 @@ export default function PetaWisataPage() {
         <h1 className="text-3xl md:text-5xl font-bold text-on-surface leading-tight tracking-tight">
           Jelajahi Spot Ekowisata
         </h1>
-        <p className="text-on-surface-variant text-lg mt-md max-w-2xl leading-relaxed">
+        <p className="text-on-surface-variant text-lg mt-md max-w-[42rem] leading-relaxed">
           Temukan lokasi kolam pemancingan, restoran ikan, pusat edukasi, dan
           titik strategis lainnya di Kelurahan Tingkir Tengah.
         </p>

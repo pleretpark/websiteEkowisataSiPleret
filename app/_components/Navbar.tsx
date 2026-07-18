@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
@@ -8,6 +9,7 @@ const navLinks = [
   { href: '/', label: 'Beranda' },
   { href: '/umkm', label: 'UMKM' },
   { href: '/peta-wisata', label: 'Peta Wisata' },
+  { href: '/berita', label: 'Berita' },
   { href: '/tentang', label: 'Tentang' },
 ]
 
@@ -36,8 +38,15 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-primary font-bold tracking-tight text-lg md:text-2xl hover:text-primary-container transition-colors"
+          className="flex items-center gap-xs text-primary font-bold tracking-tight text-lg md:text-2xl hover:text-primary-container transition-colors"
         >
+          <Image
+            src="/images/logo-prelet.png"
+            alt="Logo Ekowisata"
+            width={36}
+            height={36}
+            className="rounded-full"
+          />
           Ekowisata Tingkir Tengah
         </Link>
 

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     "wisata",
   ],
 };
+import VisitorTracker from "./_components/VisitorTracker";
 
 export default function RootLayout({
   children,
@@ -36,6 +37,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col font-[var(--font-lexend)]">
+        <VisitorTracker />
         {children}
       </body>
     </html>

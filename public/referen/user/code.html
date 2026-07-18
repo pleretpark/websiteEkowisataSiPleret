@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        try {
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "on-secondary-container": "#004d6a",
+                            "on-error-container": "#93000a",
+                            "error": "#ba1a1a",
+                            "outline": "#6d7a77",
+                            "tertiary-fixed-dim": "#a0d663",
+                            "on-tertiary-container": "#f9ffea",
+                            "on-surface-variant": "#3d4947",
+                            "surface-bright": "#faf9f4",
+                            "on-tertiary-fixed-variant": "#2e4f00",
+                            "primary-container": "#008378",
+                            "tertiary-fixed": "#bbf37c",
+                            "inverse-primary": "#6bd8cb",
+                            "on-error": "#ffffff",
+                            "tertiary-container": "#528115",
+                            "on-secondary": "#ffffff",
+                            "surface-container": "#efeee9",
+                            "secondary": "#00668a",
+                            "on-secondary-fixed": "#001e2c",
+                            "primary": "#0d9488",
+                            "surface-container-high": "#e9e8e3",
+                            "secondary-container": "#40c2fd",
+                            "primary-fixed": "#89f5e7",
+                            "inverse-on-surface": "#f2f1ec",
+                            "tertiary": "#3d6700",
+                            "primary-fixed-dim": "#6bd8cb",
+                            "outline-variant": "#bcc9c6",
+                            "on-primary-fixed-variant": "#005049",
+                            "surface": "#faf9f4",
+                            "secondary-fixed-dim": "#7bd0ff",
+                            "on-background": "#1b1c19",
+                            "on-tertiary": "#ffffff",
+                            "on-primary-container": "#f4fffc",
+                            "surface-container-lowest": "#ffffff",
+                            "on-tertiary-fixed": "#0f2000",
+                            "inverse-surface": "#30312e",
+                            "background": "#faf9f4",
+                            "surface-dim": "#dbdad5",
+                            "surface-container-low": "#f5f4ef",
+                            "on-primary": "#ffffff",
+                            "surface-container-highest": "#e3e3de",
+                            "on-secondary-fixed-variant": "#004c69",
+                            "surface-variant": "#e3e3de",
+                            "secondary-fixed": "#c4e7ff",
+                            "error-container": "#ffdad6",
+                            "surface-tint": "#0d9488",
+                            "on-primary-fixed": "#00201d",
+                            "on-surface": "#1b1c19"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "1rem",
+                            "lg": "2rem",
+                            "xl": "3rem",
+                            "full": "9999px"
+                        },
+                        "spacing": {
+                            "container-max": "1280px",
+                            "md": "24px",
+                            "lg": "40px",
+                            "xs": "8px",
+                            "sm": "16px",
+                            "base": "4px",
+                            "xl": "64px",
+                            "gutter": "24px"
+                        },
+                        "fontFamily": {
+                            "body-md": ["Lexend"],
+                            "display-lg": ["Lexend"],
+                            "body-lg": ["Lexend"],
+                            "label-sm": ["Lexend"],
+                            "headline-md": ["Lexend"]
+                        },
+                        "fontSize": {
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                        }
+                    },
+                },
+            }
+        } catch (_e) {}
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar Component -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm transition-all duration-300">
+<nav class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-primary font-bold tracking-tight">Ekowisata Tingkir Tengah</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">Explore</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">UMKM</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">Eco-Tours</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">About</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full">search</button>
+<button class="bg-primary text-on-primary px-sm py-2 rounded-full font-label-sm text-label-sm hover:opacity-90 active:scale-95 transition-all">Sign In</button>
+</div>
+</nav>
+</header>
+<main class="pt-32 pb-xl px-gutter max-w-container-max mx-auto">
+<!-- Article Header -->
+<article class="flex flex-col gap-lg">
+<div class="max-w-3xl mx-auto w-full flex flex-col gap-sm">
+<div class="flex items-center gap-sm">
+<span class="bg-secondary-container text-on-secondary-container px-4 py-1 rounded-full font-label-sm text-label-sm">Berita Desa</span>
+<span class="text-outline font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                    24 Feb 2024
+                </span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary">Festival Kuliner Ikan Nusantara 2024</h1>
+</div>
+<!-- Featured Image: max-w-3xl and centered -->
+<div class="relative aspect-video overflow-hidden rounded-xl shadow-2xl max-w-3xl mx-auto w-full">
+<img class="w-full h-full object-cover" data-alt="A wide-angle landscape photograph of a vibrant outdoor food festival set in a lush Indonesian village garden. Stalls decorated with bamboo and tropical leaves display various traditional fish dishes. Sunlight filters through the trees, creating a warm, golden atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7ZqTcQhCYBmkbovtdlCvGLCaSjr4TsE-JVZQvOf8t9vStP8eEmDou0NwyiUIoddciiy81kZY_rcjbod5-wz11jPHITrTMue4KrZXook_cJ2Gi3mOIpeumY55rhP4fEyOld24Jh_8dpPsjCyOkliuZeekJANGPndIC5phGbWj_e8yb37pvXelT3xbYhKo9PSFJTIhwWa-jywK7WlvQNOVBT2GuVrtSIa0QTcN7676qJOhUYoM1Tzrx"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+<!-- Article Content -->
+<div class="max-w-3xl mx-auto flex flex-col gap-md py-lg">
+<!-- Article Body Text: text-justify applied to paragraphs -->
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed text-justify">
+                Ekowisata Tingkir Tengah kembali menggelar perhelatan tahunan yang dinanti-nantikan oleh para pecinta kuliner dan pegiat keberlanjutan. Festival Kuliner Ikan Nusantara 2024 resmi dibuka dengan semangat pemberdayaan ekonomi lokal berbasis potensi air tawar yang melimpah di kawasan ini.
+            </p>
+<h2 class="font-headline-md text-headline-md text-secondary mt-md">Melestarikan Tradisi Lewat Inovasi UMKM</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed text-justify">
+                Acara ini melibatkan lebih dari 50 pelaku UMKM lokal yang menyajikan berbagai olahan ikan nila, lele, hingga gurame dengan sentuhan modern namun tetap menjaga cita rasa autentik rempah nusantara. Pengunjung tidak hanya dimanjakan oleh lidah, tetapi juga mendapatkan edukasi mengenai sistem budidaya ikan ramah lingkungan yang diterapkan oleh komunitas pembudidaya setempat.
+            </p>
+<blockquote class="border-l-4 border-primary pl-lg py-md my-sm bg-surface-container-low rounded-r-lg italic font-body-lg text-primary">
+                "Festival ini bukan sekadar perayaan rasa, melainkan manifesto kemandirian pangan desa kami. Melalui air, kami menghidupi mimpi ribuan warga Tingkir Tengah."
+                <footer class="mt-xs font-label-sm text-outline-variant">— Ketua Pengelola Ekowisata</footer>
+</blockquote>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed text-justify">
+                Selain bazaar kuliner, agenda festival mencakup workshop pengolahan limbah organik kolam menjadi pupuk cair, lomba memasak antar pemuda desa, dan pertunjukan seni rakyat yang menceritakan hubungan harmonis antara manusia dan ekosistem air. Panitia memprediksi kenaikan kunjungan wisatawan hingga 40% dibandingkan tahun sebelumnya, memberikan dampak langsung pada pendapatan rumah tangga warga.
+            </p>
+<h2 class="font-headline-md text-headline-md text-secondary mt-md">Komitmen Keberlanjutan</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed text-justify">
+                Satu hal yang unik dari festival tahun ini adalah penggunaan kemasan ramah lingkungan yang terbuat dari pelepah pisang dan daun jati, mengurangi penggunaan plastik sekali pakai hingga ke titik nol. Inisiatif ini selaras dengan visi Tingkir Tengah sebagai destinasi ekowisata percontohan di tingkat nasional.
+            </p>
+<!-- Article Tags & Share -->
+<div class="flex flex-wrap items-center justify-between gap-md pt-lg border-t border-outline-variant mt-xl">
+<div class="flex gap-sm">
+<span class="bg-surface-container-high text-on-surface px-3 py-1 rounded-full font-label-sm text-label-sm">#KulinerDesa</span>
+<span class="bg-surface-container-high text-on-surface px-3 py-1 rounded-full font-label-sm text-label-sm">#Sustainability</span>
+<span class="bg-surface-container-high text-on-surface px-3 py-1 rounded-full font-label-sm text-label-sm">#TingkirTengah</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-sm text-outline">Bagikan:</span>
+<button class="material-symbols-outlined p-2 hover:bg-secondary-container hover:text-on-secondary-container rounded-full transition-colors">share</button>
+<button class="material-symbols-outlined p-2 hover:bg-secondary-container hover:text-on-secondary-container rounded-full transition-colors">link</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Related News Section -->
+<section class="mt-xl py-xl border-t border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-lg">Berita Terkait</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- News Card 1 -->
+<div class="group bg-surface-container-lowest rounded-lg overflow-hidden border border-outline-variant hover:shadow-xl transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up shot of hand-woven organic textiles being crafted by a local artisan." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOORFHUy2oDwUyH2UfvlH1kMV-q0BJ4U54rshZZIwdnAFYNnIqyP7yoejDnBcc3ZAiqjlG4qN2NdITkrtJhY3tVCOW1TEvuE1-U265iYbYc0htoZJNB4d2hyNuLmrQGJ9eX_yunVxMsMfyyZUny96O0Onu2ZbDUBgkjcT4XTxC_W53NP9GDZt0G6An_HKdGi2j-xdjUWaYaDKGOAgr3rTv9i-9TTJY0xC6PodfnYZgqXLOSFEFohRG"/>
+</div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-primary font-label-sm text-label-sm">Inovasi Desa</span>
+<h4 class="font-headline-md text-body-lg text-on-surface line-clamp-2">Pemberdayaan Kerajinan Eceng Gondok di Waduk Lokal</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant line-clamp-2">Memanfaatkan gulma air menjadi produk ekspor bernilai tinggi oleh ibu-ibu PKK.</p>
+<a class="mt-sm text-secondary font-label-sm flex items-center gap-1 hover:gap-2 transition-all" href="#">
+                        Baca Selengkapnya <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- News Card 2 -->
+<div class="group bg-surface-container-lowest rounded-lg overflow-hidden border border-outline-variant hover:shadow-xl transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, modern laboratory setting inside an eco-village." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABW-cdcygMm081vR3CZ2ZVv0YUh-7REOwjQjmCWxIIhxlae-PjI38plN0ZXP_ujHPE-siYoFmG261Ro4z2aSmZl26cHvD9uroZz8I2K3TbuDrUgckjr9qWyAacsNYLTurSohNGreIGs8czk-J1fLDbBtClIRoWXr1OTAahWqrIXoKo87o3fgG8QWRPWJdXzXF5NTBJy_Y22IOC9S4R01ejgqJjIAlJvR7_8NIgfeWZ4Qpt4IN8LwwQ"/>
+</div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-primary font-label-sm text-label-sm">Edukasi</span>
+<h4 class="font-headline-md text-body-lg text-on-surface line-clamp-2">Sistem Bioflok: Solusi Budidaya Ikan di Lahan Sempit</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant line-clamp-2">Bagaimana teknologi bioflok mengubah cara warga mengelola protein hewani mandiri.</p>
+<a class="mt-sm text-secondary font-label-sm flex items-center gap-1 hover:gap-2 transition-all" href="#">
+                        Baca Selengkapnya <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- News Card 3 -->
+<div class="group bg-surface-container-lowest rounded-lg overflow-hidden border border-outline-variant hover:shadow-xl transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A serene landscape of a clear freshwater pond surrounded by stone paths." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZzHwKf846JVZhqkhJMTzINCBX9ruB9syJgm3BXkAoecP7KluIa0d6QsgJWIbSbnXhRYtTSJoB-inwusjkPQwl0W7ZvL5nUhz0Z7o9jeDflccgRAj3YcOEC13ImJPgwiTK2kG5SKAkQXEWbAnfjSGfBY8ZR9_1ip1pPepxrTme-lMAznxichT8u_Uqoh0agOJrNimjBmUXdp6Pfn4vHfyEtjki-piB4KKlulIQsrqCPjQ9xXnyq2i8"/>
+</div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-primary font-label-sm text-label-sm">Travel</span>
+<h4 class="font-headline-md text-body-lg text-on-surface line-clamp-2">Rute Baru Jalur Sepeda Menyusuri Tepian Kolam</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant line-clamp-2">Nikmati udara segar pedesaan dengan rute sepeda baru yang melintasi gugusan kolam ikan.</p>
+<a class="mt-sm text-secondary font-label-sm flex items-center gap-1 hover:gap-2 transition-all" href="#">
+                        Baca Selengkapnya <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="w-full py-xl bg-surface-container-highest border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto gap-lg">
+<div class="flex flex-col gap-xs items-center md:items-start text-center md:text-left">
+<div class="font-headline-md text-headline-md text-primary font-bold">Ekowisata Tingkir Tengah</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Mewujudkan kemandirian ekonomi desa melalui potensi akuakultur dan wisata berbasis kearifan lokal.</p>
+</div>
+<div class="flex flex-col items-center md:items-end gap-sm">
+<div class="flex gap-lg">
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all font-body-md text-body-md" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all font-body-md text-body-md" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:underline decoration-primary transition-all font-body-md text-body-md" href="#">Contact Support</a>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md">© 2024 Ekowisata Tingkir Tengah. Empowering Local Wisdom.</p>
+</div>
+</div>
+</footer>
+<script>
+    // Smooth scroll and header reveal logic
+    let lastScroll = 0;
+    const header = document.querySelector('header');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll <= 0) {
+            header.classList.remove('-translate-y-full');
+            return;
+        }
+        
+        if (currentScroll > lastScroll && !header.classList.contains('-translate-y-full')) {
+            header.classList.add('-translate-y-full');
+        } else if (currentScroll < lastScroll && header.classList.contains('-translate-y-full')) {
+            header.classList.remove('-translate-y-full');
+        }
+        lastScroll = currentScroll;
+    });
+
+    // Interactive hover effects for buttons
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('mousedown', () => {
+            btn.style.transform = 'scale(0.95)';
+        });
+        btn.addEventListener('mouseup', () => {
+            btn.style.transform = 'scale(1)';
+        });
+    });
+</script>
+</body></html>

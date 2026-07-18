@@ -48,7 +48,7 @@ export default function TentangPage() {
               <br />
               Merawat Alam.
             </h1>
-            <p className="text-on-surface-variant text-lg mt-md leading-relaxed max-w-md">
+            <p className="text-on-surface-variant text-lg mt-md leading-relaxed max-w-[28rem]">
               Terletak di jantung Salatiga, Tingkir Tengah lebih dari sekadar
               destinasi. Ini adalah bukti hidup bagaimana kearifan lokal dan
               pariwisata berkelanjutan bisa berdansa harmonis.
@@ -184,7 +184,7 @@ export default function TentangPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-on-surface">
               Bagaimana Kami Memberdayakan
             </h2>
-            <p className="text-on-surface-variant text-lg mt-md max-w-2xl mx-auto">
+            <p className="text-on-surface-variant text-lg mt-md max-w-[42rem] mx-auto">
               Komitmen kami terhadap lingkungan dan komunitas dibangun di atas
               empat pilar utama pertumbuhan berkelanjutan.
             </p>

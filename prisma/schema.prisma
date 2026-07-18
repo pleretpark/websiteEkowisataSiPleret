@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+enum KategoriLokasi {
+  WISATA
+  UMKM
+  IKAN
+}
+
+model Lokasi {
+  id             String         @id @default(uuid())
+  nama_titik     String
+  kategori       KategoriLokasi
+  latitude       Float
+  longitude      Float
+  foto_thumbnail String?
+
+  detail_umkm    DetailUMKM?
+  detail_ikan    DetailIkan?
+}
+
+model DetailUMKM {
+  id               String @id @default(uuid())
+  lokasi_id        String @unique
+  nama_pemilik     String
+  no_whatsapp      String
+  deskripsi_produk String @db.Text
+  harga            Int
+
+  lokasi           Lokasi @relation(fields: [lokasi_id], references: [id], onDelete: Cascade)
+}
+
+model DetailIkan {
+  id                    String @id @default(uuid())
+  lokasi_id             String @unique
+  nama_ilmiah           String
+  kandungan_gizi        String @db.Text
+  habitat_dan_perawatan String @db.Text
+  deskripsi             String @db.Text
+
+  lokasi                Lokasi @relation(fields: [lokasi_id], references: [id], onDelete: Cascade)
+}
+
+model Berita {
+  id                String   @id @default(uuid())
+  judul             String
+  slug              String   @unique
+  konten            String   @db.Text
+  author            String
+  tanggal_publikasi DateTime @default(now())
+  foto_cover        String?
+  is_sorotan        Boolean  @default(false)
+}
+
+model Visitor {
+  id        String   @id @default(uuid())
+  date      DateTime @unique @default(now()) @db.Date // Simpan tanggal saja tanpa jam
+  count     Int      @default(0)                      // Jumlah kunjungan hari itu
+}

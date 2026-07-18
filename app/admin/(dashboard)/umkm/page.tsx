@@ -198,7 +198,7 @@ export default function AdminUmkmPage() {
       {/* Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-gutter">
-          <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-ambient-lg border border-outline-variant animate-fade-in-up">
+          <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[42rem] max-h-[90vh] overflow-y-auto shadow-ambient-lg border border-outline-variant animate-fade-in-up">
             <div className="flex items-center justify-between mb-lg">
               <h2 className="text-xl font-bold text-on-surface">
                 {editingId ? 'Edit Data UMKM' : 'Tambah UMKM Baru'}

@@ -28,13 +28,12 @@ export interface SpotWisata {
 export interface Berita {
   id: string
   judul: string
+  slug: string
   konten: string
   author: string
   tanggal_publikasi: string
-  gambar_sampul_url: string | null
-  status: 'published' | 'draft'
-  created_at: string
-  updated_at: string
+  foto_cover: string | null
+  is_sorotan: boolean
 }
 
 export interface DashboardStats {

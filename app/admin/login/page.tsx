@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen bg-surface flex items-center justify-center px-gutter">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-[28rem]">
         {/* Logo / Brand */}
         <div className="text-center mb-xl">
           <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-md shadow-ambient">
@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
         {/* Login Form */}
         <form
           onSubmit={handleLogin}
-          className="bg-surface-container-lowest rounded-3xl p-xl border border-outline-variant shadow-ambient"
+          className="bg-surface-container-lowest rounded-3xl p-lg border border-outline-variant shadow-ambient"
         >
           <h2 className="text-xl font-semibold text-on-surface mb-lg">
             Masuk ke Dashboard

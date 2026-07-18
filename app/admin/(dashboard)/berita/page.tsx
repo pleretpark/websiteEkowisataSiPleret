@@ -7,7 +7,11 @@ import type { Berita } from '@/lib/types'
 
 const emptyForm: Partial<Berita> = {
   judul: '', konten: '', author: '', tanggal_publikasi: new Date().toISOString().split('T')[0],
-  gambar_sampul_url: '', status: 'draft',
+  foto_cover: '', is_sorotan: false,
+}
+
+function generateSlug(title: string) {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
 }
 
 export default function AdminBeritaPage() {
@@ -40,13 +44,15 @@ export default function AdminBeritaPage() {
     e.preventDefault(); setSaving(true); setMessage(null)
     try {
       const supabase = createClient()
+      const slug = form.judul ? generateSlug(form.judul) : ''
       const payload = {
         judul: form.judul, konten: form.konten, author: form.author,
-        tanggal_publikasi: form.tanggal_publikasi, gambar_sampul_url: form.gambar_sampul_url,
-        status: form.status,
+        tanggal_publikasi: form.tanggal_publikasi, foto_cover: form.foto_cover,
+        is_sorotan: form.is_sorotan,
+        slug: slug,
       }
       if (editingId) {
-        const { error } = await supabase.from('berita').update({ ...payload, updated_at: new Date().toISOString() }).eq('id', editingId)
+        const { error } = await supabase.from('berita').update(payload).eq('id', editingId)
         if (error) throw error
         setMessage({ type: 'success', text: 'Artikel berhasil diperbarui!' })
       } else {
@@ -94,7 +100,7 @@ export default function AdminBeritaPage() {
       {/* Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-gutter">
-          <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-ambient-lg border border-outline-variant animate-fade-in-up">
+          <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[48rem] max-h-[90vh] overflow-y-auto shadow-ambient-lg border border-outline-variant animate-fade-in-up">
             <div className="flex items-center justify-between mb-lg">
               <h2 className="text-xl font-bold text-on-surface">{editingId ? 'Edit Artikel' : 'Tulis Artikel Baru'}</h2>
               <button onClick={() => setShowForm(false)} className="w-8 h-8 rounded-full hover:bg-surface-container-high flex items-center justify-center">
@@ -116,16 +122,16 @@ export default function AdminBeritaPage() {
                   <input required type="date" value={form.tanggal_publikasi || ''} onChange={(e) => setForm({ ...form, tanggal_publikasi: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-on-surface mb-xs">Status *</label>
-                  <select value={form.status || 'draft'} onChange={(e) => setForm({ ...form, status: e.target.value as 'published' | 'draft' })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface">
-                    <option value="draft">Draft</option>
-                    <option value="published">Published</option>
-                  </select>
+                  <label className="block text-sm font-medium text-on-surface mb-xs">Sorotan Berita</label>
+                  <label className="flex items-center gap-xs bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 cursor-pointer">
+                    <input type="checkbox" checked={form.is_sorotan || false} onChange={(e) => setForm({ ...form, is_sorotan: e.target.checked })} className="w-5 h-5 text-primary rounded focus:ring-primary" />
+                    <span className="text-on-surface text-sm">Jadikan Sorotan Utama</span>
+                  </label>
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-xs">URL Gambar Sampul</label>
-                <input value={form.gambar_sampul_url || ''} onChange={(e) => setForm({ ...form, gambar_sampul_url: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface" placeholder="https://example.com/cover.jpg" />
+                <label className="block text-sm font-medium text-on-surface mb-xs">URL Gambar Sampul (foto_cover)</label>
+                <input value={form.foto_cover || ''} onChange={(e) => setForm({ ...form, foto_cover: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface" placeholder="https://example.com/cover.jpg" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-on-surface mb-xs">Konten Artikel *</label>
@@ -164,9 +170,9 @@ export default function AdminBeritaPage() {
         ) : (
           items.map((item) => (
             <div key={item.id} className="bg-surface-container-lowest rounded-3xl border border-outline-variant shadow-sm overflow-hidden hover:shadow-ambient transition-all flex flex-col md:flex-row">
-              {item.gambar_sampul_url ? (
+              {item.foto_cover ? (
                 <div className="relative w-full md:w-48 h-40 md:h-auto flex-shrink-0">
-                  <Image src={item.gambar_sampul_url} alt={item.judul} fill className="object-cover" />
+                  <Image src={item.foto_cover} alt={item.judul} fill className="object-cover" />
                 </div>
               ) : (
                 <div className="w-full md:w-48 h-40 md:h-auto bg-surface-container-high flex items-center justify-center flex-shrink-0">
@@ -176,9 +182,11 @@ export default function AdminBeritaPage() {
               <div className="flex-1 p-md flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-sm mb-xs">
-                    <span className={`text-xs px-sm py-0.5 rounded-full font-bold ${item.status === 'published' ? 'bg-tertiary text-on-tertiary' : 'bg-outline text-on-primary'}`}>
-                      {item.status === 'published' ? 'PUBLISHED' : 'DRAFT'}
-                    </span>
+                    {item.is_sorotan && (
+                      <span className="text-xs px-sm py-0.5 rounded-full font-bold bg-tertiary text-on-tertiary flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px]">star</span> SOROTAN
+                      </span>
+                    )}
                     <span className="text-xs text-outline">
                       {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </span>
