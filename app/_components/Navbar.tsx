@@ -52,19 +52,22 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-lg">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`font-medium transition-colors duration-300 text-base ${
-                pathname === link.href
-                  ? 'text-primary font-bold border-b-2 border-primary pb-1'
-                  : 'text-on-surface-variant hover:text-primary'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`font-medium transition-all duration-300 text-base pb-1 border-b-2 ${
+                  isActive
+                    ? 'text-primary font-bold border-primary'
+                    : 'text-on-surface-variant hover:text-primary border-transparent'
+                }`}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
         </div>
 
         {/* CTA + Mobile Toggle */}

@@ -5,8 +5,8 @@ import VisitorStats from './VisitorStats'
 export default function Footer() {
   return (
     <footer className="w-full py-xl bg-surface-container-highest mt-xl">
-      <div className="max-w-[1280px] mx-auto px-gutter">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
+      <div className="w-full px-gutter md:px-lg lg:px-[60px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-lg">
           {/* Brand & Description */}
           <div>
             <div className="flex items-center gap-xs mb-md">
@@ -50,12 +50,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Contact & Visitor Stats */}
+          {/* Hubungi Kami */}
           <div>
-            <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-sm">
+            <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-md">
               Hubungi Kami
             </h5>
-            <div className="flex flex-col gap-xs text-sm text-on-surface-variant font-medium mb-lg">
+            <div className="flex flex-col gap-xs text-sm text-on-surface-variant font-medium">
               <div className="flex items-start gap-xs">
                 <span className="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
                 <span>Jl. Raya Tingkir No. 12, Salatiga, Jawa Tengah, 50742</span>
@@ -80,7 +80,10 @@ export default function Footer() {
                 <span>@si_pleret</span>
               </a>
             </div>
-            
+          </div>
+
+          {/* Visitor Stats */}
+          <div>
             <VisitorStats />
           </div>
         </div>

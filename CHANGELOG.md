@@ -13,7 +13,8 @@ Dokumen ini mencatat seluruh perubahan, perbaikan bug, dan penambahan fitur yang
   - Menambahkan link **Berita** ke menu Navbar atas dan Footer (Tautan Cepat).
 - **Desain Ulang Footer**:
   - Mengembalikan tema Footer agar senada dengan Header (warna terang / `bg-surface-container-highest`).
-  - Menyesuaikan *layout* kolom: Tautan Cepat kini berada di tengah, dan informasi "Hubungi Kami" digeser ke sebelah kanan.
+  - Menghapus batasan `max-w` pada Footer sehingga layoutnya lebih melebar (`w-full px-gutter md:px-lg lg:px-[60px]`) dan tidak terpaku pada margin konten utama.
+  - Memisahkan komponen *VisitorStats* menjadi kolom ke-4 di sebelah kanan kolom "Hubungi Kami" (sekarang menggunakan grid 4 kolom).
   - Menambahkan deksripsi singkat *"Inisiatif berbasis komunitas untuk pariwisata berkelanjutan dan pemberdayaan ekonomi."* di bawah logo Ekowisata Tingkir Tengah.
   - Menambahkan ikon kontak, lokasi, email dummy (`halo@tingkirtengah.desa.id`), dan tautan Instagram (`@si_pleret`).
   - Menyesuaikan warna komponen *VisitorStats* kembali ke skema warna terang (light theme).
