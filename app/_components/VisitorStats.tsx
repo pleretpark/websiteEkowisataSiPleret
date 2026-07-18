@@ -27,7 +27,7 @@ export default function VisitorStats() {
   }, []);
 
   return (
-    <div className="bg-surface-container p-md rounded-xl border border-outline-variant">
+    <div className="bg-surface-container p-sm rounded-xl border border-outline-variant">
       <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-sm">
         Statistik Pengunjung
       </h5>

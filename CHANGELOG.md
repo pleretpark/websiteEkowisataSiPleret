@@ -14,10 +14,11 @@ Dokumen ini mencatat seluruh perubahan, perbaikan bug, dan penambahan fitur yang
 - **Desain Ulang Footer**:
   - Mengembalikan tema Footer agar senada dengan Header (warna terang / `bg-surface-container-highest`).
   - Menghapus batasan `max-w` pada Footer sehingga layoutnya lebih melebar (`w-full px-gutter md:px-lg lg:px-[60px]`) dan tidak terpaku pada margin konten utama.
+  - **(Terbaru)** Memperketat jarak antar-elemen (*tighter layout*): mengubah padding luar menjadi `py-lg`, grid gap menjadi `gap-md`, margin bawah judul menjadi `mb-sm`, serta membatasi lebar maksimal kontainer hingga `max-w-[1440px]` agar tidak terlalu renggang pada layar ultra-lebar.
   - Memisahkan komponen *VisitorStats* menjadi kolom ke-4 di sebelah kanan kolom "Hubungi Kami" (sekarang menggunakan grid 4 kolom).
   - Menambahkan deksripsi singkat *"Inisiatif berbasis komunitas untuk pariwisata berkelanjutan dan pemberdayaan ekonomi."* di bawah logo Ekowisata Tingkir Tengah.
   - Menambahkan ikon kontak, lokasi, email dummy (`halo@tingkirtengah.desa.id`), dan tautan Instagram (`@si_pleret`).
-  - Menyesuaikan warna komponen *VisitorStats* kembali ke skema warna terang (light theme).
+  - Menyesuaikan warna komponen *VisitorStats* kembali ke skema warna terang (light theme) dengan padding lebih rapat (`p-sm`).
 
 ### 🛠️ Perbaikan & Pembaruan (Refactoring)
 - **Struktur Beranda (Homepage) & Katalog UMKM**:

@@ -4,20 +4,20 @@ import VisitorStats from './VisitorStats'
 
 export default function Footer() {
   return (
-    <footer className="w-full py-xl bg-surface-container-highest mt-xl">
-      <div className="w-full px-gutter md:px-lg lg:px-[60px]">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-lg">
+    <footer className="w-full py-lg bg-surface-container-highest mt-xl">
+      <div className="w-full max-w-[1440px] mx-auto px-gutter md:px-lg lg:px-[60px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-md">
           {/* Brand & Description */}
           <div>
-            <div className="flex items-center gap-xs mb-md">
+            <div className="flex items-center gap-xs mb-sm">
               <Image
                 src="/images/logo-prelet.png"
                 alt="Logo Ekowisata"
-                width={40}
-                height={40}
+                width={36}
+                height={36}
                 className="rounded-full"
               />
-              <h4 className="text-2xl text-primary font-bold">
+              <h4 className="text-xl text-primary font-bold">
                 Ekowisata Tingkir Tengah
               </h4>
             </div>
@@ -28,7 +28,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-md">
+            <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-sm">
               Tautan Cepat
             </h5>
             <div className="flex flex-col gap-xs">
@@ -52,7 +52,7 @@ export default function Footer() {
 
           {/* Hubungi Kami */}
           <div>
-            <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-md">
+            <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-sm">
               Hubungi Kami
             </h5>
             <div className="flex flex-col gap-xs text-sm text-on-surface-variant font-medium">
@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-xl pt-md border-t border-outline-variant text-center flex flex-col sm:flex-row justify-between items-center gap-sm">
+        <div className="mt-lg pt-md border-t border-outline-variant text-center flex flex-col sm:flex-row justify-between items-center gap-sm">
           <p className="text-on-surface-variant text-sm font-medium">
             © {new Date().getFullYear()} KKN-T 96 Ekowisata Tingkir Tengah. Empowering Local Wisdom.
           </p>
