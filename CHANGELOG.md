@@ -7,6 +7,7 @@ Dokumen ini mencatat seluruh perubahan, perbaikan bug, dan penambahan fitur yang
 ### ✨ Fitur Baru
 - **Halaman Berita & Kabar Wisata (`/berita`)**: 
   - Membuat halaman utama untuk menampilkan seluruh daftar berita.
+  - **(Terbaru)** Mendesain ulang halaman utama berita (`/berita`) sesuai dengan mockup: terdapat 1 kartu *spotlight* berukuran besar di bagian paling atas, diikuti oleh grid artikel reguler 3-kolom di bagian bawah (tanpa kolom sidebar/langganan/populer/search untuk tata letak yang lebih bersih dan lapang).
   - **(Terbaru)** Mendesain ulang halaman detail berita (`/berita/[slug]`) agar persis menyerupai referensi gambar UI: menggunakan *layout* tengah (centered) dengan latar warna *off-white*, blok kutipan (*blockquote*) yang rapi, tag artikel, tombol bagikan, serta tambahan *section* **Berita Terkait** di bagian bawah.
   - Tampilan *date badge* dan label *Sorotan* di halaman beranda maupun halaman daftar berita.
 - **Navigasi (Navbar & Footer)**:

@@ -2,41 +2,106 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 
-// Sample data
+// High-fidelity fallback sample data based on the design mockup
 const sampleBerita = [
   {
     id: '1',
-    judul: 'Pelatihan Budidaya Bioflok untuk Warga',
-    slug: 'pelatihan-budidaya-bioflok',
-    konten: 'Inisiatif meningkatkan produktivitas kolam rakyat dengan teknologi ramah lingkungan. Program ini melibatkan 30 warga dari 5 RT yang berbeda untuk mengembangkan metode budidaya ikan yang lebih efisien dan berkelanjutan.',
+    judul: 'Transformasi Hijau: Tingkir Tengah Menuju Destinasi Eco-Tourism Kelas Dunia',
+    slug: 'transformasi-hijau-tingkir-tengah',
+    konten: 'Melalui kolaborasi antara masyarakat lokal dan pakar lingkungan, desa kami memulai inisiatif baru untuk melestarikan sumber daya air sembari meningkatkan ekonomi warga melalui wisata edukasi.',
     author: 'Admin',
-    tanggal_publikasi: new Date('2024-01-24'),
+    tanggal_publikasi: new Date('2024-05-24'),
+    foto_cover: '/images/about-hero.png',
+    is_sorotan: true,
+  },
+  {
+    id: '2',
+    judul: 'Pemberdayaan Wanita Melalui Kerajinan Serat Alam',
+    slug: 'pemberdayaan-wanita-kerajinan-serat-alam',
+    konten: 'Kelompok UMKM \'Melati Wangi\' berhasil memasarkan produk ramah lingkungan mereka ke pasar internasional, membuktikan kualitas kerajinan tangan lokal.',
+    author: 'Admin',
+    tanggal_publikasi: new Date('2024-05-20'),
     foto_cover: '/images/community.png',
     is_sorotan: false,
   },
   {
-    id: '2',
-    judul: 'Festival Kuliner Ikan Nusantara 2024',
-    slug: 'festival-kuliner-ikan-2024',
-    konten: 'Ajang pameran masakan ikan khas Tingkir Tengah yang menarik wisatawan mancanegara. Festival ini menampilkan lebih dari 50 jenis olahan ikan dari berbagai daerah di Indonesia.',
+    id: '3',
+    judul: 'Festival Budaya \'Tingkir Harmoni\' Kembali Digelar',
+    slug: 'festival-budaya-tingkir-harmoni-2024',
+    konten: 'Rayakan kekayaan budaya desa dengan pertunjukan musik tradisional, workshop kuliner, dan pameran teknologi tepat guna.',
     author: 'Admin',
-    tanggal_publikasi: new Date('2024-02-02'),
+    tanggal_publikasi: new Date('2024-05-18'),
     foto_cover: '/images/hero-banner.png',
     is_sorotan: false,
   },
   {
-    id: '3',
-    judul: 'Kunjungan Studi KKN Tematik UNDIP',
-    slug: 'kunjungan-studi-kkn-undip',
-    konten: 'Kolaborasi mahasiswa dalam pemetaan digital potensi ekonomi kreatif desa. Tim KKN melakukan pendampingan langsung kepada pelaku UMKM untuk meningkatkan pemasaran produk lokal.',
+    id: '4',
+    judul: 'Inovasi Sistem Irigasi Pintar untuk Sawah Desa',
+    slug: 'inovasi-sistem-irigasi-pintar-sawah-desa',
+    konten: 'Mengadopsi teknologi IoT, petani lokal kini dapat memantau kualitas air dan kelembapan tanah langsung dari smartphone mereka.',
     author: 'Admin',
-    tanggal_publikasi: new Date('2024-02-15'),
+    tanggal_publikasi: new Date('2024-05-12'),
     foto_cover: '/images/about-hero.png',
+    is_sorotan: false,
+  },
+  {
+    id: '5',
+    judul: 'Kebun Komunal: Mandiri Pangan di Tengah Pandemi',
+    slug: 'kebun-komunal-mandiri-pangan',
+    konten: 'Melihat keberhasilan warga dalam mengelola lahan tidur menjadi kebun sayur produktif yang menyuplai kebutuhan harian warga.',
+    author: 'Admin',
+    tanggal_publikasi: new Date('2024-05-10'),
+    foto_cover: '/images/community.png',
     is_sorotan: false,
   },
 ]
 
-export default async function BeritaPage() {
+function getCategory(judul: string): string {
+  const titleLower = judul.toLowerCase()
+  if (titleLower.includes('hijau') || titleLower.includes('wisata') || titleLower.includes('bioflok') || titleLower.includes('eco')) {
+    return 'Eco-Tourism'
+  }
+  if (titleLower.includes('wanita') || titleLower.includes('kerajinan') || titleLower.includes('umkm') || titleLower.includes('kopi') || titleLower.includes('kuliner')) {
+    return 'UMKM'
+  }
+  if (titleLower.includes('festival') || titleLower.includes('budaya') || titleLower.includes('merti') || titleLower.includes('kunjungan') || titleLower.includes('studi')) {
+    return 'Acara Desa'
+  }
+  if (titleLower.includes('irigasi') || titleLower.includes('pintar') || titleLower.includes('teknologi') || titleLower.includes('iot')) {
+    return 'Teknologi'
+  }
+  if (titleLower.includes('pangan') || titleLower.includes('kebun') || titleLower.includes('ikan') || titleLower.includes('nila')) {
+    return 'Pangan'
+  }
+  return 'Warta Desa'
+}
+
+function getCategoryStyle(category: string): string {
+  switch (category) {
+    case 'Eco-Tourism':
+      return 'bg-sky-500 text-white shadow-sm'
+    case 'UMKM':
+      return 'bg-green-600 text-white shadow-sm'
+    case 'Acara Desa':
+      return 'bg-blue-600 text-white shadow-sm'
+    case 'Teknologi':
+      return 'bg-teal-600 text-white shadow-sm'
+    case 'Pangan':
+      return 'bg-lime-600 text-white shadow-sm'
+    default:
+      return 'bg-primary text-on-primary shadow-sm'
+  }
+}
+
+export default async function BeritaPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>
+}) {
+  const resolvedParams = await searchParams
+  const currentPage = Number(resolvedParams.page) || 1
+  const itemsPerPage = 6 // Show more items per page since we don't have a sidebar now
+
   let beritaList = sampleBerita
 
   try {
@@ -51,97 +116,207 @@ export default async function BeritaPage() {
       beritaList = data
     }
   } catch {
-    // Use sample data if Prisma/DB not ready
+    // Use fallback sample data
   }
 
+  // Spotlight logic: only show on first page
+  const isFirstPage = currentPage === 1
+  const spotlightNews = isFirstPage ? beritaList[0] : null
+  const listToRender = spotlightNews ? beritaList.slice(1) : beritaList
+
+  // Pagination logic
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const paginatedNews = listToRender.slice(startIndex, endIndex)
+  const totalPages = Math.ceil(listToRender.length / itemsPerPage)
+
   return (
-    <>
-      {/* Hero */}
-      <section className="mt-md px-gutter max-w-[1280px] mx-auto">
-        <div className="py-xl">
-          <span className="inline-block bg-primary-fixed text-on-primary-fixed text-sm font-bold px-md py-1 rounded-full mb-md">
-            📰 Kabar Terkini
+    <div className="bg-[#fafafa] min-h-screen">
+      {/* Title Header Section */}
+      <header className="px-gutter max-w-[1280px] mx-auto pt-lg pb-md">
+        <div className="max-w-[48rem]">
+          <span className="inline-block bg-primary text-on-primary text-xs font-bold px-md py-1 rounded-full mb-xs">
+            WARTA DESA
           </span>
-          <h1 className="text-3xl md:text-5xl font-bold text-on-surface leading-tight tracking-tight">
-            Berita & Kabar Wisata
+          <h1 className="text-3xl md:text-5xl font-bold text-[#003d37] leading-tight tracking-tight mt-xs">
+            Kabar Terbaru Dari Desa
           </h1>
-          <p className="text-on-surface-variant text-lg mt-md leading-relaxed max-w-[36rem]">
-            Ikuti perkembangan terbaru seputar ekowisata, event komunitas, dan
-            aktivitas pemberdayaan di Kelurahan Tingkir Tengah.
+          <p className="text-on-surface-variant text-base md:text-lg mt-sm leading-relaxed">
+            Jelajahi perkembangan terbaru, inovasi UMKM, dan kegiatan pelestarian lingkungan yang menginspirasi di jantung Tingkir Tengah.
           </p>
         </div>
-      </section>
+      </header>
 
-      {/* Berita Grid */}
-      <section className="py-xl bg-surface-container-low">
+      {/* Spotlight Card */}
+      {spotlightNews && (
+        <section className="mb-lg px-gutter max-w-[1280px] mx-auto">
+          <Link
+            href={`/berita/${spotlightNews.slug}`}
+            className="group flex flex-col md:flex-row bg-white border border-outline-variant/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-ambient transition-all duration-500"
+          >
+            {/* Image (left) */}
+            <div className="w-full md:w-3/5 relative h-[250px] md:h-[400px] overflow-hidden">
+              {spotlightNews.foto_cover ? (
+                <Image
+                  src={spotlightNews.foto_cover}
+                  alt={spotlightNews.judul}
+                  fill
+                  priority
+                  className="object-cover group-hover:scale-102 transition-transform duration-700"
+                />
+              ) : (
+                <div className="w-full h-full bg-surface-container flex items-center justify-center">
+                  <span className="material-symbols-outlined text-6xl text-outline-variant">image</span>
+                </div>
+              )}
+            </div>
+            {/* Content (right) */}
+            <div className="w-full md:w-2/5 p-lg md:p-xl flex flex-col justify-center bg-white">
+              <div className="flex items-center gap-xs mb-sm">
+                <span className={`${getCategoryStyle(getCategory(spotlightNews.judul))} text-xs px-sm py-1 rounded-full font-bold`}>
+                  {getCategory(spotlightNews.judul)}
+                </span>
+                <span className="text-on-surface-variant/70 text-xs font-semibold">
+                  {new Date(spotlightNews.tanggal_publikasi).toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                  })}
+                </span>
+              </div>
+              <h2 className="text-xl md:text-2xl font-bold text-[#003d37] group-hover:text-primary transition-colors leading-tight mb-sm">
+                {spotlightNews.judul}
+              </h2>
+              <p className="text-on-surface-variant text-sm leading-relaxed mb-md line-clamp-3">
+                {spotlightNews.konten}
+              </p>
+              <span className="inline-flex items-center gap-xs text-primary font-bold text-sm group-hover:underline">
+                Baca Selengkapnya
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </span>
+            </div>
+          </Link>
+        </section>
+      )}
+
+      {/* Main Grid Content */}
+      <section className="pb-xl">
         <div className="max-w-[1280px] mx-auto px-gutter">
-          {beritaList.length === 0 ? (
-            <div className="text-center py-xl">
+          {paginatedNews.length === 0 ? (
+            <div className="text-center py-xl bg-white border border-outline-variant/60 rounded-3xl">
               <span className="material-symbols-outlined text-6xl text-outline-variant">
                 newspaper
               </span>
               <p className="text-on-surface-variant text-lg mt-md">
-                Belum ada berita yang dipublikasikan.
+                Belum ada berita yang tersedia.
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-              {beritaList.map((item, index) => (
-                <Link
-                  key={item.id}
-                  href={`/berita/${item.slug}`}
-                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient-hover transition-all duration-500 animate-fade-in-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="relative h-52 overflow-hidden">
-                    {item.foto_cover ? (
-                      <Image
-                        src={item.foto_cover}
-                        alt={item.judul}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-surface-container flex items-center justify-center">
-                        <span className="material-symbols-outlined text-5xl text-outline-variant">
-                          image
-                        </span>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+                {paginatedNews.map((item) => {
+                  const category = getCategory(item.judul)
+                  return (
+                    <Link
+                      key={item.id}
+                      href={`/berita/${item.slug}`}
+                      className="group bg-white border border-outline-variant/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient transition-all duration-500 flex flex-col h-full"
+                    >
+                      <div className="relative h-48 overflow-hidden">
+                        {item.foto_cover ? (
+                          <Image
+                            src={item.foto_cover}
+                            alt={item.judul}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-surface-container flex items-center justify-center">
+                            <span className="material-symbols-outlined text-4xl text-outline-variant">image</span>
+                          </div>
+                        )}
                       </div>
-                    )}
-                    {/* Date Badge */}
-                    <div className="absolute bottom-3 left-3 bg-primary text-on-primary text-xs font-bold px-sm py-1 rounded-full">
-                      {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                      })}
-                    </div>
-                    {item.is_sorotan && (
-                      <div className="absolute top-3 left-3 bg-tertiary text-on-tertiary text-xs font-bold px-sm py-1 rounded-full flex items-center gap-1 shadow-md">
-                        <span className="material-symbols-outlined text-[14px]">star</span>
-                        Sorotan
+                      <div className="p-md flex flex-col flex-grow justify-between">
+                        <div>
+                          <div className="flex items-center gap-xs mb-xs">
+                            <span className={`${getCategoryStyle(category)} text-[10px] px-2 py-0.5 rounded-full font-bold`}>
+                              {category}
+                            </span>
+                            <span className="text-on-surface-variant/60 text-xs font-semibold">
+                              {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric',
+                              })}
+                            </span>
+                          </div>
+                          <h3 className="text-base md:text-lg font-bold text-[#003d37] group-hover:text-primary transition-colors leading-tight line-clamp-2 mt-xs">
+                            {item.judul}
+                          </h3>
+                          <p className="text-on-surface-variant text-sm mt-xs line-clamp-2 leading-relaxed">
+                            {item.konten}
+                          </p>
+                        </div>
+                        
+                        {/* Share and Detail Link */}
+                        <div className="mt-md pt-sm border-t border-outline-variant/40 flex justify-between items-center text-xs font-semibold text-on-surface-variant">
+                          <span className="hover:text-primary flex items-center gap-1 cursor-pointer">
+                            <span className="material-symbols-outlined text-[16px]">share</span>
+                          </span>
+                          <span className="text-primary hover:underline flex items-center gap-0.5">
+                            Detail
+                            <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+                          </span>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                  <div className="p-md">
-                    <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight line-clamp-2">
-                      {item.judul}
-                    </h3>
-                    <p className="text-on-surface-variant text-sm mt-xs line-clamp-2">
-                      {item.konten.substring(0, 120)}...
-                    </p>
-                    <span className="inline-flex items-center gap-1 text-primary font-semibold text-sm mt-md group-hover:underline">
-                      Baca Selengkapnya
-                      <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                    </Link>
+                  )
+                })}
+              </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="mt-lg flex justify-center items-center gap-xs">
+                  {/* Previous Page */}
+                  <Link
+                    href={`/berita?page=${currentPage - 1}`}
+                    className={`w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant transition-colors hover:bg-surface-container ${
+                      currentPage === 1 ? 'pointer-events-none opacity-50' : ''
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[18px]">chevron_left</span>
+                  </Link>
+                  {Array.from({ length: totalPages }).map((_, i) => {
+                    const pageNum = i + 1
+                    return (
+                      <Link
+                        key={pageNum}
+                        href={`/berita?page=${pageNum}`}
+                        className={`w-10 h-10 flex items-center justify-center rounded-full border font-bold text-sm transition-colors ${
+                          currentPage === pageNum
+                            ? 'bg-primary border-primary text-on-primary shadow-sm'
+                            : 'border-outline-variant text-on-surface-variant hover:bg-surface-container'
+                        }`}
+                      >
+                        {pageNum}
+                      </Link>
+                    )
+                  })}
+                  {/* Next Page */}
+                  <Link
+                    href={`/berita?page=${currentPage + 1}`}
+                    className={`w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant transition-colors hover:bg-surface-container ${
+                      currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+                  </Link>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
-    </>
+    </div>
   )
 }
