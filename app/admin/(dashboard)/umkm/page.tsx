@@ -120,6 +120,14 @@ export default function AdminUmkmPage() {
     setSaving(true)
     setMessage(null)
 
+    let finalImageUrl = form.gambar_url
+    if (!finalImageUrl) {
+      if (form.kategori === 'Makanan') finalImageUrl = '/images/makanan.jpg'
+      else if (form.kategori === 'Minuman') finalImageUrl = '/images/minuman.jpg'
+      else if (form.kategori === 'Kerajinan') finalImageUrl = '/images/kerajinan.jpg'
+      else finalImageUrl = '/images/lainnya.jpg'
+    }
+
     try {
       const supabase = createClient()
 
@@ -131,7 +139,7 @@ export default function AdminUmkmPage() {
             kategori: form.kategori,
             harga: form.harga,
             deskripsi: form.deskripsi,
-            gambar_url: form.gambar_url,
+            gambar_url: finalImageUrl,
             nomor_wa: form.nomor_wa,
             nama_toko: form.nama_toko,
             updated_at: new Date().toISOString(),
@@ -146,7 +154,7 @@ export default function AdminUmkmPage() {
           kategori: form.kategori,
           harga: form.harga,
           deskripsi: form.deskripsi,
-          gambar_url: form.gambar_url,
+          gambar_url: finalImageUrl,
           nomor_wa: form.nomor_wa,
           nama_toko: form.nama_toko,
         })
@@ -342,17 +350,11 @@ export default function AdminUmkmPage() {
                     <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                   </label>
                   {form.gambar_url && (
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden">
+                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-outline-variant">
                       <Image src={form.gambar_url} alt="Preview" fill className="object-cover" />
                     </div>
                   )}
                 </div>
-                <input
-                  value={form.gambar_url || ''}
-                  onChange={(e) => setForm({ ...form, gambar_url: e.target.value })}
-                  className="w-full mt-xs bg-surface-container-low border border-outline-variant rounded-xl px-md py-2 text-sm focus:ring-2 focus:ring-primary text-on-surface"
-                  placeholder="Atau masukkan URL gambar..."
-                />
               </div>
 
               <div className="flex justify-end gap-sm pt-md">
