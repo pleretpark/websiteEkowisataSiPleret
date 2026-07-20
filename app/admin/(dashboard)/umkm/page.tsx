@@ -73,7 +73,20 @@ export default function AdminUmkmPage() {
     const file = e.target.files?.[0]
     if (!file) return
 
+    // Batasi ukuran file maksimal 1 MB (1.048.576 bytes)
+    const maxFileSize = 1 * 1024 * 1024
+    if (file.size > maxFileSize) {
+      setMessage({
+        type: 'error',
+        text: 'Ukuran file gambar terlalu besar. Maksimal ukuran file adalah 1 MB.',
+      })
+      // Reset input file agar dapat dipilih kembali
+      e.target.value = ''
+      return
+    }
+
     setUploading(true)
+    setMessage(null)
     try {
       const supabase = createClient()
       const fileExt = file.name.split('.').pop()
@@ -90,8 +103,13 @@ export default function AdminUmkmPage() {
         .getPublicUrl(fileName)
 
       setForm((prev) => ({ ...prev, gambar_url: publicUrl }))
-    } catch {
-      setMessage({ type: 'error', text: 'Gagal mengunggah gambar.' })
+      setMessage({ type: 'success', text: 'Gambar berhasil diunggah!' })
+    } catch (err: any) {
+      console.error('Upload error:', err)
+      setMessage({
+        type: 'error',
+        text: 'Gagal mengunggah gambar. Pastikan koneksi internet stabil dan format gambar didukung.',
+      })
     } finally {
       setUploading(false)
     }
@@ -210,6 +228,22 @@ export default function AdminUmkmPage() {
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
+
+            {/* Message inside modal */}
+            {message && (
+              <div
+                className={`rounded-xl p-sm mb-md text-sm flex items-center gap-xs ${
+                  message.type === 'success'
+                    ? 'bg-tertiary-fixed/30 text-tertiary'
+                    : 'bg-error-container text-on-error-container'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[18px]">
+                  {message.type === 'success' ? 'check_circle' : 'error'}
+                </span>
+                {message.text}
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-md">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
