@@ -32,6 +32,7 @@ export default function AdminUmkmPage() {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [localPreview, setLocalPreview] = useState<string | null>(null)
 
   const fetchItems = useCallback(async () => {
     setLoading(true)
@@ -60,6 +61,7 @@ export default function AdminUmkmPage() {
     setEditingId(null)
     setShowForm(true)
     setMessage(null)
+    setLocalPreview(null)
   }
 
   function openEdit(item: UMKM) {
@@ -67,6 +69,7 @@ export default function AdminUmkmPage() {
     setEditingId(item.id)
     setShowForm(true)
     setMessage(null)
+    setLocalPreview(null)
   }
 
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -85,6 +88,7 @@ export default function AdminUmkmPage() {
       return
     }
 
+    setLocalPreview(URL.createObjectURL(file))
     setUploading(true)
     setMessage(null)
     try {
@@ -349,9 +353,9 @@ export default function AdminUmkmPage() {
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
                     <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                   </label>
-                  {form.gambar_url && (
-                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-outline-variant">
-                      <Image src={form.gambar_url} alt="Preview" fill className="object-cover" />
+                  {(localPreview || form.gambar_url) && (
+                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-outline-variant flex-shrink-0">
+                      <img src={localPreview || form.gambar_url || ''} alt="Preview" className="w-full h-full object-cover" />
                     </div>
                   )}
                 </div>
