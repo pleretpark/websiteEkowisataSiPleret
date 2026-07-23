@@ -14,16 +14,15 @@ export default async function AdminLayout({
 }) {
   // Verify authentication server-side
   let userEmail = 'admin@tingkirtengah.id'
-  try {
+  
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: { user }, error } = await supabase.auth.getUser()
 
-    if (!user) {
+    if (error || !user) {
       redirect('/admin/login')
     }
     userEmail = user.email || userEmail
-  } catch {
-    // If Supabase is not configured, allow access for development
   }
 
   return (
@@ -47,10 +46,10 @@ export default async function AdminLayout({
               </span>
             </button>
             <div className="flex items-center gap-xs">
-              <span className="text-sm text-on-surface font-medium hidden sm:block">
+              <span className="text-lg text-on-surface font-medium hidden sm:block">
                 Admin Profile
               </span>
-              <span className="text-xs text-outline hidden sm:block uppercase">
+              <span className="text-base text-outline hidden sm:block uppercase">
                 Super Admin
               </span>
               <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">

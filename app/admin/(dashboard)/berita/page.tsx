@@ -45,9 +45,10 @@ export default function AdminBeritaPage() {
     try {
       const supabase = createClient()
       const slug = form.judul ? generateSlug(form.judul) : ''
+      const finalImageUrl = form.foto_cover || '/images/sosialisasi.jpg'
       const payload = {
         judul: form.judul, konten: form.konten, author: form.author,
-        tanggal_publikasi: form.tanggal_publikasi, foto_cover: form.foto_cover,
+        tanggal_publikasi: form.tanggal_publikasi, foto_cover: finalImageUrl,
         is_sorotan: form.is_sorotan,
         slug: slug,
       }
@@ -81,8 +82,8 @@ export default function AdminBeritaPage() {
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-lg gap-md">
         <div>
-          <h1 className="text-3xl font-bold text-on-surface">Berita & Artikel</h1>
-          <p className="text-on-surface-variant text-base mt-xs">Kelola konten berita dan artikel informatif.</p>
+          <h1 className="text-5xl font-bold text-on-surface">Berita & Artikel</h1>
+          <p className="text-on-surface-variant text-xl mt-xs">Kelola konten berita dan artikel informatif.</p>
         </div>
         <button onClick={openCreate} className="bg-primary text-on-primary font-bold px-md py-xs rounded-full hover:shadow-xl transition-all flex items-center gap-xs" id="add-berita-btn">
           <span className="material-symbols-outlined text-[18px]">edit_note</span>
@@ -91,7 +92,7 @@ export default function AdminBeritaPage() {
       </div>
 
       {message && (
-        <div className={`rounded-xl p-sm mb-md text-sm flex items-center gap-xs ${message.type === 'success' ? 'bg-tertiary-fixed/30 text-tertiary' : 'bg-error-container text-on-error-container'}`}>
+        <div className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${message.type === 'success' ? 'bg-tertiary-fixed/30 text-tertiary' : 'bg-error-container text-on-error-container'}`}>
           <span className="material-symbols-outlined text-[18px]">{message.type === 'success' ? 'check_circle' : 'error'}</span>
           {message.text}
         </div>
@@ -102,39 +103,39 @@ export default function AdminBeritaPage() {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-gutter">
           <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[48rem] max-h-[90vh] overflow-y-auto shadow-ambient-lg border border-outline-variant animate-fade-in-up">
             <div className="flex items-center justify-between mb-lg">
-              <h2 className="text-xl font-bold text-on-surface">{editingId ? 'Edit Artikel' : 'Tulis Artikel Baru'}</h2>
+              <h2 className="text-3xl font-bold text-on-surface">{editingId ? 'Edit Artikel' : 'Tulis Artikel Baru'}</h2>
               <button onClick={() => setShowForm(false)} className="w-8 h-8 rounded-full hover:bg-surface-container-high flex items-center justify-center">
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-md">
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-xs">Judul Artikel *</label>
-                <input required value={form.judul || ''} onChange={(e) => setForm({ ...form, judul: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface text-lg font-semibold" placeholder="Masukkan judul artikel..." />
+                <label className="block text-lg font-medium text-on-surface mb-xs">Judul Artikel *</label>
+                <input required value={form.judul || ''} onChange={(e) => setForm({ ...form, judul: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface text-2xl font-semibold" placeholder="Masukkan judul artikel..." />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
                 <div>
-                  <label className="block text-sm font-medium text-on-surface mb-xs">Penulis *</label>
+                  <label className="block text-lg font-medium text-on-surface mb-xs">Penulis *</label>
                   <input required value={form.author || ''} onChange={(e) => setForm({ ...form, author: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface" placeholder="Nama penulis" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-on-surface mb-xs">Tanggal Publikasi *</label>
+                  <label className="block text-lg font-medium text-on-surface mb-xs">Tanggal Publikasi *</label>
                   <input required type="date" value={form.tanggal_publikasi || ''} onChange={(e) => setForm({ ...form, tanggal_publikasi: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-on-surface mb-xs">Sorotan Berita</label>
+                  <label className="block text-lg font-medium text-on-surface mb-xs">Sorotan Berita</label>
                   <label className="flex items-center gap-xs bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 cursor-pointer">
                     <input type="checkbox" checked={form.is_sorotan || false} onChange={(e) => setForm({ ...form, is_sorotan: e.target.checked })} className="w-5 h-5 text-primary rounded focus:ring-primary" />
-                    <span className="text-on-surface text-sm">Jadikan Sorotan Utama</span>
+                    <span className="text-on-surface text-lg">Jadikan Sorotan Utama</span>
                   </label>
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-xs">URL Gambar Sampul (foto_cover)</label>
+                <label className="block text-lg font-medium text-on-surface mb-xs">URL Gambar Sampul (foto_cover)</label>
                 <input value={form.foto_cover || ''} onChange={(e) => setForm({ ...form, foto_cover: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface" placeholder="https://example.com/cover.jpg" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-xs">Konten Artikel *</label>
+                <label className="block text-lg font-medium text-on-surface mb-xs">Konten Artikel *</label>
                 <textarea required rows={10} value={form.konten || ''} onChange={(e) => setForm({ ...form, konten: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none leading-relaxed" placeholder="Tulis konten artikel di sini..." />
               </div>
               <div className="flex justify-end gap-sm pt-md">
@@ -163,40 +164,34 @@ export default function AdminBeritaPage() {
           ))
         ) : items.length === 0 ? (
           <div className="text-center py-xl bg-surface-container-lowest rounded-3xl border border-outline-variant">
-            <span className="material-symbols-outlined text-5xl text-outline-variant">article</span>
-            <p className="text-on-surface-variant text-lg mt-md">Belum ada artikel.</p>
-            <p className="text-outline text-sm mt-xs">Klik &quot;Tulis Artikel Baru&quot; untuk mulai menulis.</p>
+            <span className="material-symbols-outlined text-6xl text-outline-variant">article</span>
+            <p className="text-on-surface-variant text-2xl mt-md">Belum ada artikel.</p>
+            <p className="text-outline text-lg mt-xs">Klik &quot;Tulis Artikel Baru&quot; untuk mulai menulis.</p>
           </div>
         ) : (
           items.map((item) => (
             <div key={item.id} className="bg-surface-container-lowest rounded-3xl border border-outline-variant shadow-sm overflow-hidden hover:shadow-ambient transition-all flex flex-col md:flex-row">
-              {item.foto_cover ? (
-                <div className="relative w-full md:w-48 h-40 md:h-auto flex-shrink-0">
-                  <Image src={item.foto_cover} alt={item.judul} fill className="object-cover" />
-                </div>
-              ) : (
-                <div className="w-full md:w-48 h-40 md:h-auto bg-surface-container-high flex items-center justify-center flex-shrink-0">
-                  <span className="material-symbols-outlined text-3xl text-outline">image</span>
-                </div>
-              )}
+              <div className="relative w-full md:w-48 h-40 md:h-auto flex-shrink-0 bg-surface-container">
+                <Image src={item.foto_cover && !item.foto_cover.includes('unsplash') ? item.foto_cover : '/images/sosialisasi.jpg'} alt={item.judul} fill className="object-cover" />
+              </div>
               <div className="flex-1 p-md flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-sm mb-xs">
                     {item.is_sorotan && (
-                      <span className="text-xs px-sm py-0.5 rounded-full font-bold bg-tertiary text-on-tertiary flex items-center gap-1">
+                      <span className="text-base px-sm py-0.5 rounded-full font-bold bg-tertiary text-on-tertiary flex items-center gap-1">
                         <span className="material-symbols-outlined text-[14px]">star</span> SOROTAN
                       </span>
                     )}
-                    <span className="text-xs text-outline">
+                    <span className="text-base text-outline">
                       {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </span>
                   </div>
-                  <h3 className="font-semibold text-on-surface text-lg leading-tight">{item.judul}</h3>
-                  <p className="text-sm text-on-surface-variant mt-1 line-clamp-2">{item.konten}</p>
-                  <p className="text-xs text-outline mt-2">Oleh: {item.author}</p>
+                  <h3 className="font-semibold text-on-surface text-2xl leading-tight">{item.judul}</h3>
+                  <p className="text-lg text-on-surface-variant mt-1 line-clamp-2">{item.konten}</p>
+                  <p className="text-base text-outline mt-2">Oleh: {item.author}</p>
                 </div>
                 <div className="flex items-center justify-end gap-xs mt-md">
-                  <button onClick={() => openEdit(item)} className="px-md py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all flex items-center gap-xs text-sm">
+                  <button onClick={() => openEdit(item)} className="px-md py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all flex items-center gap-xs text-lg">
                     <span className="material-symbols-outlined text-[16px]">edit</span>Edit
                   </button>
                   <button onClick={() => handleDelete(item.id)} className="w-8 h-8 rounded-lg bg-error-container/30 text-error hover:bg-error hover:text-on-error transition-all flex items-center justify-center" title="Hapus">
