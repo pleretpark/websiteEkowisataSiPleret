@@ -44,36 +44,7 @@ const sampleUmkm: UMKM[] = [
 ]
 
 const sampleBerita: Berita[] = [
-  {
-    id: '1',
-    judul: 'Pelatihan Budidaya Bioflok untuk Warga',
-    slug: 'pelatihan-budidaya-bioflok',
-    konten: 'Inisiatif meningkatkan produktivitas kolam rakyat dengan teknologi ramah lingkungan...',
-    author: 'Admin',
-    tanggal_publikasi: '2024-01-24',
-    foto_cover: '/images/community.png',
-    is_sorotan: false,
-  },
-  {
-    id: '2',
-    judul: 'Festival Kuliner Ikan Nusantara 2024',
-    slug: 'festival-kuliner-ikan-2024',
-    konten: 'Ajang pameran masakan ikan khas Tingkir Tengah yang menarik wisatawan mancanegara...',
-    author: 'Admin',
-    tanggal_publikasi: '2024-02-02',
-    foto_cover: '/images/hero-banner.png',
-    is_sorotan: false,
-  },
-  {
-    id: '3',
-    judul: 'Kunjungan Studi KKN Tematik UNDIP',
-    slug: 'kunjungan-studi-kkn-undip',
-    konten: 'Kolaborasi mahasiswa dalam pemetaan digital potensi ekonomi kreatif desa...',
-    author: 'Admin',
-    tanggal_publikasi: '2024-02-15',
-    foto_cover: '/images/about-hero.png',
-    is_sorotan: false,
-  },
+  
 ]
 
 function getCategoryStyle(kategori: string) {
@@ -287,16 +258,14 @@ export default async function HomePage() {
                 className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-sm shadow-sm hover:shadow-ambient-hover transition-all duration-500 overflow-hidden"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="relative overflow-hidden rounded-xl h-64 mb-sm">
-                  {item.gambar_url && (
-                    <Image
-                      src={item.gambar_url}
-                      alt={item.nama_produk}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  )}
+                <div className="relative overflow-hidden rounded-xl h-64 mb-sm bg-surface-container">
+                  <Image
+                    src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
+                    alt={item.nama_produk}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
                   <div className="absolute top-4 left-4">
                     <span
                       className={`${getCategoryStyle(item.kategori)} text-sm px-md py-1 rounded-full font-bold backdrop-blur-md`}
@@ -359,15 +328,14 @@ export default async function HomePage() {
                 key={item.id}
                 className="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient-hover transition-all duration-500"
               >
-                {item.foto_cover && (
-                  <div className="relative h-52 overflow-hidden">
-                    <Image
-                      src={item.foto_cover}
-                      alt={item.judul}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                <div className="relative h-52 overflow-hidden bg-surface-container">
+                  <Image
+                    src={item.foto_cover && !item.foto_cover.includes('unsplash') ? item.foto_cover : '/images/sosialisasi.jpg'}
+                    alt={item.judul}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                     {/* Date Badge */}
                     <div className="absolute bottom-3 left-3 bg-primary text-on-primary text-xs font-bold px-sm py-1 rounded-full">
                       {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
@@ -383,7 +351,6 @@ export default async function HomePage() {
                       </div>
                     )}
                   </div>
-                )}
                 <div className="p-md">
                   <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2">
                     {item.judul}

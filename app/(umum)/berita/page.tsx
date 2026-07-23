@@ -119,19 +119,13 @@ export default async function BeritaPage({
           >
             {/* Image (left) */}
             <div className="w-full md:w-3/5 relative h-[250px] md:h-[400px] overflow-hidden">
-              {spotlightNews.foto_cover ? (
-                <Image
-                  src={spotlightNews.foto_cover}
-                  alt={spotlightNews.judul}
-                  fill
-                  priority
-                  className="object-cover group-hover:scale-102 transition-transform duration-700"
-                />
-              ) : (
-                <div className="w-full h-full bg-surface-container flex items-center justify-center">
-                  <span className="material-symbols-outlined text-6xl text-outline-variant">image</span>
-                </div>
-              )}
+              <Image
+                src={spotlightNews.foto_cover && !spotlightNews.foto_cover.includes('unsplash') ? spotlightNews.foto_cover : '/images/sosialisasi.jpg'}
+                alt={spotlightNews.judul}
+                fill
+                priority
+                className="object-cover group-hover:scale-102 transition-transform duration-700"
+              />
             </div>
             {/* Content (right) */}
             <div className="w-full md:w-2/5 p-lg md:p-xl flex flex-col justify-center bg-white">
@@ -182,18 +176,12 @@ export default async function BeritaPage({
                       className="group bg-white border border-outline-variant/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient transition-all duration-500 flex flex-col h-full"
                     >
                       <div className="relative h-48 overflow-hidden">
-                        {item.foto_cover ? (
-                          <Image
-                            src={item.foto_cover}
-                            alt={item.judul}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-surface-container flex items-center justify-center">
-                            <span className="material-symbols-outlined text-4xl text-outline-variant">image</span>
-                          </div>
-                        )}
+                        <Image
+                          src={item.foto_cover && !item.foto_cover.includes('unsplash') ? item.foto_cover : '/images/sosialisasi.jpg'}
+                          alt={item.judul}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
                       <div className="p-md flex flex-col flex-grow justify-between">
                         <div>

@@ -232,17 +232,15 @@ export default function UMKMPage() {
                   className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-md shadow-sm hover:shadow-ambient transition-all duration-300 flex flex-col h-full animate-fade-in-up"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="relative overflow-hidden rounded-xl h-48 mb-sm">
-                    {item.gambar_url && (
-                      <Image
-                        src={item.gambar_url}
-                        alt={item.nama_produk}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                    )}
-                    <div className="absolute top-3 left-3">
+                <div className="relative overflow-hidden rounded-xl h-48 mb-sm bg-surface-container">
+                  <Image
+                    src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
+                    alt={item.nama_produk}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute top-3 left-3">
                       <span
                         className={`${getCategoryStyle(item.kategori)} text-xs px-sm py-1 rounded-full font-bold backdrop-blur-md`}
                       >
