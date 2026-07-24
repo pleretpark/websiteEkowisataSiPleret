@@ -5,42 +5,7 @@ import type { UMKM, Berita } from '@/lib/types'
 
 // Sample data for when Supabase isn't configured yet
 const sampleUmkm: UMKM[] = [
-  {
-    id: '1',
-    nama_produk: 'Ikan Asap Premium Arwana',
-    kategori: 'Makanan',
-    harga: 45000,
-    deskripsi: 'Olahan ikan asap tradisional dengan bumbu rempah rahasia Tingkir Tengah.',
-    gambar_url: '/images/umkm-ikan-asap.png',
-    nomor_wa: '6281234567890',
-    nama_toko: 'Toko Ikan Pak Budi',
-    created_at: '',
-    updated_at: '',
-  },
-  {
-    id: '2',
-    nama_produk: 'Keripik Kulit Ikan Nila',
-    kategori: 'Makanan',
-    harga: 25000,
-    deskripsi: 'Camilan renyah kaya protein, diproses secara higienis dari kolam budidaya mandiri.',
-    gambar_url: '/images/umkm-keripik.png',
-    nomor_wa: '6281234567891',
-    nama_toko: 'Keripik Bu Siti',
-    created_at: '',
-    updated_at: '',
-  },
-  {
-    id: '3',
-    nama_produk: 'Kerajinan Anyaman Bambu',
-    kategori: 'Kerajinan',
-    harga: 85000,
-    deskripsi: 'Wadah multifungsi estetik buatan pengrajin lokal untuk gaya hidup berkelanjutan.',
-    gambar_url: '/images/umkm-anyaman.png',
-    nomor_wa: '6281234567892',
-    nama_toko: 'Anyaman Ibu Karjo',
-    created_at: '',
-    updated_at: '',
-  },
+  
 ]
 
 const sampleBerita: Berita[] = [
@@ -148,7 +113,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Floating Search Bar */}
+        {/* Floating Search Bar
         <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-[56rem] px-gutter z-20">
           <div className="bg-white rounded-full p-sm shadow-2xl flex flex-col md:flex-row items-center gap-sm">
             <div className="flex-1 w-full relative">
@@ -185,7 +150,7 @@ export default async function HomePage() {
               Cari
             </Link>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* ==============================
