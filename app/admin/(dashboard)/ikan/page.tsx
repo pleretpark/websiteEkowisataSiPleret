@@ -23,8 +23,17 @@ export default function AdminIkanPage() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [form, setForm] = useState<Partial<Ikan>>(emptyForm)
   const [saving, setSaving] = useState(false)
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
+  const [deleteConfirmTitle, setDeleteConfirmTitle] = useState<string>('')
   const [uploadingImage, setUploadingImage] = useState(false)
+
+  const showToast = useCallback((type: 'success' | 'error', text: string) => {
+    setToast({ type, text })
+    setTimeout(() => {
+      setToast((prev) => (prev?.text === text ? null : prev))
+    }, 4000)
+  }, [])
 
   const fetchData = useCallback(async () => {
     setLoading(true)
@@ -50,11 +59,11 @@ export default function AdminIkanPage() {
       setSpots(spotData || [])
       
     } catch {
-      setMessage({ type: 'error', text: 'Gagal memuat data.' })
+      showToast('error', 'Gagal memuat data.')
     } finally { 
       setLoading(false) 
     }
-  }, [])
+  }, [showToast])
 
   useEffect(() => { fetchData() }, [fetchData])
 
@@ -62,14 +71,14 @@ export default function AdminIkanPage() {
     setForm(emptyForm)
     setEditingId(null)
     setShowForm(true)
-    setMessage(null) 
+    setToast(null) 
   }
   
   function openEdit(item: Ikan) { 
     setForm(item)
     setEditingId(item.id)
     setShowForm(true)
-    setMessage(null) 
+    setToast(null) 
   }
 
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -77,7 +86,7 @@ export default function AdminIkanPage() {
     const file = e.target.files[0]
 
     if (file.size > 1024 * 1024) {
-      alert('Ukuran file maksimal 1MB')
+      showToast('error', 'Ukuran file maksimal 1MB')
       return
     }
 
@@ -100,7 +109,7 @@ export default function AdminIkanPage() {
 
       setForm((prev) => ({ ...prev, gambar_url: publicUrl }))
     } catch {
-      alert('Gagal mengupload gambar.')
+      showToast('error', 'Gagal mengupload gambar.')
     } finally {
       setUploadingImage(false)
     }
@@ -109,7 +118,7 @@ export default function AdminIkanPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
-    setMessage(null)
+    setToast(null)
     try {
       const supabase = createClient()
       const payload = {
@@ -125,31 +134,37 @@ export default function AdminIkanPage() {
       if (editingId) {
         const { error } = await supabase.from('ikan').update({ ...payload, updated_at: new Date().toISOString() }).eq('id', editingId)
         if (error) throw error
-        setMessage({ type: 'success', text: 'Data ikan berhasil diperbarui!' })
+        showToast('success', 'Data ikan berhasil diperbarui!')
       } else {
         const { error } = await supabase.from('ikan').insert(payload)
         if (error) throw error
-        setMessage({ type: 'success', text: 'Data ikan berhasil ditambahkan!' })
+        showToast('success', 'Data ikan berhasil ditambahkan!')
       }
       setShowForm(false)
       fetchData()
     } catch {
-      setMessage({ type: 'error', text: 'Gagal menyimpan data.' })
+      showToast('error', 'Gagal menyimpan data.')
     } finally { 
       setSaving(false) 
     }
   }
 
+  function requestDelete(id: string, name: string) {
+    setDeleteConfirmId(id)
+    setDeleteConfirmTitle(name)
+  }
+
   async function handleDelete(id: string) {
-    if (!confirm('Apakah Anda yakin ingin menghapus data ikan ini?')) return
     try {
       const supabase = createClient()
       const { error } = await supabase.from('ikan').delete().eq('id', id)
       if (error) throw error
-      setMessage({ type: 'success', text: 'Data ikan berhasil dihapus.' })
+      showToast('success', 'Data ikan berhasil dihapus.')
       fetchData()
     } catch { 
-      setMessage({ type: 'error', text: 'Gagal menghapus data.' }) 
+      showToast('error', 'Gagal menghapus data.') 
+    } finally {
+      setDeleteConfirmId(null)
     }
   }
 
@@ -165,13 +180,6 @@ export default function AdminIkanPage() {
           Tambah Ikan Baru
         </button>
       </div>
-
-      {message && (
-        <div className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${message.type === 'success' ? 'bg-tertiary-fixed/30 text-tertiary' : 'bg-error-container text-on-error-container'}`}>
-          <span className="material-symbols-outlined text-[18px]">{message.type === 'success' ? 'check_circle' : 'error'}</span>
-          {message.text}
-        </div>
-      )}
 
       {/* Form Modal */}
       {showForm && (
@@ -331,7 +339,7 @@ export default function AdminIkanPage() {
                   <button onClick={() => openEdit(item)} className="px-md py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all flex items-center gap-xs text-lg">
                     <span className="material-symbols-outlined text-[16px]">edit</span>Edit
                   </button>
-                  <button onClick={() => handleDelete(item.id)} className="w-8 h-8 rounded-lg bg-error-container/30 text-error hover:bg-error hover:text-on-error transition-all flex items-center justify-center" title="Hapus">
+                  <button onClick={() => requestDelete(item.id, item.nama_ikan || 'Data Ikan')} className="w-8 h-8 rounded-lg bg-error-container/30 text-error hover:bg-error hover:text-on-error transition-all flex items-center justify-center" title="Hapus">
                     <span className="material-symbols-outlined text-[16px]">delete</span>
                   </button>
                 </div>
@@ -340,6 +348,64 @@ export default function AdminIkanPage() {
           ))
         )}
       </div>
+
+      {/* Pop-up Success/Error Modal */}
+      {toast && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-gutter animate-fade-in">
+          <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[26rem] shadow-ambient-lg border border-outline-variant animate-fade-in-up text-center">
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-lg ${
+              toast.type === 'success' ? 'bg-tertiary/15 text-tertiary' : 'bg-error/15 text-error'
+            }`}>
+              <span className="material-symbols-outlined text-4xl">
+                {toast.type === 'success' ? 'check_circle' : 'error'}
+              </span>
+            </div>
+            <h3 className="text-2xl font-bold text-on-surface mb-xs">
+              {toast.type === 'success' ? 'Berhasil' : 'Gagal'}
+            </h3>
+            <p className="text-on-surface-variant text-lg leading-relaxed mb-lg">
+              {toast.text}
+            </p>
+            <button 
+              onClick={() => setToast(null)}
+              className="w-full bg-surface-container-high text-on-surface font-bold py-sm rounded-xl hover:bg-surface-container-highest transition-colors"
+            >
+              Tutup
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Pop-up Delete Confirmation Modal */}
+      {deleteConfirmId && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-gutter animate-fade-in">
+          <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[28rem] shadow-ambient-lg border border-outline-variant animate-fade-in-up text-center">
+            <div className="w-16 h-16 rounded-full bg-error/15 text-error flex items-center justify-center mx-auto mb-lg">
+              <span className="material-symbols-outlined text-4xl">warning</span>
+            </div>
+            <h3 className="text-2xl font-bold text-on-surface mb-xs">
+              Hapus Data?
+            </h3>
+            <p className="text-on-surface-variant text-lg leading-relaxed mb-lg">
+              Anda yakin ingin menghapus data ikan <strong>&quot;{deleteConfirmTitle}&quot;</strong>? Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div className="flex gap-sm">
+              <button 
+                onClick={() => setDeleteConfirmId(null)}
+                className="flex-1 bg-surface-container text-on-surface font-bold py-sm rounded-xl hover:bg-surface-container-high transition-colors"
+              >
+                Batal
+              </button>
+              <button 
+                onClick={() => handleDelete(deleteConfirmId)}
+                className="flex-1 bg-error text-on-error font-bold py-sm rounded-xl hover:bg-error/90 hover:shadow-md transition-all"
+              >
+                Ya, Hapus
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
