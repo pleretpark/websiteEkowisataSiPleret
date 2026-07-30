@@ -15,6 +15,8 @@ const sampleBerita: Berita[] = [
     tanggal_publikasi: '2024-05-24',
     foto_cover: '/images/about-hero.png',
     is_sorotan: true,
+    created_at: '2024-05-24T00:00:00.000Z',
+    updated_at: '2024-05-24T00:00:00.000Z',
   },
   {
     id: '2',
@@ -25,16 +27,20 @@ const sampleBerita: Berita[] = [
     tanggal_publikasi: '2024-05-20',
     foto_cover: '/images/community.png',
     is_sorotan: false,
+    created_at: '2024-05-20T00:00:00.000Z',
+    updated_at: '2024-05-20T00:00:00.000Z',
   },
   {
     id: '3',
     judul: 'Festival Budaya \'Tingkir Harmoni\' Kembali Digelar',
     slug: 'festival-budaya-tingkir-harmoni-2024',
-    konten: 'Rayakan kekayaan budaya desa dengan pertunjukan musik tradisional, workshop kuliner, dan pameran teknologi tepat guna. Kegiatan ini dihadiri ratusan warga dan wisatawan dari luar daerah yang antusias mengapresiasi kearifan lokal.\n\n<h2>Panggung Ekspresi Kreatif Komunitas</h2>\n\nAcara yang berlangsung selama tiga hari berturut-turut ini menampilkan parade kostum karnaval berbahan daur ulang, panggung apresiasi musik lesung, serta demo masak olahan pangan lokal berbasis air tawar yang dipandu oleh chef terkemuka.\n\n<blockquote>"Melalui seni dan budaya, kita merayakan akar identitas kita sembari menatap masa depan yang harmonis."<br/>— Panitia Pelaksana Festival</blockquote>\n\nSelain melestarikan tradisi luhur, festival ini juga menjadi ajang promosi efektif bagi produk-produk UMKM lokal yang terbukti mendongkrak perputaran ekonomi desa secara signifikan selama perhelatan berlangsung.',
+    konten: 'Rayakan kekayaan budaya desa dengan pertunjukan musik tradisional, workshop kuliner, dan pameran teknologi tepat guna. Kegiatan ini dihadiri ratusan warga dan wisatawan dari luar daerah yang antusias mengapresiasi kearifan lokal.\n\n<h2>Panggung Ekspresi Kreatif Komunitas</h2>\n\nAcara yang berlangsung selama tiga hari berturut-turut ini menampilkan parade kostum karnaval berbahan daur ulang, panggung apresiasi musik lesung, serta demo masak olahan pangan lokal berbasis air tawar yang dipandu oleh chef terkemuka.\n\n<blockquote>"Melalui seni dan budaya, kita merayakan akar identitas kita sembali menatap masa depan yang harmonis."<br/>— Panitia Pelaksana Festival</blockquote>\n\nSelain melestarikan tradisi luhur, festival ini juga menjadi ajang promosi efektif bagi produk-produk UMKM lokal yang terbukti mendongkrak perputaran ekonomi desa secara signifikan selama perhelatan berlangsung.',
     author: 'Admin',
     tanggal_publikasi: '2024-05-18',
     foto_cover: '/images/hero-banner.png',
     is_sorotan: false,
+    created_at: '2024-05-18T00:00:00.000Z',
+    updated_at: '2024-05-18T00:00:00.000Z',
   },
   {
     id: '4',
@@ -45,6 +51,8 @@ const sampleBerita: Berita[] = [
     tanggal_publikasi: '2024-05-12',
     foto_cover: '/images/about-hero.png',
     is_sorotan: false,
+    created_at: '2024-05-12T00:00:00.000Z',
+    updated_at: '2024-05-12T00:00:00.000Z',
   },
   {
     id: '5',
@@ -55,6 +63,8 @@ const sampleBerita: Berita[] = [
     tanggal_publikasi: '2024-05-10',
     foto_cover: '/images/community.png',
     is_sorotan: false,
+    created_at: '2024-05-10T00:00:00.000Z',
+    updated_at: '2024-05-10T00:00:00.000Z',
   },
 ]
 

@@ -32,6 +32,7 @@ export default function AdminUmkmPage() {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [localPreview, setLocalPreview] = useState<string | null>(null)
 
   const fetchItems = useCallback(async () => {
     setLoading(true)
@@ -60,6 +61,7 @@ export default function AdminUmkmPage() {
     setEditingId(null)
     setShowForm(true)
     setMessage(null)
+    setLocalPreview(null)
   }
 
   function openEdit(item: UMKM) {
@@ -67,6 +69,7 @@ export default function AdminUmkmPage() {
     setEditingId(item.id)
     setShowForm(true)
     setMessage(null)
+    setLocalPreview(null)
   }
 
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -85,6 +88,7 @@ export default function AdminUmkmPage() {
       return
     }
 
+    setLocalPreview(URL.createObjectURL(file))
     setUploading(true)
     setMessage(null)
     try {
@@ -120,6 +124,14 @@ export default function AdminUmkmPage() {
     setSaving(true)
     setMessage(null)
 
+    let finalImageUrl = form.gambar_url
+    if (!finalImageUrl) {
+      if (form.kategori === 'Makanan') finalImageUrl = '/images/makanan.jpg'
+      else if (form.kategori === 'Minuman') finalImageUrl = '/images/minuman.jpg'
+      else if (form.kategori === 'Kerajinan') finalImageUrl = '/images/kerajinan.jpg'
+      else finalImageUrl = '/images/lainnya.jpg'
+    }
+
     try {
       const supabase = createClient()
 
@@ -131,7 +143,7 @@ export default function AdminUmkmPage() {
             kategori: form.kategori,
             harga: form.harga,
             deskripsi: form.deskripsi,
-            gambar_url: form.gambar_url,
+            gambar_url: finalImageUrl,
             nomor_wa: form.nomor_wa,
             nama_toko: form.nama_toko,
             updated_at: new Date().toISOString(),
@@ -146,7 +158,7 @@ export default function AdminUmkmPage() {
           kategori: form.kategori,
           harga: form.harga,
           deskripsi: form.deskripsi,
-          gambar_url: form.gambar_url,
+          gambar_url: finalImageUrl,
           nomor_wa: form.nomor_wa,
           nama_toko: form.nama_toko,
         })
@@ -182,8 +194,8 @@ export default function AdminUmkmPage() {
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-lg gap-md">
         <div>
-          <h1 className="text-3xl font-bold text-on-surface">Manajemen UMKM</h1>
-          <p className="text-on-surface-variant text-base mt-xs">
+          <h1 className="text-5xl font-bold text-on-surface">Manajemen UMKM</h1>
+          <p className="text-on-surface-variant text-xl mt-xs">
             Kelola data produk UMKM Tingkir Tengah.
           </p>
         </div>
@@ -200,7 +212,7 @@ export default function AdminUmkmPage() {
       {/* Message */}
       {message && (
         <div
-          className={`rounded-xl p-sm mb-md text-sm flex items-center gap-xs ${
+          className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${
             message.type === 'success'
               ? 'bg-tertiary-fixed/30 text-tertiary'
               : 'bg-error-container text-on-error-container'
@@ -218,7 +230,7 @@ export default function AdminUmkmPage() {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-gutter">
           <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[42rem] max-h-[90vh] overflow-y-auto shadow-ambient-lg border border-outline-variant animate-fade-in-up">
             <div className="flex items-center justify-between mb-lg">
-              <h2 className="text-xl font-bold text-on-surface">
+              <h2 className="text-3xl font-bold text-on-surface">
                 {editingId ? 'Edit Data UMKM' : 'Tambah UMKM Baru'}
               </h2>
               <button
@@ -232,7 +244,7 @@ export default function AdminUmkmPage() {
             {/* Message inside modal */}
             {message && (
               <div
-                className={`rounded-xl p-sm mb-md text-sm flex items-center gap-xs ${
+                className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${
                   message.type === 'success'
                     ? 'bg-tertiary-fixed/30 text-tertiary'
                     : 'bg-error-container text-on-error-container'
@@ -248,7 +260,7 @@ export default function AdminUmkmPage() {
             <form onSubmit={handleSubmit} className="space-y-md">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
                 <div>
-                  <label className="block text-sm font-medium text-on-surface mb-xs">
+                  <label className="block text-lg font-medium text-on-surface mb-xs">
                     Nama Produk *
                   </label>
                   <input
@@ -260,7 +272,7 @@ export default function AdminUmkmPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-on-surface mb-xs">
+                  <label className="block text-lg font-medium text-on-surface mb-xs">
                     Nama Toko *
                   </label>
                   <input
@@ -275,7 +287,7 @@ export default function AdminUmkmPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
                 <div>
-                  <label className="block text-sm font-medium text-on-surface mb-xs">
+                  <label className="block text-lg font-medium text-on-surface mb-xs">
                     Kategori *
                   </label>
                   <select
@@ -289,7 +301,7 @@ export default function AdminUmkmPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-on-surface mb-xs">
+                  <label className="block text-lg font-medium text-on-surface mb-xs">
                     Harga (Rp) *
                   </label>
                   <input
@@ -305,7 +317,7 @@ export default function AdminUmkmPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-xs">
+                <label className="block text-lg font-medium text-on-surface mb-xs">
                   Nomor WhatsApp *
                 </label>
                 <input
@@ -318,7 +330,7 @@ export default function AdminUmkmPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-xs">
+                <label className="block text-lg font-medium text-on-surface mb-xs">
                   Deskripsi *
                 </label>
                 <textarea
@@ -332,27 +344,21 @@ export default function AdminUmkmPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-xs">
+                <label className="block text-lg font-medium text-on-surface mb-xs">
                   Foto Produk
                 </label>
                 <div className="flex items-center gap-md">
-                  <label className="cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors flex items-center gap-xs text-sm text-on-surface-variant">
+                  <label className="cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors flex items-center gap-xs text-lg text-on-surface-variant">
                     <span className="material-symbols-outlined text-[18px]">upload</span>
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
                     <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                   </label>
-                  {form.gambar_url && (
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden">
-                      <Image src={form.gambar_url} alt="Preview" fill className="object-cover" />
+                  {(localPreview || form.gambar_url) && (
+                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-outline-variant flex-shrink-0">
+                      <img src={localPreview || form.gambar_url || ''} alt="Preview" className="w-full h-full object-cover" />
                     </div>
                   )}
                 </div>
-                <input
-                  value={form.gambar_url || ''}
-                  onChange={(e) => setForm({ ...form, gambar_url: e.target.value })}
-                  className="w-full mt-xs bg-surface-container-low border border-outline-variant rounded-xl px-md py-2 text-sm focus:ring-2 focus:ring-primary text-on-surface"
-                  placeholder="Atau masukkan URL gambar..."
-                />
               </div>
 
               <div className="flex justify-end gap-sm pt-md">
@@ -390,18 +396,18 @@ export default function AdminUmkmPage() {
       <div className="bg-surface-container-lowest rounded-3xl border border-outline-variant shadow-sm overflow-hidden">
         {loading ? (
           <div className="p-xl text-center">
-            <span className="material-symbols-outlined text-4xl text-outline animate-pulse">
+            <span className="material-symbols-outlined text-6xl text-outline animate-pulse">
               hourglass_empty
             </span>
             <p className="text-on-surface-variant mt-sm">Memuat data...</p>
           </div>
         ) : items.length === 0 ? (
           <div className="p-xl text-center">
-            <span className="material-symbols-outlined text-5xl text-outline-variant">
+            <span className="material-symbols-outlined text-6xl text-outline-variant">
               inventory_2
             </span>
-            <p className="text-on-surface-variant text-lg mt-md">Belum ada data UMKM.</p>
-            <p className="text-outline text-sm mt-xs">
+            <p className="text-on-surface-variant text-2xl mt-md">Belum ada data UMKM.</p>
+            <p className="text-outline text-lg mt-xs">
               Klik tombol &quot;Tambah UMKM&quot; untuk menambah data baru.
             </p>
           </div>
@@ -410,19 +416,19 @@ export default function AdminUmkmPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-outline-variant bg-surface-container-low">
-                  <th className="text-left px-md py-sm text-sm font-semibold text-on-surface-variant uppercase tracking-wider">
+                  <th className="text-left px-md py-sm text-lg font-semibold text-on-surface-variant uppercase tracking-wider">
                     Produk
                   </th>
-                  <th className="text-left px-md py-sm text-sm font-semibold text-on-surface-variant uppercase tracking-wider hidden md:table-cell">
+                  <th className="text-left px-md py-sm text-lg font-semibold text-on-surface-variant uppercase tracking-wider hidden md:table-cell">
                     Kategori
                   </th>
-                  <th className="text-left px-md py-sm text-sm font-semibold text-on-surface-variant uppercase tracking-wider">
+                  <th className="text-left px-md py-sm text-lg font-semibold text-on-surface-variant uppercase tracking-wider">
                     Harga
                   </th>
-                  <th className="text-left px-md py-sm text-sm font-semibold text-on-surface-variant uppercase tracking-wider hidden lg:table-cell">
+                  <th className="text-left px-md py-sm text-lg font-semibold text-on-surface-variant uppercase tracking-wider hidden lg:table-cell">
                     Toko
                   </th>
-                  <th className="text-right px-md py-sm text-sm font-semibold text-on-surface-variant uppercase tracking-wider">
+                  <th className="text-right px-md py-sm text-lg font-semibold text-on-surface-variant uppercase tracking-wider">
                     Aksi
                   </th>
                 </tr>
@@ -436,24 +442,24 @@ export default function AdminUmkmPage() {
                     <td className="px-md py-sm">
                       <div className="flex items-center gap-sm">
                         {item.gambar_url && (
-                          <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
-                            <Image src={item.gambar_url} alt={item.nama_produk} fill className="object-cover" />
+                          <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+                            <Image src={!item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`} alt={item.nama_produk} fill className="object-cover" />
                           </div>
                         )}
-                        <span className="font-medium text-on-surface text-sm">
+                        <span className="font-medium text-on-surface text-lg">
                           {item.nama_produk}
                         </span>
                       </div>
                     </td>
                     <td className="px-md py-sm hidden md:table-cell">
-                      <span className="text-sm text-on-surface-variant bg-surface-container-high px-sm py-1 rounded-full">
+                      <span className="text-lg text-on-surface-variant bg-surface-container-high px-sm py-1 rounded-full">
                         {item.kategori}
                       </span>
                     </td>
-                    <td className="px-md py-sm text-sm font-semibold text-primary">
+                    <td className="px-md py-sm text-lg font-semibold text-primary">
                       {formatPrice(item.harga)}
                     </td>
-                    <td className="px-md py-sm text-sm text-on-surface-variant hidden lg:table-cell">
+                    <td className="px-md py-sm text-lg text-on-surface-variant hidden lg:table-cell">
                       {item.nama_toko}
                     </td>
                     <td className="px-md py-sm text-right">

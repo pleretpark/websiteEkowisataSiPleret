@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import type { SpotWisata } from '@/lib/types'
+import type { SpotWisata, Ikan } from '@/lib/types'
 
 // Dynamically import the map component with no SSR (Leaflet requires window)
 const MapComponent = dynamic(() => import('./_components/MapView'), {
@@ -45,6 +45,8 @@ const sampleSpots: SpotWisata[] = [
   },
 ]
 
+type SpotWisataWithIkan = SpotWisata & { ikan?: Ikan[] }
+
 const categoryFilters = ['Semua', 'Pemancingan', 'Kuliner', 'Edukasi', 'Budidaya', 'Lainnya']
 
 function getCategoryIcon(kategori: string) {
@@ -58,10 +60,10 @@ function getCategoryIcon(kategori: string) {
 }
 
 export default function PetaWisataPage() {
-  const [spots, setSpots] = useState<SpotWisata[]>(sampleSpots)
-  const [filteredSpots, setFilteredSpots] = useState<SpotWisata[]>(sampleSpots)
+  const [spots, setSpots] = useState<SpotWisataWithIkan[]>(sampleSpots)
+  const [filteredSpots, setFilteredSpots] = useState<SpotWisataWithIkan[]>(sampleSpots)
   const [activeCategory, setActiveCategory] = useState('Semua')
-  const [selectedSpot, setSelectedSpot] = useState<SpotWisata | null>(null)
+  const [selectedSpot, setSelectedSpot] = useState<SpotWisataWithIkan | null>(null)
 
   useEffect(() => {
     async function fetchSpots() {
@@ -69,7 +71,7 @@ export default function PetaWisataPage() {
         const supabase = createClient()
         const { data } = await supabase
           .from('spot_wisata')
-          .select('*')
+          .select('*, ikan(*)')
           .eq('status', 'published')
           .order('created_at', { ascending: false })
 
@@ -182,6 +184,23 @@ export default function PetaWisataPage() {
                     }`}>
                       {spot.kategori}
                     </span>
+
+                    {/* Menampilkan Ikan yang ada di lokasi ini */}
+                    {spot.ikan && spot.ikan.length > 0 && (
+                      <div className="mt-3 pt-3 border-t border-outline-variant/30">
+                        <p className="text-xs font-semibold text-on-surface mb-1 flex items-center gap-1">
+                          <span className="material-symbols-outlined text-[14px]">phishing</span>
+                          Jenis Ikan:
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {spot.ikan.map(i => (
+                            <span key={i.id} className="text-[10px] bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded-full border border-outline-variant">
+                              {i.nama_ikan}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </button>

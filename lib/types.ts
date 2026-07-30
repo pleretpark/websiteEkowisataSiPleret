@@ -25,6 +25,21 @@ export interface SpotWisata {
   updated_at: string
 }
 
+export interface Ikan {
+  id: string
+  spot_wisata_id: string | null
+  nama_ikan: string
+  nama_ilmiah: string | null
+  deskripsi: string
+  kandungan_gizi: string | null
+  habitat_dan_perawatan: string | null
+  gambar_url: string | null
+  created_at: string
+  updated_at: string
+  // Joined data (when querying with spot_wisata)
+  spot_wisata?: SpotWisata
+}
+
 export interface Berita {
   id: string
   judul: string
@@ -34,10 +49,13 @@ export interface Berita {
   tanggal_publikasi: string
   foto_cover: string | null
   is_sorotan: boolean
+  created_at: string
+  updated_at: string
 }
 
 export interface DashboardStats {
   totalUmkm: number
   totalSpotWisata: number
   totalBerita: number
+  totalIkan: number
 }
