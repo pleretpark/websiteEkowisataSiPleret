@@ -18,33 +18,6 @@ const MapComponent = dynamic(() => import('./_components/MapView'), {
   ),
 })
 
-const sampleSpots: SpotWisata[] = [
-  {
-    id: '1', nama_lokasi: 'Mina Wisata Kolam', kategori: 'Pemancingan',
-    latitude: -7.316, longitude: 110.488, deskripsi: 'Kolam pemancingan keluarga dengan suasana asri dan nyaman.',
-    gambar_url: '/images/hero-banner.png', jam_operasional: '08:00 - 17:00',
-    status: 'published', created_at: '', updated_at: '',
-  },
-  {
-    id: '2', nama_lokasi: 'Dapoer Ekowisata', kategori: 'Kuliner',
-    latitude: -7.318, longitude: 110.490, deskripsi: 'Restoran ikan segar dengan menu olahan tradisional.',
-    gambar_url: '/images/community.png', jam_operasional: '10:00 - 21:00',
-    status: 'published', created_at: '', updated_at: '',
-  },
-  {
-    id: '3', nama_lokasi: 'Taman Edukasi Air', kategori: 'Edukasi',
-    latitude: -7.314, longitude: 110.486, deskripsi: 'Pusat edukasi budidaya ikan air tawar untuk anak-anak.',
-    gambar_url: '/images/about-hero.png', jam_operasional: '09:00 - 16:00',
-    status: 'published', created_at: '', updated_at: '',
-  },
-  {
-    id: '4', nama_lokasi: 'Kolam Budidaya Lele', kategori: 'Budidaya',
-    latitude: -7.320, longitude: 110.485, deskripsi: 'Sentra budidaya ikan lele organik dengan metode bioflok.',
-    gambar_url: '/images/hero-banner.png', jam_operasional: '07:00 - 18:00',
-    status: 'published', created_at: '', updated_at: '',
-  },
-]
-
 const categoryFilters = ['Semua', 'Pemancingan', 'Kuliner', 'Edukasi', 'Budidaya', 'Lainnya']
 
 function getCategoryIcon(kategori: string) {
@@ -58,8 +31,8 @@ function getCategoryIcon(kategori: string) {
 }
 
 export default function PetaWisataPage() {
-  const [spots, setSpots] = useState<SpotWisata[]>(sampleSpots)
-  const [filteredSpots, setFilteredSpots] = useState<SpotWisata[]>(sampleSpots)
+  const [spots, setSpots] = useState<SpotWisata[]>([])
+  const [filteredSpots, setFilteredSpots] = useState<SpotWisata[]>([])
   const [activeCategory, setActiveCategory] = useState('Semua')
   const [selectedSpot, setSelectedSpot] = useState<SpotWisata | null>(null)
 
@@ -73,12 +46,12 @@ export default function PetaWisataPage() {
           .eq('status', 'published')
           .order('created_at', { ascending: false })
 
-        if (data && data.length > 0) {
+        if (data) {
           setSpots(data)
           setFilteredSpots(data)
         }
       } catch {
-        // Supabase not configured
+        // Handle error
       }
     }
     fetchSpots()

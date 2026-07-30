@@ -40,6 +40,11 @@ CREATE POLICY "Admin can insert Berita" ON "Berita" FOR INSERT WITH CHECK (auth.
 CREATE POLICY "Admin can update Berita" ON "Berita" FOR UPDATE USING (auth.role() = 'authenticated');
 CREATE POLICY "Admin can delete Berita" ON "Berita" FOR DELETE USING (auth.role() = 'authenticated');
 
+-- Visitor
+ALTER TABLE "Visitor" ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public can read Visitor" ON "Visitor" FOR SELECT USING (true);
+CREATE POLICY "Public can insert and update Visitor" ON "Visitor" FOR ALL USING (true);
+
 -- =============================================
 -- STORAGE BUCKET (Jika belum dibuat)
 -- =============================================

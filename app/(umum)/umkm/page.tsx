@@ -5,45 +5,6 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { UMKM } from '@/lib/types'
 
-const sampleUmkm: UMKM[] = [
-  {
-    id: '1', nama_produk: 'Ikan Asap Premium Arwana', kategori: 'Makanan', harga: 45000,
-    deskripsi: 'Olahan ikan asap tradisional dengan bumbu rempah rahasia Tingkir Tengah.',
-    gambar_url: '/images/umkm-ikan-asap.png', nomor_wa: '6281234567890', nama_toko: 'Toko Ikan Pak Budi',
-    created_at: '', updated_at: '',
-  },
-  {
-    id: '2', nama_produk: 'Keripik Kulit Ikan Nila', kategori: 'Makanan', harga: 25000,
-    deskripsi: 'Camilan renyah kaya protein, diproses secara higienis dari kolam budidaya mandiri.',
-    gambar_url: '/images/umkm-keripik.png', nomor_wa: '6281234567891', nama_toko: 'Keripik Bu Siti',
-    created_at: '', updated_at: '',
-  },
-  {
-    id: '3', nama_produk: 'Kerajinan Anyaman Bambu', kategori: 'Kerajinan', harga: 85000,
-    deskripsi: 'Wadah multifungsi estetik buatan pengrajin lokal untuk gaya hidup berkelanjutan.',
-    gambar_url: '/images/umkm-anyaman.png', nomor_wa: '6281234567892', nama_toko: 'Anyaman Ibu Karjo',
-    created_at: '', updated_at: '',
-  },
-  {
-    id: '4', nama_produk: 'Madu Hutan Organik', kategori: 'Makanan', harga: 95000,
-    deskripsi: 'Madu hutan murni tanpa pengolahan, dipanen dari lebah lokal yang berkelanjutan.',
-    gambar_url: '/images/umkm-ikan-asap.png', nomor_wa: '6281234567893', nama_toko: 'Madu Pak Joko',
-    created_at: '', updated_at: '',
-  },
-  {
-    id: '5', nama_produk: 'Sabun Herbal Alami', kategori: 'Lainnya', harga: 35000,
-    deskripsi: 'Sabun batangan yang dibuat dengan tumbuhan herbal dan minyak esensial alami.',
-    gambar_url: '/images/umkm-anyaman.png', nomor_wa: '6281234567894', nama_toko: 'Herbal Bu Ani',
-    created_at: '', updated_at: '',
-  },
-  {
-    id: '6', nama_produk: 'Batik Cap Tingkir', kategori: 'Kerajinan', harga: 175000,
-    deskripsi: 'Desain batik kontemporer menggunakan pewarna alami dari tumbuhan lokal.',
-    gambar_url: '/images/umkm-keripik.png', nomor_wa: '6281234567895', nama_toko: 'Batik Mas Eko',
-    created_at: '', updated_at: '',
-  },
-]
-
 const categories = ['Semua', 'Makanan', 'Kerajinan', 'Minuman', 'Lainnya']
 
 function getCategoryStyle(kategori: string) {
@@ -65,8 +26,8 @@ function formatPrice(price: number) {
 }
 
 export default function UMKMPage() {
-  const [products, setProducts] = useState<UMKM[]>(sampleUmkm)
-  const [filteredProducts, setFilteredProducts] = useState<UMKM[]>(sampleUmkm)
+  const [products, setProducts] = useState<UMKM[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<UMKM[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState('Semua')
   const [loading, setLoading] = useState(true)
@@ -75,17 +36,17 @@ export default function UMKMPage() {
     async function fetchProducts() {
       try {
         const supabase = createClient()
-        const { data } = await supabase
+        const { data, error } = await supabase
           .from('umkm')
           .select('*')
           .order('created_at', { ascending: false })
 
-        if (data && data.length > 0) {
+        if (!error && data) {
           setProducts(data)
           setFilteredProducts(data)
         }
-      } catch {
-        // Supabase not configured, use sample data
+      } catch (err) {
+        console.error('Fetch error:', err)
       } finally {
         setLoading(false)
       }
