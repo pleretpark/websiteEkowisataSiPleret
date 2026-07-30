@@ -55,7 +55,9 @@ CREATE POLICY "umkm_anon_read" ON public.umkm
 
 -- Visitor
 ALTER TABLE "Visitor" ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Public can read Visitor" ON "Visitor";
 CREATE POLICY "Public can read Visitor" ON "Visitor" FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Public can insert and update Visitor" ON "Visitor";
 CREATE POLICY "Public can insert and update Visitor" ON "Visitor" FOR ALL USING (true);
 
 -- ============================================

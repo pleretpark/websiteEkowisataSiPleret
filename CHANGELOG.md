@@ -2,7 +2,18 @@
 
 Dokumen ini mencatat seluruh perubahan, perbaikan bug, dan penambahan fitur yang dilakukan pada proyek Ekowisata Tingkir Tengah.
 
-## [Versi Saat Ini] - 2026-07-18
+## [Versi Saat Ini] - 2026-07-30
+
+### 🔧 Perbaikan Bug & Refactoring
+- **Sinkronisasi Schema Database**:
+  - Mengembalikan struktur tabel Supabase ke format *lowercase* (`umkm`, `spot_wisata`, `ikan`, `berita`) untuk menyesuaikan dengan *query* yang ada di halaman utama dan admin.
+  - Menghapus tabel berformat PascalCase (`Lokasi`, `DetailUMKM`, `DetailIkan`, `Berita`) yang sebelumnya dibuat melalui seeder Prisma.
+- **Pembaruan Seeder**:
+  - Menghapus file `prisma/seed.ts` beserta konfigurasi `"prisma": { "seed": ... }` di `package.json` yang tidak lagi digunakan.
+  - Memperbarui file `seed-dummy-data.js` untuk memasukkan data final (fix) secara langsung menggunakan API REST Supabase.
+  - Memperbaiki `SUPABASE_URL` dan `SERVICE_KEY` yang sebelumnya salah mengarah ke proyek (database) lain di `seed-dummy-data.js` menjadi *environment variables* (atau URL proyek yang benar).
+
+## [0.1.0] - 2026-07-18
 
 ### ✨ Fitur Baru
 - **Halaman Berita & Kabar Wisata (`/berita`)**: 
