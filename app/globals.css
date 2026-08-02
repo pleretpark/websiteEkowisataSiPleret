@@ -73,7 +73,7 @@
   --spacing-lg: 40px;
   --spacing-xl: 64px;
   --spacing-gutter: 24px;
-  --spacing-container-max: 1280px;
+  --spacing-container-max: 1600px;
 
   /* --- Containers (for max-w-* utilities) --- */
   --container-3xs: 16rem;

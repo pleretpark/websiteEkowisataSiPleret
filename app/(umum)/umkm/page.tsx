@@ -77,7 +77,7 @@ export default function UMKMPage() {
   return (
     <>
       {/* Hero */}
-      <section className="mt-md px-gutter max-w-container-max mx-auto">
+      <section className="mt-md px-gutter max-w-[1600px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center py-xl">
           <div>
             <span className="inline-block bg-tertiary-fixed text-on-tertiary-fixed text-sm font-bold px-md py-1 rounded-full mb-md">
@@ -119,7 +119,7 @@ export default function UMKMPage() {
 
       {/* Catalog */}
       <section id="catalog" className="py-xl bg-surface-container-low">
-        <div className="max-w-container-max mx-auto px-gutter">
+        <div className="max-w-[1600px] mx-auto px-gutter">
           {/* Header & Filters */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-md">
             <div>
@@ -166,7 +166,7 @@ export default function UMKMPage() {
 
           {/* Product Grid */}
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="bg-surface-container-lowest rounded-2xl p-sm">
                   <div className="h-48 rounded-xl animate-shimmer mb-sm" />
@@ -186,7 +186,7 @@ export default function UMKMPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
               {filteredProducts.map((item, index) => (
                 <div
                   key={item.id}
@@ -241,7 +241,7 @@ export default function UMKMPage() {
 
       {/* CTA Section */}
       <section className="py-xl">
-        <div className="max-w-container-max mx-auto px-gutter">
+        <div className="max-w-[1600px] mx-auto px-gutter">
           <div className="bg-surface-container rounded-3xl p-xl flex flex-col md:flex-row items-center gap-lg">
             <div className="flex-1">
               <h2 className="text-2xl md:text-3xl font-bold text-on-surface">

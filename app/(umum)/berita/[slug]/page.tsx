@@ -180,7 +180,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
       {/* Related News Section */}
       {beritaTerkait.length > 0 && (
         <div className="bg-surface-container-lowest py-2xl border-t border-outline-variant">
-          <div className="max-w-[1280px] mx-auto px-gutter">
+          <div className="max-w-[1600px] mx-auto px-gutter">
             <h3 className="text-2xl font-bold text-on-surface mb-xl">
               Berita Terkait
             </h3>

@@ -92,7 +92,7 @@ export default async function HomePage() {
             loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-center items-start px-gutter md:px-xl max-w-[1280px] mx-auto">
+          <div className="absolute inset-0 flex flex-col justify-center items-start px-gutter md:px-xl max-w-[1600px] mx-auto">
             <div className="max-w-[42rem]">
               <h1 className="text-3xl md:text-5xl lg:text-[48px] leading-tight md:leading-[56px] font-bold text-white mb-sm drop-shadow-lg tracking-tight">
                 Pesona Air Tawar Tingkir
@@ -157,7 +157,7 @@ export default async function HomePage() {
           TENTANG SINGKAT / ABOUT SECTION
           ============================== */}
       <section className="mt-32 md:mt-40 py-xl">
-        <div className="max-w-[1280px] mx-auto px-gutter">
+        <div className="max-w-[1600px] mx-auto px-gutter">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
             <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg">
               <Image
@@ -197,7 +197,7 @@ export default async function HomePage() {
           UMKM SECTION
           ============================== */}
       <section className="py-xl bg-surface-container-low">
-        <div className="max-w-[1280px] mx-auto px-gutter">
+        <div className="max-w-[1600px] mx-auto px-gutter">
           <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
             <div>
               <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
@@ -216,7 +216,7 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
             {umkmData.map((item, index) => (
               <div
                 key={item.id}
@@ -272,7 +272,7 @@ export default async function HomePage() {
           KABAR DESA & ACARA SECTION
           ============================== */}
       <section className="py-xl">
-        <div className="max-w-[1280px] mx-auto px-gutter">
+        <div className="max-w-[1600px] mx-auto px-gutter">
           <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-primary">
@@ -287,7 +287,7 @@ export default async function HomePage() {
               <span className="material-symbols-outlined">trending_flat</span>
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
             {beritaData.map((item) => (
               <div
                 key={item.id}
@@ -341,7 +341,7 @@ export default async function HomePage() {
           COMMUNITY / STATISTICS SECTION
           ============================== */}
       <section className="py-xl bg-surface-container-low overflow-hidden">
-        <div className="max-w-[1280px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+        <div className="max-w-[1600px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
           <div className="relative">
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 rounded-full animate-float blur-2xl" />
             <div

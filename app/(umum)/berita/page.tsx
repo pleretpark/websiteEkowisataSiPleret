@@ -96,7 +96,7 @@ export default async function BeritaPage({
   return (
     <div className="bg-[#fafafa] min-h-screen">
       {/* Title Header Section */}
-      <header className="px-gutter max-w-[1280px] mx-auto pt-lg pb-md">
+      <header className="px-gutter max-w-[1600px] mx-auto pt-lg pb-md">
         <div className="max-w-[48rem]">
           <span className="inline-block bg-primary text-on-primary text-xs font-bold px-md py-1 rounded-full mb-xs">
             WARTA DESA
@@ -112,7 +112,7 @@ export default async function BeritaPage({
 
       {/* Spotlight Card */}
       {spotlightNews && (
-        <section className="mb-lg px-gutter max-w-[1280px] mx-auto">
+        <section className="mb-lg px-gutter max-w-[1600px] mx-auto">
           <Link
             href={`/berita/${spotlightNews.slug}`}
             className="group flex flex-col md:flex-row bg-white border border-outline-variant/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-ambient transition-all duration-500"
@@ -155,7 +155,7 @@ export default async function BeritaPage({
 
       {/* Main Grid Content */}
       <section className="pb-xl">
-        <div className="max-w-[1280px] mx-auto px-gutter">
+        <div className="max-w-[1600px] mx-auto px-gutter">
           {paginatedNews.length === 0 ? (
             <div className="text-center py-xl bg-white border border-outline-variant/60 rounded-3xl">
               <span className="material-symbols-outlined text-6xl text-outline-variant">
@@ -167,7 +167,7 @@ export default async function BeritaPage({
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-md">
                 {paginatedNews.map((item) => {
                   return (
                     <Link

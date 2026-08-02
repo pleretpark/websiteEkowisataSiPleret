@@ -5,7 +5,7 @@ import VisitorStats from './VisitorStats'
 export default function Footer() {
   return (
     <footer className="w-full py-lg bg-surface-container-highest mt-xl">
-      <div className="w-full max-w-[1440px] mx-auto px-gutter md:px-lg lg:px-[60px]">
+      <div className="w-full max-w-[1600px] mx-auto px-gutter md:px-lg lg:px-[60px]">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-md">
           {/* Brand & Description */}
           <div>

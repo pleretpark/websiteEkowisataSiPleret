@@ -34,7 +34,7 @@ export default function Navbar() {
           : 'bg-surface/80 backdrop-blur-xl shadow-lg py-4'
       } border-b border-white/20`}
     >
-      <div className="flex justify-between items-center px-gutter max-w-container-max mx-auto">
+      <div className="flex justify-between items-center px-gutter max-w-[1600px] mx-auto">
         {/* Logo */}
         <Link
           href="/"

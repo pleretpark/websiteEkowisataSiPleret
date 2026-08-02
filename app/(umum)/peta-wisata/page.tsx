@@ -71,7 +71,7 @@ export default function PetaWisataPage() {
   return (
     <>
       {/* Header */}
-      <section className="mt-md px-gutter max-w-container-max mx-auto py-lg">
+      <section className="mt-md px-gutter max-w-[1600px] mx-auto py-lg">
         <span className="inline-block bg-secondary-fixed text-on-secondary-fixed text-sm font-bold px-md py-1 rounded-full mb-md">
           Peta Interaktif
         </span>
@@ -85,7 +85,7 @@ export default function PetaWisataPage() {
       </section>
 
       {/* Category Filters */}
-      <section className="px-gutter max-w-container-max mx-auto mb-md">
+      <section className="px-gutter max-w-[1600px] mx-auto mb-md">
         <div className="flex flex-wrap gap-xs">
           {categoryFilters.map((cat) => (
             <button
@@ -108,7 +108,7 @@ export default function PetaWisataPage() {
       </section>
 
       {/* Map + Sidebar */}
-      <section className="px-gutter max-w-container-max mx-auto pb-xl">
+      <section className="px-gutter max-w-[1600px] mx-auto pb-xl">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
           {/* Map */}
           <div className="lg:col-span-2">

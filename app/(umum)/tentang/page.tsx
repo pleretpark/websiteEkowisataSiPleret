@@ -37,7 +37,7 @@ export default function TentangPage() {
   return (
     <>
       {/* Hero */}
-      <section className="mt-md px-gutter max-w-container-max mx-auto">
+      <section className="mt-md px-gutter max-w-[1600px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center py-xl">
           <div>
             <span className="inline-block bg-primary-fixed text-on-primary-fixed text-sm font-bold px-md py-1 rounded-full mb-md">
@@ -91,7 +91,7 @@ export default function TentangPage() {
 
       {/* Story + Vision */}
       <section id="story" className="py-xl bg-surface-container-low">
-        <div className="max-w-container-max mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl">
+        <div className="max-w-[1600px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl">
           {/* Timeline */}
           <div>
             <h2 className="text-2xl font-bold text-on-surface mb-lg">
@@ -153,7 +153,7 @@ export default function TentangPage() {
 
       {/* Community First */}
       <section className="py-xl">
-        <div className="max-w-container-max mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+        <div className="max-w-[1600px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
           <div className="rounded-3xl overflow-hidden shadow-ambient-lg">
             <Image
               src="/images/community.png"
@@ -179,7 +179,7 @@ export default function TentangPage() {
 
       {/* How We Empower */}
       <section id="pillars" className="py-xl bg-surface-container-low">
-        <div className="max-w-container-max mx-auto px-gutter">
+        <div className="max-w-[1600px] mx-auto px-gutter">
           <div className="text-center mb-xl">
             <h2 className="text-3xl md:text-4xl font-bold text-on-surface">
               Bagaimana Kami Memberdayakan
@@ -214,7 +214,7 @@ export default function TentangPage() {
 
       {/* Quote */}
       <section className="py-xl">
-        <div className="max-w-container-max mx-auto px-gutter">
+        <div className="max-w-[1600px] mx-auto px-gutter">
           <div className="bg-primary rounded-3xl p-xl md:p-[64px] text-on-primary relative overflow-hidden">
             <div className="absolute top-8 left-8 text-8xl opacity-20 font-bold">&ldquo;</div>
             <blockquote className="relative z-10">
