@@ -9,7 +9,7 @@ const navLinks = [
   { href: '/', label: 'Beranda' },
   { href: '/umkm', label: 'UMKM' },
   {
-    label: 'Lokasi',
+    label: 'Lokasi & Ikan',
     subLinks: [
       { href: '/peta-wisata', label: 'Peta Lokasi' },
       { href: '/detail-ikan', label: 'Detail Ikan' },
