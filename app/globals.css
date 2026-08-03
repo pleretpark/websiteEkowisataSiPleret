@@ -97,7 +97,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Offset for sticky navbar */
+  scroll-padding-top: 80px;
+  /* Offset for sticky navbar */
 }
 
 body {
@@ -130,8 +131,15 @@ body {
    ============================== */
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes fade-in-up {
@@ -139,6 +147,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -150,6 +159,7 @@ body {
     opacity: 0;
     transform: translateX(-30px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -157,8 +167,13 @@ body {
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .animate-float {

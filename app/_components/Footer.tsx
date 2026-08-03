@@ -26,27 +26,28 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Lokasi */}
           <div>
             <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-sm">
-              Tautan Cepat
+              Lokasi
             </h5>
             <div className="flex flex-col gap-xs">
-              <Link href="/" className="text-on-surface-variant hover:text-primary transition-all text-sm font-medium">
-                Beranda
-              </Link>
-              <Link href="/umkm" className="text-on-surface-variant hover:text-primary transition-all text-sm font-medium">
-                Katalog UMKM
-              </Link>
-              <Link href="/peta-wisata" className="text-on-surface-variant hover:text-primary transition-all text-sm font-medium">
-                Peta Wisata
-              </Link>
-              <Link href="/berita" className="text-on-surface-variant hover:text-primary transition-all text-sm font-medium">
-                Berita & Kabar
-              </Link>
-              <Link href="/tentang" className="text-on-surface-variant hover:text-primary transition-all text-sm font-medium">
-                Tentang Kami
-              </Link>
+              <div className="flex items-start gap-xs text-sm text-on-surface-variant font-medium mb-1">
+                <span className="material-symbols-outlined text-[18px] text-primary mt-0.5 font-medium">location_on</span>
+                <span>Jl. Raya Tingkir No. 12, Salatiga, Jawa Tengah, 50742</span>
+              </div>
+              <div className="w-full h-32 rounded-xl overflow-hidden shadow-sm border border-outline-variant">
+                <iframe
+                  src="https://maps.google.com/maps?q=Tingkir%20Tengah,%20Salatiga&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Peta Lokasi Tingkir Tengah"
+                ></iframe>
+              </div>
             </div>
           </div>
 
@@ -56,17 +57,13 @@ export default function Footer() {
               Hubungi Kami
             </h5>
             <div className="flex flex-col gap-xs text-sm text-on-surface-variant font-medium">
-              <div className="flex items-start gap-xs">
-                <span className="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
-                <span>Jl. Raya Tingkir No. 12, Salatiga, Jawa Tengah, 50742</span>
-              </div>
               <div className="flex items-center gap-xs">
                 <span className="material-symbols-outlined text-[18px] text-primary">call</span>
                 <span>+62 812-3456-7890</span>
               </div>
-              <a href="mailto:halo@tingkirtengah.desa.id" className="flex items-center gap-xs hover:text-primary transition-colors">
+              <a href="mailto:pleretpark@gmail.com" className="flex items-center gap-xs hover:text-primary transition-colors">
                 <span className="material-symbols-outlined text-[18px] text-primary">mail</span>
-                <span>halo@tingkirtengah.desa.id</span>
+                <span>pleretpark@gmail.com</span>
               </a>
               <a
                 href="https://www.instagram.com/si_pleret/"
@@ -82,9 +79,30 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Visitor Stats */}
-          <div>
+          {/* Visitor Stats & Feedback */}
+          <div className="flex flex-col gap-md">
             <VisitorStats />
+            
+            {/* Kritik dan Saran */}
+            <div>
+              <h5 className="text-sm font-bold tracking-widest uppercase text-primary mb-sm">
+                Masukan Anda
+              </h5>
+              <div className="flex items-start gap-sm">
+                <p className="text-sm text-on-surface-variant font-medium leading-relaxed flex-1">
+                  Bantu kami menjadi lebih baik dengan memberikan kritik dan saran Anda.
+                </p>
+                <a 
+                  href="https://forms.gle/42ZqGKPMdzfHiYgeA" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  title="Tulis Kritik & Saran"
+                  className="flex-shrink-0 inline-flex items-center justify-center bg-primary text-on-primary w-10 h-10 rounded-xl hover:shadow-md hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-95"
+                >
+                  <span className="material-symbols-outlined text-[20px]">rate_review</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

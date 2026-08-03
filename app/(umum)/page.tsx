@@ -102,13 +102,13 @@ export default async function HomePage() {
                 Ekowisata berkelanjutan yang memberdayakan masyarakat dan
                 melestarikan ekosistem perikanan darat.
               </p>
-              <Link
-                href="/peta-wisata"
+              <a
+                href="#jelajahi"
                 className="inline-flex items-center gap-xs bg-primary-fixed text-on-primary-fixed text-lg md:text-2xl font-semibold px-xl py-sm rounded-full shadow-lg hover:bg-primary-container hover:text-on-primary-container transition-all transform active:scale-95"
               >
                 Mulai Penjelajahan
-                <span className="material-symbols-outlined">arrow_forward</span>
-              </Link>
+                
+              </a>
             </div>
           </div>
         </div>
@@ -156,16 +156,17 @@ export default async function HomePage() {
       {/* ==============================
           TENTANG SINGKAT / ABOUT SECTION
           ============================== */}
-      <section className="mt-32 md:mt-40 py-xl">
+      <section id="jelajahi" className="mt-32 md:mt-40 py-xl">
         <div className="max-w-[1600px] mx-auto px-gutter">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
-            <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg">
+            {/* Wrapper kembali mengambil lebar penuh dari kolom grid */}
+            <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg w-full">
               <Image
                 src="/images/about-hero.png"
                 alt="Panorama Tingkir Tengah"
-                width={600}
-                height={400}
-                className="w-full object-cover"
+                width={1000}
+                height={600}
+                className="w-full h-[250px] md:h-[350px] lg:h-[450px] object-cover"
               />
             </div>
             <div className="space-y-md">
@@ -348,7 +349,7 @@ export default async function HomePage() {
               className="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full animate-float blur-3xl"
               style={{ animationDelay: '2s' }}
             />
-            <div className="relative z-10 glass p-sm rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="relative z-10 glass p-sm rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-4/5 lg:w-3/4 mx-auto">
               <Image
                 src="/images/community.png"
                 alt="Komunitas UMKM Tingkir Tengah bekerja bersama"
