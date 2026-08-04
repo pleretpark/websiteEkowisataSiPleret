@@ -44,18 +44,41 @@ export default function MapView({ spots, selectedSpot, onSelectSpot }: MapViewPr
     const map = L.map(containerRef.current, {
       center: [-7.317, 110.488],
       zoom: 15,
+      minZoom: 14, // Mencegah zoom out terlalu jauh keluar area
       zoomControl: true,
       scrollWheelZoom: true,
     })
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19,
+    // Menggunakan tile layer Esri World Imagery
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri',
+      maxNativeZoom: 18, // Esri mungkin tidak punya foto di zoom level 19+ untuk daerah pedesaan
+      maxZoom: 20, // Leaflet akan memperbesar foto dari zoom 18 jika user terus zoom-in
     }).addTo(map)
+
+    let isMounted = true
+
+    // Memuat garis batas wilayah (Polygon) dari file GeoJSON
+    fetch('/data/batas-tingkir-tengah.geojson')
+      .then((res) => res.json())
+      .then((geoData) => {
+        if (!isMounted) return // Cegah penambahan ke map jika map sudah di-unmount
+        L.geoJSON(geoData, {
+          style: {
+            color: '#10b981', // Warna garis batas
+            weight: 3,
+            fillColor: '#10b981',
+            fillOpacity: 0.1, // Transparansi isi (10%)
+            dashArray: '5, 5' // Membuat efek garis putus-putus yang estetik
+          }
+        }).addTo(map)
+      })
+      .catch((err) => console.error("Gagal memuat GeoJSON wilayah:", err))
 
     mapRef.current = map
 
     return () => {
+      isMounted = false
       map.remove()
       mapRef.current = null
     }

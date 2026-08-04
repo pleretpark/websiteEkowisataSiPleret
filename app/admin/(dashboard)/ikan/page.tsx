@@ -39,13 +39,13 @@ export default function AdminIkanPage() {
     setLoading(true)
     try {
       const supabase = createClient()
-      
+
       // Fetch Ikan data
       const { data: ikanData, error: ikanError } = await supabase
         .from('ikan')
         .select('*, spot_wisata(*)')
         .order('created_at', { ascending: false })
-      
+
       if (ikanError) throw ikanError
       setItems(ikanData || [])
 
@@ -54,31 +54,31 @@ export default function AdminIkanPage() {
         .from('spot_wisata')
         .select('id, nama_lokasi')
         .order('nama_lokasi', { ascending: true })
-      
+
       if (spotError) throw spotError
       setSpots(spotData || [])
-      
+
     } catch {
       showToast('error', 'Gagal memuat data.')
-    } finally { 
-      setLoading(false) 
+    } finally {
+      setLoading(false)
     }
   }, [showToast])
 
   useEffect(() => { fetchData() }, [fetchData])
 
-  function openCreate() { 
+  function openCreate() {
     setForm(emptyForm)
     setEditingId(null)
     setShowForm(true)
-    setToast(null) 
+    setToast(null)
   }
-  
-  function openEdit(item: Ikan) { 
+
+  function openEdit(item: Ikan) {
     setForm(item)
     setEditingId(item.id)
     setShowForm(true)
-    setToast(null) 
+    setToast(null)
   }
 
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -130,7 +130,7 @@ export default function AdminIkanPage() {
         gambar_url: form.gambar_url,
         spot_wisata_id: form.spot_wisata_id || null, // null if empty string
       }
-      
+
       if (editingId) {
         const { error } = await supabase.from('ikan').update({ ...payload, updated_at: new Date().toISOString() }).eq('id', editingId)
         if (error) throw error
@@ -144,8 +144,8 @@ export default function AdminIkanPage() {
       fetchData()
     } catch {
       showToast('error', 'Gagal menyimpan data.')
-    } finally { 
-      setSaving(false) 
+    } finally {
+      setSaving(false)
     }
   }
 
@@ -161,8 +161,8 @@ export default function AdminIkanPage() {
       if (error) throw error
       showToast('success', 'Data ikan berhasil dihapus.')
       fetchData()
-    } catch { 
-      showToast('error', 'Gagal menghapus data.') 
+    } catch {
+      showToast('error', 'Gagal menghapus data.')
     } finally {
       setDeleteConfirmId(null)
     }
@@ -191,7 +191,7 @@ export default function AdminIkanPage() {
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="space-y-md">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
                 <div>
@@ -233,13 +233,13 @@ export default function AdminIkanPage() {
 
               <div>
                 <label className="block text-lg font-medium text-on-surface mb-xs">Gambar Ikan (Maks 1MB)</label>
-                
+
                 {form.gambar_url && (
                   <div className="mb-sm relative w-48 h-32 rounded-xl overflow-hidden border border-outline-variant">
                     <Image src={form.gambar_url} alt="Preview" fill className="object-cover" />
                   </div>
                 )}
-                
+
                 <div className="flex items-center gap-md">
                   <label className={`cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-all flex items-center gap-xs text-on-surface ${uploadingImage ? 'opacity-50 pointer-events-none' : ''}`}>
                     <span className="material-symbols-outlined text-[18px]">
@@ -248,7 +248,7 @@ export default function AdminIkanPage() {
                     {uploadingImage ? 'Mengupload...' : (form.gambar_url ? 'Ganti Gambar' : 'Pilih Gambar')}
                     <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} disabled={uploadingImage} />
                   </label>
-                  
+
                   {form.gambar_url && (
                     <button type="button" onClick={() => setForm(prev => ({ ...prev, gambar_url: '' }))} className="text-error hover:text-error-container text-sm font-medium">
                       Hapus Gambar
@@ -300,7 +300,7 @@ export default function AdminIkanPage() {
                   <span className="material-symbols-outlined text-5xl text-outline">phishing</span>
                 </div>
               )}
-              
+
               <div className="flex-1 p-md flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-xs">
@@ -309,16 +309,16 @@ export default function AdminIkanPage() {
                       {item.nama_ilmiah && <span className="text-base text-outline italic font-normal">({item.nama_ilmiah})</span>}
                     </h3>
                   </div>
-                  
+
                   {item.spot_wisata && (
                     <div className="inline-flex items-center gap-1 bg-tertiary-fixed/30 text-tertiary text-sm px-sm py-0.5 rounded-full font-medium mb-sm">
                       <span className="material-symbols-outlined text-[14px]">location_on</span>
                       {item.spot_wisata.nama_lokasi}
                     </div>
                   )}
-                  
+
                   <p className="text-lg text-on-surface-variant line-clamp-2 mt-xs">{item.deskripsi}</p>
-                  
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-sm mt-sm">
                     {item.kandungan_gizi && (
                       <div>
@@ -334,7 +334,7 @@ export default function AdminIkanPage() {
                     )}
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-end gap-xs mt-md pt-sm border-t border-outline-variant">
                   <button onClick={() => openEdit(item)} className="px-md py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all flex items-center gap-xs text-lg">
                     <span className="material-symbols-outlined text-[16px]">edit</span>Edit
@@ -353,9 +353,8 @@ export default function AdminIkanPage() {
       {toast && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-gutter animate-fade-in">
           <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[26rem] shadow-ambient-lg border border-outline-variant animate-fade-in-up text-center">
-            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-lg ${
-              toast.type === 'success' ? 'bg-tertiary/15 text-tertiary' : 'bg-error/15 text-error'
-            }`}>
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-lg ${toast.type === 'success' ? 'bg-tertiary/15 text-tertiary' : 'bg-error/15 text-error'
+              }`}>
               <span className="material-symbols-outlined text-4xl">
                 {toast.type === 'success' ? 'check_circle' : 'error'}
               </span>
@@ -366,7 +365,7 @@ export default function AdminIkanPage() {
             <p className="text-on-surface-variant text-lg leading-relaxed mb-lg">
               {toast.text}
             </p>
-            <button 
+            <button
               onClick={() => setToast(null)}
               className="w-full bg-surface-container-high text-on-surface font-bold py-sm rounded-xl hover:bg-surface-container-highest transition-colors"
             >
@@ -390,13 +389,13 @@ export default function AdminIkanPage() {
               Anda yakin ingin menghapus data ikan <strong>&quot;{deleteConfirmTitle}&quot;</strong>? Tindakan ini tidak dapat dibatalkan.
             </p>
             <div className="flex gap-sm">
-              <button 
+              <button
                 onClick={() => setDeleteConfirmId(null)}
                 className="flex-1 bg-surface-container text-on-surface font-bold py-sm rounded-xl hover:bg-surface-container-high transition-colors"
               >
                 Batal
               </button>
-              <button 
+              <button
                 onClick={() => handleDelete(deleteConfirmId)}
                 className="flex-1 bg-error text-on-error font-bold py-sm rounded-xl hover:bg-error/90 hover:shadow-md transition-all"
               >
