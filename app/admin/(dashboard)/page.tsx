@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 
 export default async function  DashboardPage() {
-  let stats = { totalUmkm: 0, totalSpotWisata: 0, totalBerita: 0, totalIkan: 0 }
+  let stats = { totalProduk: 0, totalSpotWisata: 0, totalBerita: 0, totalIkan: 0 }
 
   try {
     const supabase = await createClient()
@@ -14,7 +14,7 @@ export default async function  DashboardPage() {
     ])
 
     stats = {
-      totalUmkm: umkmRes.count || 0,
+      totalProduk: umkmRes.count || 0,
       totalSpotWisata: spotRes.count || 0,
       totalBerita: beritaRes.count || 0,
       totalIkan: ikanRes.count || 0,
@@ -25,8 +25,8 @@ export default async function  DashboardPage() {
 
   const statCards = [
     {
-      label: 'Total UMKM',
-      value: stats.totalUmkm,
+      label: 'Total Produk',
+      value: stats.totalProduk,
       icon: 'storefront',
       color: 'text-primary',
       bg: 'bg-primary-fixed/20',
@@ -102,7 +102,7 @@ export default async function  DashboardPage() {
             className="flex items-center gap-sm p-md rounded-2xl border border-outline-variant hover:bg-primary-fixed/10 hover:border-primary transition-all"
           >
             <span className="material-symbols-outlined text-primary">add_circle</span>
-            <span className="text-lg font-medium text-on-surface">Tambah UMKM Baru</span>
+            <span className="text-lg font-medium text-on-surface">Tambah Produk Baru</span>
           </a>
           <a
             href="/admin/spot-wisata"
@@ -128,7 +128,7 @@ export default async function  DashboardPage() {
           <div>
             <h3 className="font-semibold text-on-surface text-xl">Panduan Penggunaan</h3>
             <p className="text-on-surface-variant text-xl mt-xs leading-relaxed">
-              Gunakan menu di sidebar kiri untuk mengelola data UMKM, Spot Wisata, dan Berita.
+              Gunakan menu di sidebar kiri untuk mengelola data Produk, Spot Wisata, dan Berita.
               Setiap perubahan akan langsung ditampilkan di website publik setelah disimpan.
               Pastikan untuk mengisi semua kolom wajib sebelum menyimpan data.
             </p>

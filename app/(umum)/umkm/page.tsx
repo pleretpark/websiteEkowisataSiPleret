@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { UMKM } from '@/lib/types'
@@ -188,11 +189,14 @@ export default function UMKMPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
               {filteredProducts.map((item, index) => (
-                <div
+                <Link
                   key={item.id}
-                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-md shadow-sm hover:shadow-ambient transition-all duration-300 flex flex-col h-full animate-fade-in-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  href={`/umkm/detail-produk?id=${item.id}`}                  className="block"
                 >
+                  <div
+                    className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-md shadow-sm hover:shadow-ambient transition-all duration-300 flex flex-col h-full animate-fade-in-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
                 <div className="relative overflow-hidden rounded-xl h-48 mb-sm bg-surface-container">
                   <Image
                     src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
@@ -222,17 +226,18 @@ export default function UMKMPage() {
                       <span className="text-primary font-bold text-lg">
                         {formatPrice(item.harga)}
                       </span>
-                      <a
-                        href={`https://wa.me/${item.nomor_wa}?text=Halo, saya tertarik dengan produk ${item.nama_produk}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-primary text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm hover:shadow-lg active:scale-95"
-                      >
-                        Beli
-                      </a>
+                    <span
+                        className="bg-primary text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
+                    >
+                      Detail Produk
+                      <span className="material-symbols-outlined text-base">
+                        arrow_forward
+                      </span>
+                    </span>
                     </div>
                   </div>
                 </div>
+                </Link>
               ))}
             </div>
           )}

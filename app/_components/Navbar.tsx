@@ -48,7 +48,7 @@ export default function Navbar() {
           className="flex items-center gap-xs text-primary font-bold tracking-tight text-lg md:text-2xl hover:text-primary-container transition-colors"
         >
           <Image
-            src="/images/logo-prelet.png"
+            src="/images/logo-pleret.png"
             alt="Logo Ekowisata"
             width={36}
             height={36}

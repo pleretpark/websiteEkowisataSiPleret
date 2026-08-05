@@ -9,6 +9,7 @@ export interface UMKM {
   nama_toko: string
   created_at: string
   updated_at: string
+  gambar_urls?: string[]
 }
 
 export interface SpotWisata {
