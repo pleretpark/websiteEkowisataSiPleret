@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import type { UMKM } from '@/lib/types'
@@ -15,7 +15,7 @@ function formatPrice(price: number) {
   }).format(price)
 }
 
-export default function DetailProdukPage() {
+function DetailProdukContent() {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
 
@@ -226,5 +226,13 @@ export default function DetailProdukPage() {
       </section>
 
     </main>
+  )
+}
+
+export default function DetailProdukPage() {
+  return (
+    <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+      <DetailProdukContent />
+    </Suspense>
   )
 }
