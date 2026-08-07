@@ -43,7 +43,7 @@ export default function DetailIkanPage() {
           Tingkir Tengah
         </h1>
         <p className="text-on-surface-variant text-lg mt-md max-w-[48rem] leading-relaxed">
-          Kenali berbagai jenis ikan yang dibudidayakan dan dilestarikan di kawasan ekowisata Tingkir Tengah. Pelajari habitat, kandungan gizi, dan cara perawatannya.
+          Kenali berbagai jenis ikan yang dibudidayakan dan dilestarikan di kawasan ekowisata Tingkir Tengah. Pelajari asal usul, kandungan gizi, dan fakta menariknya.
         </p>
       </section>
 
@@ -82,7 +82,7 @@ export default function DetailIkanPage() {
                 {/* Image Section */}
                 <div className="relative h-48 w-full bg-surface-container overflow-hidden">
                   <Image
-                    src={ikan.gambar_url && !ikan.gambar_url.includes('unsplash') ? ikan.gambar_url : '/images/hero-banner.png'}
+                    src={ikan.gambar_url || '/images/ikan.jpg'}
                     alt={ikan.nama_ikan}
                     fill
                     sizes="(max-width: 768px) 100vw, 25vw"

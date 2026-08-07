@@ -9,7 +9,7 @@ import Image from 'next/image'
 export const menuItems = [
   { href: '/admin', icon: 'dashboard', label: 'Dashboard' },
   { href: '/admin/umkm', icon: 'storefront', label: 'Manajemen UMKM' },
-  { href: '/admin/spot-wisata', icon: 'eco', label: 'Spot Wisata' },
+  { href: '/admin/spot-wisata', icon: 'eco', label: 'Peta Lokasi' },
   { href: '/admin/ikan', icon: 'phishing', label: 'Detail Ikan' },
   { href: '/admin/berita', icon: 'newspaper', label: 'Berita & Artikel' },
 ]

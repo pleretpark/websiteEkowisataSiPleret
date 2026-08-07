@@ -20,13 +20,13 @@ const MapComponent = dynamic(() => import('./_components/MapView'), {
 
 type SpotWisataWithIkan = SpotWisata & { ikan?: Ikan[] }
 
-const categoryFilters = ['Semua', 'Pemancingan', 'Kuliner', 'Edukasi', 'Budidaya', 'Lainnya']
+const categoryFilters = ['Semua', 'Pemancingan', 'UMKM', 'Wisata', 'Budidaya', 'Lainnya']
 
 function getCategoryIcon(kategori: string) {
   switch (kategori) {
     case 'Pemancingan': return 'phishing'
-    case 'Kuliner': return 'restaurant'
-    case 'Edukasi': return 'school'
+    case 'UMKM': return 'storefront'
+    case 'Wisata': return 'park'
     case 'Budidaya': return 'water_drop'
     default: return 'location_on'
   }
@@ -152,8 +152,8 @@ export default function PetaWisataPage() {
                       </p>
                     )}
                     <span className={`inline-block mt-2 text-xs px-sm py-0.5 rounded-full font-medium ${
-                      spot.kategori === 'Kuliner' ? 'bg-secondary-fixed/30 text-secondary' :
-                      spot.kategori === 'Edukasi' ? 'bg-tertiary-fixed/30 text-tertiary' :
+                      spot.kategori === 'UMKM' ? 'bg-secondary-fixed/30 text-secondary' :
+                      spot.kategori === 'Wisata' ? 'bg-tertiary-fixed/30 text-tertiary' :
                       'bg-primary-fixed/30 text-primary'
                     }`}>
                       {spot.kategori}

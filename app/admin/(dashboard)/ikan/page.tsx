@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { Ikan, SpotWisata } from '@/lib/types'
@@ -10,7 +11,7 @@ const emptyForm: Partial<Ikan> = {
   nama_ilmiah: '',
   deskripsi: '',
   kandungan_gizi: '',
-  habitat_dan_perawatan: '',
+  fakta_menarik: '',
   gambar_url: '',
   spot_wisata_id: '',
 }
@@ -27,6 +28,7 @@ export default function AdminIkanPage() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
   const [deleteConfirmTitle, setDeleteConfirmTitle] = useState<string>('')
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [errorModal, setErrorModal] = useState({ show: false, title: '', message: '' })
 
   const showToast = useCallback((type: 'success' | 'error', text: string) => {
     setToast({ type, text })
@@ -86,7 +88,7 @@ export default function AdminIkanPage() {
     const file = e.target.files[0]
 
     if (file.size > 1024 * 1024) {
-      showToast('error', 'Ukuran file maksimal 1MB')
+      setErrorModal({ show: true, title: 'Gagal', message: 'Ukuran file maksimal 1MB' })
       return
     }
 
@@ -109,7 +111,7 @@ export default function AdminIkanPage() {
 
       setForm((prev) => ({ ...prev, gambar_url: publicUrl }))
     } catch {
-      showToast('error', 'Gagal mengupload gambar.')
+      setErrorModal({ show: true, title: 'Upload error', message: 'Gagal mengunggah gambar. Coba lagi.' })
     } finally {
       setUploadingImage(false)
     }
@@ -126,7 +128,7 @@ export default function AdminIkanPage() {
         nama_ilmiah: form.nama_ilmiah,
         deskripsi: form.deskripsi,
         kandungan_gizi: form.kandungan_gizi,
-        habitat_dan_perawatan: form.habitat_dan_perawatan,
+        fakta_menarik: form.fakta_menarik,
         gambar_url: form.gambar_url,
         spot_wisata_id: form.spot_wisata_id || null, // null if empty string
       }
@@ -173,7 +175,7 @@ export default function AdminIkanPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-lg gap-md">
         <div>
           <h1 className="text-5xl font-bold text-on-surface">Data Ikan</h1>
-          <p className="text-on-surface-variant text-xl mt-xs">Kelola informasi jenis ikan di berbagai spot wisata.</p>
+          <p className="text-on-surface-variant text-xl mt-xs">Kelola informasi jenis ikan di berbagai Lokasi.</p>
         </div>
         <button onClick={openCreate} className="bg-primary text-on-primary font-bold px-md py-xs rounded-full hover:shadow-xl transition-all flex items-center gap-xs">
           <span className="material-symbols-outlined text-[18px]">add</span>
@@ -217,44 +219,84 @@ export default function AdminIkanPage() {
 
               <div>
                 <label className="block text-lg font-medium text-on-surface mb-xs">Deskripsi Singkat *</label>
-                <textarea required rows={3} value={form.deskripsi || ''} onChange={(e) => setForm({ ...form, deskripsi: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none" placeholder="Tuliskan deskripsi singkat mengenai ikan ini..." />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
-                <div>
-                  <label className="block text-lg font-medium text-on-surface mb-xs">Kandungan Gizi</label>
-                  <textarea rows={4} value={form.kandungan_gizi || ''} onChange={(e) => setForm({ ...form, kandungan_gizi: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none" placeholder="Tinggi protein, Omega-3..." />
-                </div>
-                <div>
-                  <label className="block text-lg font-medium text-on-surface mb-xs">Habitat & Perawatan</label>
-                  <textarea rows={4} value={form.habitat_dan_perawatan || ''} onChange={(e) => setForm({ ...form, habitat_dan_perawatan: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none" placeholder="Hidup di air tawar dengan suhu..." />
-                </div>
+                <textarea required rows={6} value={form.deskripsi || ''} onChange={(e) => setForm({ ...form, deskripsi: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none" placeholder="Tuliskan deskripsi singkat mengenai ikan ini..." />
               </div>
 
               <div>
-                <label className="block text-lg font-medium text-on-surface mb-xs">Gambar Ikan (Maks 1MB)</label>
+                <label className="block text-lg font-medium text-on-surface mb-xs">Fakta Menarik</label>
+                <textarea 
+                  rows={5} 
+                  value={form.fakta_menarik || ''} 
+                  onChange={(e) => {
+                    let val = e.target.value;
+                    // Jika pengguna mengetik karakter pertama tanpa bullet, otomatis tambahkan bullet
+                    if (val.length > 0 && !val.startsWith('•') && !val.includes('\n')) {
+                      val = '• ' + val;
+                    }
+                    setForm({ ...form, fakta_menarik: val });
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      const target = e.target as HTMLTextAreaElement;
+                      const start = target.selectionStart;
+                      const end = target.selectionEnd;
+                      const val = target.value;
+                      const newVal = val.substring(0, start) + '\n• ' + val.substring(end);
+                      setForm({ ...form, fakta_menarik: newVal });
+                      
+                      setTimeout(() => {
+                        target.selectionStart = target.selectionEnd = start + 3;
+                      }, 0);
+                    }
+                  }}
+                  onFocus={(e) => {
+                    if (!e.target.value) {
+                      setForm({ ...form, fakta_menarik: '• ' });
+                    }
+                  }}
+                  className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none leading-relaxed" 
+                  placeholder="• Fakta pertama..." 
+                />
+              </div>
 
-                {form.gambar_url && (
-                  <div className="mb-sm relative w-48 h-32 rounded-xl overflow-hidden border border-outline-variant">
-                    <Image src={form.gambar_url} alt="Preview" fill className="object-cover" />
-                  </div>
-                )}
+              <div>
+                <label className="block text-lg font-medium text-on-surface mb-xs">Kandungan Gizi</label>
+                <textarea rows={2} value={form.kandungan_gizi || ''} onChange={(e) => setForm({ ...form, kandungan_gizi: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none" placeholder="Tinggi protein, Omega-3..." />
+              </div>
 
-                <div className="flex items-center gap-md">
-                  <label className={`cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-all flex items-center gap-xs text-on-surface ${uploadingImage ? 'opacity-50 pointer-events-none' : ''}`}>
-                    <span className="material-symbols-outlined text-[18px]">
-                      {uploadingImage ? 'hourglass_empty' : 'upload_file'}
-                    </span>
-                    {uploadingImage ? 'Mengupload...' : (form.gambar_url ? 'Ganti Gambar' : 'Pilih Gambar')}
+              <div>
+                <label className="block text-lg font-bold text-on-surface mb-xs">
+                  Gambar Ikan (Maks 1MB)
+                </label>
+                
+                {!form.gambar_url ? (
+                  <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors items-center gap-xs text-lg text-on-surface-variant font-medium mt-sm">
+                    <span className="material-symbols-outlined text-[18px]">upload_file</span>
+                    {uploadingImage ? 'Mengunggah...' : 'Pilih Gambar'}
                     <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} disabled={uploadingImage} />
                   </label>
-
-                  {form.gambar_url && (
-                    <button type="button" onClick={() => setForm(prev => ({ ...prev, gambar_url: '' }))} className="text-error hover:text-error-container text-sm font-medium">
-                      Hapus Gambar
-                    </button>
-                  )}
-                </div>
+                ) : (
+                  <div className="flex flex-col gap-sm mt-xs">
+                    <div className="relative w-64 h-40 rounded-xl overflow-hidden border border-outline-variant">
+                      <img src={form.gambar_url} alt="Preview" className="w-full h-full object-contain bg-surface-container-lowest" />
+                    </div>
+                    <div className="flex items-center gap-md">
+                      <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-2 hover:bg-surface-container-high transition-colors items-center gap-xs text-base text-on-surface font-medium">
+                        <span className="material-symbols-outlined text-[18px]">upload_file</span>
+                        {uploadingImage ? 'Mengunggah...' : 'Ganti Gambar'}
+                        <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} disabled={uploadingImage} />
+                      </label>
+                      <button 
+                        type="button" 
+                        onClick={() => setForm(prev => ({ ...prev, gambar_url: '' }))} 
+                        className="text-error hover:text-error/80 font-semibold text-base transition-colors"
+                      >
+                        Hapus Gambar
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex justify-end gap-sm pt-md">
@@ -283,71 +325,65 @@ export default function AdminIkanPage() {
             </div>
           ))
         ) : items.length === 0 ? (
-          <div className="text-center py-xl bg-surface-container-lowest rounded-3xl border border-outline-variant">
-            <span className="material-symbols-outlined text-6xl text-outline-variant">phishing</span>
+          <div className="text-center py-3xl bg-surface-container-lowest rounded-3xl border border-dashed border-outline shadow-sm">
+            <span className="material-symbols-outlined text-6xl text-primary/40">phishing</span>
             <p className="text-on-surface-variant text-2xl mt-md">Belum ada data ikan.</p>
             <p className="text-outline text-lg mt-xs">Tambahkan informasi jenis ikan pertama Anda.</p>
           </div>
         ) : (
-          items.map((item) => (
-            <div key={item.id} className="bg-surface-container-lowest rounded-3xl border border-outline-variant shadow-sm overflow-hidden hover:shadow-ambient transition-all flex flex-col md:flex-row">
-              {item.gambar_url ? (
-                <div className="relative w-full md:w-48 h-48 md:h-auto flex-shrink-0">
-                  <Image src={item.gambar_url} alt={item.nama_ikan} fill className="object-cover" />
-                </div>
-              ) : (
-                <div className="w-full md:w-48 h-48 md:h-auto bg-surface-container-high flex items-center justify-center flex-shrink-0">
-                  <span className="material-symbols-outlined text-5xl text-outline">phishing</span>
-                </div>
-              )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+            {items.map((item) => (
+            <div key={item.id} className="bg-surface-container-lowest rounded-3xl border border-outline-variant shadow-sm overflow-hidden hover:shadow-ambient transition-all flex flex-col">
+              
+              {/* Section 1: Gambar Ikan */}
+              <div className="relative w-full h-56 flex-shrink-0 bg-surface-container">
+                <Image src={item.gambar_url || '/images/ikan.jpg'} alt={item.nama_ikan} fill className="object-cover" />
+              </div>
 
-              <div className="flex-1 p-md flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-xs">
-                    <h3 className="font-semibold text-on-surface text-2xl leading-tight flex items-center gap-xs">
-                      {item.nama_ikan}
-                      {item.nama_ilmiah && <span className="text-base text-outline italic font-normal">({item.nama_ilmiah})</span>}
-                    </h3>
-                  </div>
-
-                  {item.spot_wisata && (
-                    <div className="inline-flex items-center gap-1 bg-tertiary-fixed/30 text-tertiary text-sm px-sm py-0.5 rounded-full font-medium mb-sm">
-                      <span className="material-symbols-outlined text-[14px]">location_on</span>
-                      {item.spot_wisata.nama_lokasi}
-                    </div>
+              <div className="p-lg flex flex-col flex-1">
+                {/* Section 2 & 3: Nama Ikan & Nama Ilmiah */}
+                <div className="mb-3">
+                  <h3 className="font-bold text-on-surface text-2xl leading-tight">
+                    {item.nama_ikan}
+                  </h3>
+                  {item.nama_ilmiah && (
+                    <p className="text-lg text-on-surface-variant italic font-serif">
+                      {item.nama_ilmiah}
+                    </p>
                   )}
-
-                  <p className="text-lg text-on-surface-variant line-clamp-2 mt-xs">{item.deskripsi}</p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-sm mt-sm">
-                    {item.kandungan_gizi && (
-                      <div>
-                        <p className="text-sm font-semibold text-on-surface mb-1 flex items-center gap-1"><span className="material-symbols-outlined text-[16px] text-secondary">restaurant_menu</span>Kandungan Gizi</p>
-                        <p className="text-base text-on-surface-variant line-clamp-2">{item.kandungan_gizi}</p>
-                      </div>
-                    )}
-                    {item.habitat_dan_perawatan && (
-                      <div>
-                        <p className="text-sm font-semibold text-on-surface mb-1 flex items-center gap-1"><span className="material-symbols-outlined text-[16px] text-primary">water_drop</span>Habitat & Perawatan</p>
-                        <p className="text-base text-on-surface-variant line-clamp-2">{item.habitat_dan_perawatan}</p>
-                      </div>
-                    )}
-                  </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-xs mt-md pt-sm border-t border-outline-variant">
-                  <button onClick={() => openEdit(item)} className="px-md py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all flex items-center gap-xs text-lg">
-                    <span className="material-symbols-outlined text-[16px]">edit</span>Edit
-                  </button>
-                  <button onClick={() => requestDelete(item.id, item.nama_ikan || 'Data Ikan')} className="w-8 h-8 rounded-lg bg-error-container/30 text-error hover:bg-error hover:text-on-error transition-all flex items-center justify-center" title="Hapus">
-                    <span className="material-symbols-outlined text-[16px]">delete</span>
-                  </button>
+                {/* Section 4: Lokasi */}
+                {item.spot_wisata && (
+                  <div className="inline-flex items-center gap-1 text-tertiary font-medium mb-4">
+                    <span className="material-symbols-outlined text-[18px]">location_on</span>
+                    {item.spot_wisata.nama_lokasi}
+                  </div>
+                )}
+
+                {/* Section Paling Bawah: Tanggal & Tombol */}
+                <div className="flex items-end justify-between mt-auto pt-4 border-t border-outline-variant">
+                  {/* Kiri: Tanggal Diedit Terakhir */}
+                  <div className="text-sm text-outline flex flex-col">
+                    <span>Terakhir edit:</span>
+                    <span className="font-medium">{new Date(item.updated_at || item.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                  </div>
+
+                  {/* Kanan: Tombol Edit & Hapus */}
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => openEdit(item)} className="px-4 py-1.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all flex items-center gap-1 text-sm font-semibold">
+                      <span className="material-symbols-outlined text-[16px]">edit</span>Edit
+                    </button>
+                    <button onClick={() => requestDelete(item.id, item.nama_ikan || 'Data Ikan')} className="w-9 h-9 rounded-full bg-error-container/30 text-error hover:bg-error hover:text-on-error transition-all flex items-center justify-center" title="Hapus">
+                      <span className="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}    </div>
 
       {/* Pop-up Success/Error Modal */}
       {toast && (
@@ -402,6 +438,26 @@ export default function AdminIkanPage() {
                 Ya, Hapus
               </button>
             </div>
+          </div>
+        </div>
+      )}
+      {/* Pop-up Image Upload Error Modal */}
+      {errorModal.show && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-gutter">
+          <div className="bg-surface-container-lowest rounded-[32px] p-8 w-full max-w-[320px] text-center shadow-ambient-xl animate-fade-in-up">
+            <div className="w-16 h-16 rounded-full bg-error-container/30 mx-auto flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center border-2 border-error">
+                <span className="material-symbols-outlined text-[24px] font-bold">close</span>
+              </div>
+            </div>
+            <h3 className="text-2xl font-bold text-on-surface mb-2">{errorModal.title}</h3>
+            <p className="text-on-surface-variant text-base mb-8">{errorModal.message}</p>
+            <button 
+              onClick={() => setErrorModal({ show: false, title: '', message: '' })}
+              className="w-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-bold py-3 rounded-full transition-colors"
+            >
+              Tutup
+            </button>
           </div>
         </div>
       )}

@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS public.ikan (
   nama_ilmiah text,
   deskripsi text NOT NULL DEFAULT '',
   kandungan_gizi text,
-  habitat_dan_perawatan text,
+  fakta_menarik text,
   gambar_url text,
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
