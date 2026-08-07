@@ -19,8 +19,8 @@ const defaultIcon = L.icon({
 function getCategoryColor(kategori: string) {
   switch (kategori) {
     case 'Pemancingan': return '#00685f'
-    case 'Kuliner': return '#00668a'
-    case 'Edukasi': return '#3d6700'
+    case 'UMKM': return '#00668a'
+    case 'Wisata': return '#3d6700'
     case 'Budidaya': return '#008378'
     default: return '#6d7a77'
   }
@@ -42,20 +42,77 @@ export default function MapView({ spots, selectedSpot, onSelectSpot }: MapViewPr
     if (!containerRef.current || mapRef.current) return
 
     const map = L.map(containerRef.current, {
-      center: [-7.317, 110.488],
-      zoom: 15,
+      center: [-7.3590, 110.527],
+      zoom: 13,
+      minZoom: 15, // Mencegah zoom out terlalu jauh keluar area
       zoomControl: true,
       scrollWheelZoom: true,
     })
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19,
+    // Menggunakan tile layer Google Maps Satellite (Satelit murni tanpa pin/label bawaan)
+    L.tileLayer('http://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+      attribution: '&copy; Google Maps',
+      maxNativeZoom: 21, // Google Maps biasanya memiliki resolusi tinggi hingga zoom 20+
+      maxZoom: 21,
     }).addTo(map)
+
+    let isMounted = true
+
+    // Memuat garis batas wilayah (Polygon) dari file GeoJSON
+    fetch('/data/batas-tingkir-tengah.geojson')
+      .then((res) => res.json())
+      .then((geoData) => {
+        if (!isMounted) return // Cegah penambahan ke map jika map sudah di-unmount
+        L.geoJSON(geoData, {
+          style: {
+            color: '#10b981', // Warna garis batas
+            weight: 3,
+            fillColor: '#10b981',
+            fillOpacity: 0.1, // Transparansi isi (10%)
+            dashArray: '5, 5' // Membuat efek garis putus-putus yang estetik
+          }
+        }).addTo(map)
+      })
+      .catch((err) => console.error("Gagal memuat GeoJSON wilayah:", err))
+
+    // Track posisi user secara realtime
+    let userMarker: L.Marker | null = null
+    let watchId: number | null = null
+
+    if ('geolocation' in navigator) {
+      watchId = navigator.geolocation.watchPosition(
+        (position) => {
+          if (!isMounted || !map) return
+          const { latitude, longitude } = position.coords
+          
+          if (!userMarker) {
+            // Buat marker pin merah untuk user dengan efek berdenyut (pulse/ping)
+            const userIcon = L.divIcon({
+              className: 'user-location-marker',
+              html: `<div class="relative w-5 h-5 bg-error rounded-full border-2 border-white shadow-md flex items-center justify-center">
+                <div class="absolute inset-0 bg-error rounded-full animate-ping opacity-75"></div>
+              </div>`,
+              iconSize: [20, 20],
+              iconAnchor: [10, 10],
+            })
+            userMarker = L.marker([latitude, longitude], { icon: userIcon, zIndexOffset: 9999 }).addTo(map)
+            userMarker.bindPopup('<div style="font-weight:bold;font-size:14px;color:#1b1c19;text-align:center;">Posisi Anda</div>')
+          } else {
+            userMarker.setLatLng([latitude, longitude])
+          }
+        },
+        (error) => {
+          console.error("Gagal mendapatkan lokasi user:", error)
+        },
+        { enableHighAccuracy: true, maximumAge: 10000, timeout: 10000 }
+      )
+    }
 
     mapRef.current = map
 
     return () => {
+      isMounted = false
+      if (watchId !== null) navigator.geolocation.clearWatch(watchId)
       map.remove()
       mapRef.current = null
     }
@@ -104,25 +161,44 @@ export default function MapView({ spots, selectedSpot, onSelectSpot }: MapViewPr
       })
 
       const popupContent = `
-        <div style="font-family: 'Lexend', sans-serif; min-width: 200px; padding: 4px;">
-          ${spot.gambar_url ? `<img src="${spot.gambar_url}" alt="${spot.nama_lokasi}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 8px;" />` : ''}
-          <h3 style="font-weight: 600; font-size: 16px; color: #1b1c19; margin: 0;">${spot.nama_lokasi}</h3>
-          <p style="font-size: 13px; color: #3d4947; margin: 4px 0;">${spot.deskripsi}</p>
-          ${spot.jam_operasional ? `<p style="font-size: 12px; color: #6d7a77; margin: 4px 0;">🕐 ${spot.jam_operasional}</p>` : ''}
-          <span style="
-            display: inline-block;
-            background: ${color}22;
-            color: ${color};
-            font-size: 11px;
-            font-weight: 600;
-            padding: 2px 10px;
-            border-radius: 20px;
-            margin-top: 4px;
-          ">${spot.kategori}</span>
+        <div class="popup-container">
+          ${spot.gambar_url ? `
+            <div class="popup-image-container">
+              <img src="${spot.gambar_url}" alt="${spot.nama_lokasi}" class="popup-image" />
+            </div>
+          ` : ''}
+          <div class="popup-body">
+            <h3 style="font-weight: 700; font-size: 16px; color: #1b1c19; margin: 0 0 6px 0; line-height: 1.3;">${spot.nama_lokasi}</h3>
+            <p style="font-size: 13px; color: #3d4947; margin: 0 0 14px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${spot.deskripsi}</p>
+            
+            <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #f0f4f4; padding-top: 12px;">
+              ${spot.jam_operasional ? `
+                <div style="font-size: 12px; color: #6d7a77; display: flex; align-items: center; gap: 6px; font-weight: 500;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>${spot.jam_operasional}</span>
+                </div>
+              ` : '<div></div>'}
+              <span style="
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: ${color}15;
+                color: ${color};
+                font-size: 11px;
+                font-weight: 600;
+                padding: 4px 10px;
+                border-radius: 100px;
+              ">${spot.kategori}</span>
+            </div>
+          </div>
         </div>
       `
 
-      marker.bindPopup(popupContent, { maxWidth: 280 })
+      marker.bindPopup(popupContent, {
+        maxWidth: 280,
+        minWidth: 260,
+        className: spot.gambar_url ? 'wisata-popup has-image' : 'wisata-popup no-image'
+      })
       marker.on('click', () => onSelectSpot(spot))
       marker.addTo(mapRef.current!)
 
@@ -134,7 +210,17 @@ export default function MapView({ spots, selectedSpot, onSelectSpot }: MapViewPr
   useEffect(() => {
     if (!mapRef.current || !selectedSpot) return
 
-    mapRef.current.flyTo([selectedSpot.latitude, selectedSpot.longitude], 17, {
+    const map = mapRef.current
+    const targetZoom = 19 // Zoom level maksimal saat fokus ke pin
+
+    // Menggeser titik tengah (center) ke atas agar pin berada agak ke bawah, sehingga popup terlihat
+    const targetLatLng = L.latLng(selectedSpot.latitude, selectedSpot.longitude)
+    const targetPoint = map.project(targetLatLng, targetZoom)
+    targetPoint.y -= 160 // Geser center 160px ke atas
+
+    const offsetLatLng = map.unproject(targetPoint, targetZoom)
+
+    map.flyTo(offsetLatLng, targetZoom, {
       duration: 1,
     })
 
@@ -144,14 +230,97 @@ export default function MapView({ spots, selectedSpot, onSelectSpot }: MapViewPr
       return latlng.lat === selectedSpot.latitude && latlng.lng === selectedSpot.longitude
     })
     if (marker) {
-      marker.openPopup()
+      // Tambahkan sedikit timeout agar animasi flyTo jalan dulu
+      setTimeout(() => {
+        marker.openPopup()
+      }, 200)
     }
   }, [selectedSpot])
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full h-[600px] rounded-3xl overflow-hidden shadow-ambient-lg border border-outline-variant z-0"
-    />
+    <>
+      <style>{`
+        .wisata-popup .leaflet-popup-content-wrapper {
+          border-radius: 16px;
+          padding: 0;
+          overflow: hidden;
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+          border: 1px solid rgba(0,0,0,0.05);
+        }
+        .wisata-popup .leaflet-popup-content {
+          margin: 0;
+          line-height: 1.5;
+        }
+        
+        /* Close button styling for popups WITH image */
+        .wisata-popup.has-image .leaflet-popup-close-button {
+          color: #fff !important;
+          background: rgba(0,0,0,0.3) !important;
+          border-radius: 50%;
+          width: 26px !important;
+          height: 26px !important;
+          top: 10px !important;
+          right: 10px !important;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          padding: 0 !important;
+          font-size: 18px !important;
+          backdrop-filter: blur(4px);
+          transition: all 0.2s ease;
+        }
+        .wisata-popup.has-image .leaflet-popup-close-button:hover {
+          background: rgba(0,0,0,0.6) !important;
+          color: #fff !important;
+        }
+        .wisata-popup.has-image .leaflet-popup-close-button span {
+          margin-top: -2px;
+        }
+
+        /* Close button styling for popups WITHOUT image */
+        .wisata-popup.no-image .leaflet-popup-close-button {
+          color: #6d7a77 !important;
+          background: #f0f4f4 !important;
+          border-radius: 50%;
+          width: 26px !important;
+          height: 26px !important;
+          top: 10px !important;
+          right: 10px !important;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          padding: 0 !important;
+          font-size: 18px !important;
+          transition: all 0.2s ease;
+        }
+        .wisata-popup.no-image .leaflet-popup-close-button:hover {
+          background: #e1e7e7 !important;
+          color: #1b1c19 !important;
+        }
+        .wisata-popup.no-image .leaflet-popup-close-button span {
+          margin-top: -2px;
+        }
+
+        /* Popup Inner Layout */
+        .wisata-popup .popup-image-container {
+          width: 100%;
+          height: 160px;
+          position: relative;
+        }
+        .wisata-popup .popup-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .wisata-popup .popup-body {
+          padding: 16px;
+          font-family: 'Lexend', sans-serif;
+        }
+      `}</style>
+      <div
+        ref={containerRef}
+        className="w-full h-[600px] rounded-3xl overflow-hidden shadow-ambient-lg border border-outline-variant z-0 relative"
+      />
+    </>
   )
 }

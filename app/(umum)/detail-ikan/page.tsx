@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { Ikan } from '@/lib/types'
@@ -42,7 +43,7 @@ export default function DetailIkanPage() {
           Tingkir Tengah
         </h1>
         <p className="text-on-surface-variant text-lg mt-md max-w-[48rem] leading-relaxed">
-          Kenali berbagai jenis ikan yang dibudidayakan dan dilestarikan di kawasan ekowisata Tingkir Tengah. Pelajari habitat, kandungan gizi, dan cara perawatannya.
+          Kenali berbagai jenis ikan yang dibudidayakan dan dilestarikan di kawasan ekowisata Tingkir Tengah. Pelajari asal usul, kandungan gizi, dan fakta menariknya.
         </p>
       </section>
 
@@ -71,70 +72,48 @@ export default function DetailIkanPage() {
             </p>
           </div>
         ) : (
-          <div className="flex flex-col gap-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-lg">
             {fishes.map((ikan, index) => (
               <div
                 key={ikan.id}
-                className="group bg-surface-container-lowest border border-outline-variant rounded-3xl overflow-hidden shadow-sm hover:shadow-ambient transition-all duration-500 flex flex-col md:flex-row animate-fade-in-up"
+                className="group bg-surface-container-lowest border border-outline-variant rounded-3xl overflow-hidden shadow-sm hover:shadow-ambient transition-all duration-500 flex flex-col animate-fade-in-up"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 {/* Image Section */}
-                <div className="relative h-64 md:h-auto md:w-2/5 xl:w-1/3 bg-surface-container overflow-hidden">
+                <div className="relative h-48 w-full bg-surface-container overflow-hidden">
                   <Image
-                    src={ikan.gambar_url && !ikan.gambar_url.includes('unsplash') ? ikan.gambar_url : '/images/hero-banner.png'}
+                    src={ikan.gambar_url || '/images/ikan.jpg'}
                     alt={ikan.nama_ikan}
                     fill
-                    sizes="(max-width: 768px) 100vw, 40vw"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   {ikan.spot_wisata && (
-                    <div className="absolute top-4 left-4 bg-surface/90 backdrop-blur-md text-on-surface text-xs font-bold px-sm py-1 rounded-full shadow-sm flex items-center gap-1 border border-white/20">
+                    <div className="absolute top-3 right-3 bg-surface/90 backdrop-blur-md text-on-surface text-xs font-bold px-2 py-1 rounded-full shadow-sm flex items-center gap-1 border border-white/20">
                       <span className="material-symbols-outlined text-[14px] text-primary">location_on</span>
-                      {ikan.spot_wisata.nama_lokasi}
+                      <span className="truncate max-w-[100px]">{ikan.spot_wisata.nama_lokasi}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Content Section */}
-                <div className="p-lg flex-1 flex flex-col justify-center">
-                  <div className="mb-md">
-                    <h2 className="text-3xl font-bold text-on-surface group-hover:text-primary transition-colors">
-                      {ikan.nama_ikan}
-                    </h2>
-                    {ikan.nama_ilmiah && (
-                      <p className="text-on-surface-variant italic font-serif text-lg mt-1">
-                        {ikan.nama_ilmiah}
-                      </p>
-                    )}
-                  </div>
-
-                  <p className="text-on-surface text-base leading-relaxed mb-lg border-l-4 border-primary-fixed pl-md">
-                    {ikan.deskripsi}
-                  </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-md mt-auto">
-                    {ikan.kandungan_gizi && (
-                      <div className="bg-surface-container-low p-md rounded-2xl">
-                        <h3 className="text-sm font-bold text-primary flex items-center gap-1 mb-2">
-                          <span className="material-symbols-outlined text-[18px]">health_and_safety</span>
-                          Kandungan Gizi
-                        </h3>
-                        <p className="text-on-surface-variant text-sm leading-relaxed">
-                          {ikan.kandungan_gizi}
-                        </p>
-                      </div>
-                    )}
-                    {ikan.habitat_dan_perawatan && (
-                      <div className="bg-surface-container-low p-md rounded-2xl">
-                        <h3 className="text-sm font-bold text-secondary flex items-center gap-1 mb-2">
-                          <span className="material-symbols-outlined text-[18px]">water_ec</span>
-                          Habitat & Perawatan
-                        </h3>
-                        <p className="text-on-surface-variant text-sm leading-relaxed">
-                          {ikan.habitat_dan_perawatan}
-                        </p>
-                      </div>
-                    )}
+                <div className="p-md flex-1 flex flex-col items-center text-center">
+                  <h2 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">
+                    {ikan.nama_ikan}
+                  </h2>
+                  {ikan.nama_ilmiah && (
+                    <p className="text-on-surface-variant italic font-serif text-sm mt-1 border-b border-outline pb-2 inline-block">
+                      {ikan.nama_ilmiah}
+                    </p>
+                  )}
+                  
+                  <div className="mt-auto pt-md w-full">
+                    <Link
+                      href={`/detail-ikan/${ikan.id}`}
+                      className="inline-block w-full bg-primary text-on-primary font-bold text-sm py-2 rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-95 shadow-sm"
+                    >
+                      Lihat Detail
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -1,20 +1,33 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export async function GET() {
   try {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const dateStr = today.toISOString();
 
-    const [visitorHariIni, totalVisitor] = await Promise.all([
-      prisma.visitor.findUnique({ where: { date: today } }),
-      prisma.visitor.aggregate({ _sum: { count: true } })
-    ]);
+    const { data: todayVisitor } = await supabase
+      .from('Visitor')
+      .select('count')
+      .eq('date', dateStr)
+      .single();
+
+    const { data: allVisitors } = await supabase
+      .from('Visitor')
+      .select('count');
+    
+    const totalCount = (allVisitors || []).reduce((acc, curr) => acc + curr.count, 0);
 
     return NextResponse.json({
       success: true,
-      today: visitorHariIni?.count || 0,
-      total: totalVisitor._sum.count || 0,
+      today: todayVisitor?.count || 0,
+      total: totalCount,
     });
   } catch (error) {
     return NextResponse.json({ success: false, error: 'Gagal mengambil statistik' }, { status: 500 });
@@ -24,25 +37,33 @@ export async function GET() {
 export async function POST() {
   try {
     const today = new Date();
-    // Normalisasi jam ke 00:00:00 agar satu hari dihitung sebagai satu entri
     today.setHours(0, 0, 0, 0);
+    const dateStr = today.toISOString();
 
-    const visitor = await prisma.visitor.upsert({
-      where: {
-        date: today,
-      },
-      update: {
-        count: {
-          increment: 1,
-        },
-      },
-      create: {
-        date: today,
-        count: 1,
-      },
-    });
+    const { data: existing } = await supabase
+      .from('Visitor')
+      .select('count')
+      .eq('date', dateStr)
+      .single();
 
-    return NextResponse.json({ success: true, count: visitor.count });
+    if (existing) {
+      const { data, error } = await supabase
+        .from('Visitor')
+        .update({ count: existing.count + 1 })
+        .eq('date', dateStr)
+        .select()
+        .single();
+      
+      return NextResponse.json({ success: true, count: data?.count });
+    } else {
+      const { data, error } = await supabase
+        .from('Visitor')
+        .insert({ date: dateStr, count: 1 })
+        .select()
+        .single();
+
+      return NextResponse.json({ success: true, count: data?.count });
+    }
   } catch (error) {
     console.error('Error saat mencatat pengunjung:', error);
     return NextResponse.json({ success: false, error: 'Gagal mencatat pengunjung' }, { status: 500 });

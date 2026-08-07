@@ -1,15 +1,21 @@
 'use client'
 
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { SpotWisata } from '@/lib/types'
 
+const LocationPicker = dynamic(() => import('./_components/LocationPicker'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[350px] rounded-xl bg-surface-container flex items-center justify-center animate-pulse text-outline">Memuat Peta...</div>
+})
+
 const emptyForm: Partial<SpotWisata> = {
-  nama_lokasi: '', kategori: 'Pemancingan', latitude: -7.317, longitude: 110.488,
+  nama_lokasi: '', kategori: 'Pemancingan', latitude: -7.361834, longitude: 110.526024,
   deskripsi: '', gambar_url: '', jam_operasional: '', status: 'published',
 }
-const categories: SpotWisata['kategori'][] = ['Pemancingan', 'Kuliner', 'Edukasi', 'Budidaya', 'Lainnya']
+const categories: SpotWisata['kategori'][] = ['Pemancingan', 'UMKM', 'Wisata', 'Budidaya', 'Lainnya']
 
 export default function AdminSpotWisataPage() {
   const [items, setItems] = useState<SpotWisata[]>([])
@@ -21,6 +27,7 @@ export default function AdminSpotWisataPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [uploading, setUploading] = useState(false)
   const [localPreview, setLocalPreview] = useState<string | null>(null)
+  const [errorModal, setErrorModal] = useState({ show: false, title: '', message: '' })
 
   const fetchItems = useCallback(async () => {
     setLoading(true)
@@ -31,7 +38,7 @@ export default function AdminSpotWisataPage() {
       setItems(data || [])
     } catch (err: any) {
       console.error('Fetch error:', err)
-      setMessage({ type: 'error', text: 'Gagal memuat data Spot Wisata.' })
+      setErrorModal({ show: true, title: 'Error', message: 'Gagal memuat data Spot Wisata.' })
     } finally {
       setLoading(false)
     }
@@ -62,6 +69,7 @@ export default function AdminSpotWisataPage() {
     // Batasi ukuran file maksimal 1 MB (1.048.576 bytes)
     const maxFileSize = 1 * 1024 * 1024
     if (file.size > maxFileSize) {
+      setErrorModal({ show: true, title: 'Gagal', message: 'Ukuran file maksimal 1MB' })
       setMessage({
         type: 'error',
         text: 'Ukuran file gambar terlalu besar. Maksimal ukuran file adalah 1 MB.',
@@ -90,9 +98,9 @@ export default function AdminSpotWisataPage() {
         .getPublicUrl(fileName)
 
       setForm((prev) => ({ ...prev, gambar_url: publicUrl }))
-      setMessage({ type: 'success', text: 'Gambar berhasil diunggah!' })
     } catch (err: any) {
       console.error('Upload error:', err)
+      setErrorModal({ show: true, title: 'Upload error', message: 'Gagal mengunggah gambar. Coba lagi.' })
       setMessage({
         type: 'error',
         text: 'Gagal mengunggah gambar. Pastikan koneksi internet stabil dan format gambar didukung.',
@@ -128,7 +136,7 @@ export default function AdminSpotWisataPage() {
       setShowForm(false); fetchItems()
     } catch (err: any) {
       console.error('Submit error:', err)
-      setMessage({ type: 'error', text: `Gagal menyimpan data: ${err?.message || 'Terjadi kesalahan.'}` })
+      setErrorModal({ show: true, title: 'Error', message: `Gagal menyimpan data: ${err?.message || 'Terjadi kesalahan.'}` })
     } finally { setSaving(false) }
   }
 
@@ -142,7 +150,7 @@ export default function AdminSpotWisataPage() {
       fetchItems()
     } catch (err: any) {
       console.error('Delete error:', err)
-      setMessage({ type: 'error', text: 'Gagal menghapus data.' })
+      setErrorModal({ show: true, title: 'Error', message: 'Gagal menghapus data.' })
     }
   }
 
@@ -159,9 +167,9 @@ export default function AdminSpotWisataPage() {
         </button>
       </div>
 
-      {message && (
-        <div className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${message.type === 'success' ? 'bg-tertiary-fixed/30 text-tertiary' : 'bg-error-container text-on-error-container'}`}>
-          <span className="material-symbols-outlined text-[18px]">{message.type === 'success' ? 'check_circle' : 'error'}</span>
+      {message && message.type === 'success' && (
+        <div className="rounded-xl p-sm mb-md text-lg flex items-center gap-xs bg-tertiary-fixed/30 text-tertiary">
+          <span className="material-symbols-outlined text-[18px]">check_circle</span>
           {message.text}
         </div>
       )}
@@ -206,6 +214,15 @@ export default function AdminSpotWisataPage() {
                   </select>
                 </div>
               </div>
+              <div className="mb-md">
+                <label className="block text-lg font-medium text-on-surface mb-xs">Titik Lokasi Peta</label>
+                <LocationPicker 
+                  lat={form.latitude || -7.361834} 
+                  lng={form.longitude || 110.526024} 
+                  onChange={(lat, lng) => setForm({ ...form, latitude: lat, longitude: lng })} 
+                />
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
                 <div>
                   <label className="block text-lg font-medium text-on-surface mb-xs">Latitude *</label>
@@ -236,22 +253,40 @@ export default function AdminSpotWisataPage() {
 
               {/* Image Upload */}
               <div>
-                <label className="block text-lg font-medium text-on-surface mb-xs">
-                  Foto Lokasi
+                <label className="block text-lg font-bold text-on-surface mb-xs">
+                  Foto Lokasi (Maks 1MB)
                 </label>
-                <div className="flex items-center gap-md">
-                  <label className="cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors flex items-center gap-xs text-lg text-on-surface-variant">
-                    <span className="material-symbols-outlined text-[18px]">upload</span>
+                
+                {!(localPreview || form.gambar_url) ? (
+                  <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors items-center gap-xs text-lg text-on-surface-variant font-medium mt-sm">
+                    <span className="material-symbols-outlined text-[18px]">upload_file</span>
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
                     <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                   </label>
-                  {(localPreview || form.gambar_url) && (
-                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-outline-variant flex-shrink-0">
-                      <img src={localPreview || form.gambar_url || ''} alt="Preview" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="flex flex-col gap-sm mt-xs">
+                    <div className="relative w-64 h-40 rounded-xl overflow-hidden border border-outline-variant">
+                      <img src={localPreview || form.gambar_url || ''} alt="Preview" className="w-full h-full object-contain bg-surface-container-lowest" />
                     </div>
-                  )}
-                </div>
-                <p className="text-base text-outline mt-xs">Maksimal ukuran file: 1 MB. Format: JPG, PNG, WebP.</p>
+                    <div className="flex items-center gap-md">
+                      <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-2 hover:bg-surface-container-high transition-colors items-center gap-xs text-base text-on-surface font-medium">
+                        <span className="material-symbols-outlined text-[18px]">upload_file</span>
+                        {uploading ? 'Mengunggah...' : 'Ganti Gambar'}
+                        <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                      </label>
+                      <button 
+                        type="button" 
+                        onClick={() => {
+                          setLocalPreview(null);
+                          setForm(prev => ({ ...prev, gambar_url: '' }));
+                        }} 
+                        className="text-error hover:text-error/80 font-semibold text-base transition-colors"
+                      >
+                        Hapus Gambar
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex justify-end gap-sm pt-md">
@@ -322,6 +357,27 @@ export default function AdminSpotWisataPage() {
           ))
         )}
       </div>
+      
+      {/* Error Modal */}
+      {errorModal.show && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-gutter">
+          <div className="bg-surface-container-lowest rounded-[32px] p-8 w-full max-w-[320px] text-center shadow-ambient-xl animate-fade-in-up">
+            <div className="w-16 h-16 rounded-full bg-error-container/30 mx-auto flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center border-2 border-error">
+                <span className="material-symbols-outlined text-[24px] font-bold">close</span>
+              </div>
+            </div>
+            <h3 className="text-2xl font-bold text-on-surface mb-2">{errorModal.title}</h3>
+            <p className="text-on-surface-variant text-base mb-8">{errorModal.message}</p>
+            <button 
+              onClick={() => setErrorModal({ show: false, title: '', message: '' })}
+              className="w-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-bold py-3 rounded-full transition-colors"
+            >
+              Tutup
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
