@@ -15,7 +15,7 @@ export interface UMKM {
 export interface SpotWisata {
   id: string
   nama_lokasi: string
-  kategori: 'Pemancingan' | 'Kuliner' | 'Edukasi' | 'Budidaya' | 'Lainnya'
+  kategori: 'Pemancingan' | 'UMKM' | 'Wisata' | 'Budidaya' | 'Lainnya'
   latitude: number
   longitude: number
   deskripsi: string
@@ -33,7 +33,7 @@ export interface Ikan {
   nama_ilmiah: string | null
   deskripsi: string
   kandungan_gizi: string | null
-  habitat_dan_perawatan: string | null
+  fakta_menarik: string | null
   gambar_url: string | null
   created_at: string
   updated_at: string

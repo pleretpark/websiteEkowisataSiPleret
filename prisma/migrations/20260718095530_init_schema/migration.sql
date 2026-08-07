@@ -31,7 +31,7 @@ CREATE TABLE "DetailIkan" (
     "lokasi_id" TEXT NOT NULL,
     "nama_ilmiah" TEXT NOT NULL,
     "kandungan_gizi" TEXT NOT NULL,
-    "habitat_dan_perawatan" TEXT NOT NULL,
+    "fakta_menarik" TEXT NOT NULL,
     "deskripsi" TEXT NOT NULL,
 
     CONSTRAINT "DetailIkan_pkey" PRIMARY KEY ("id")

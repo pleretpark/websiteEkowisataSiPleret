@@ -12,7 +12,7 @@ const navLinks = [
     label: 'Lokasi & Ikan',
     subLinks: [
       { href: '/peta-wisata', label: 'Peta Lokasi' },
-      { href: '/detail-ikan', label: 'Detail Ikan' },
+      { href: '/detail-ikan', label: 'Ensiklopedia Ikan' },
     ],
   },
   { href: '/berita', label: 'Berita' },
