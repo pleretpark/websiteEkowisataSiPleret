@@ -11,6 +11,7 @@ const emptyForm: Partial<UMKM> = {
   harga: 0,
   deskripsi: '',
   gambar_url: '',
+  gambar_urls: [],
   nomor_wa: '',
   nama_toko: '',
 }
@@ -19,8 +20,32 @@ const categories: UMKM['kategori'][] = ['Makanan', 'Kerajinan', 'Minuman', 'Lain
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat('id-ID', {
-    style: 'currency', currency: 'IDR', minimumFractionDigits: 0,
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
   }).format(price)
+}
+
+function formatPhoneDisplay(phone: string) {
+  if (!phone) return ''
+
+  const cleaned = phone.replace(/\D/g, '')
+
+  if (!cleaned.startsWith('62')) return cleaned
+
+  const number = cleaned.slice(2)
+
+  const part1 = number.slice(0, 3)
+  const part2 = number.slice(3, 7)
+  const part3 = number.slice(7, 11)
+
+  let result = '+62'
+
+  if (part1) result += ` ${part1}`
+  if (part2) result += `-${part2}`
+  if (part3) result += `-${part3}`
+
+  return result
 }
 
 export default function AdminUmkmPage() {
@@ -32,7 +57,7 @@ export default function AdminUmkmPage() {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [uploading, setUploading] = useState(false)
-  const [localPreview, setLocalPreview] = useState<string | null>(null)
+  const [localPreview, setLocalPreview] = useState<string[]>([])
 
   const fetchItems = useCallback(async () => {
     setLoading(true)
@@ -61,7 +86,7 @@ export default function AdminUmkmPage() {
     setEditingId(null)
     setShowForm(true)
     setMessage(null)
-    setLocalPreview(null)
+    setLocalPreview([])
   }
 
   function openEdit(item: UMKM) {
@@ -69,55 +94,86 @@ export default function AdminUmkmPage() {
     setEditingId(item.id)
     setShowForm(true)
     setMessage(null)
-    setLocalPreview(null)
+    setLocalPreview([])
   }
 
-  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
+async function handleFileUpload(
+  e: React.ChangeEvent<HTMLInputElement>
+) {
+  const files = Array.from(e.target.files || [])
 
-    // Batasi ukuran file maksimal 1 MB (1.048.576 bytes)
-    const maxFileSize = 1 * 1024 * 1024
-    if (file.size > maxFileSize) {
-      setMessage({
-        type: 'error',
-        text: 'Ukuran file gambar terlalu besar. Maksimal ukuran file adalah 1 MB.',
-      })
-      // Reset input file agar dapat dipilih kembali
-      e.target.value = ''
-      return
-    }
+  if (!files.length) return
 
-    setLocalPreview(URL.createObjectURL(file))
-    setUploading(true)
-    setMessage(null)
-    try {
-      const supabase = createClient()
+  setUploading(true)
+  setMessage(null)
+
+  try {
+    const supabase = createClient()
+
+    const uploadedUrls: string[] = []
+    const previews: string[] = []
+
+    for (const file of files) {
+      const maxFileSize = 1 * 1024 * 1024
+
+      if (file.size > maxFileSize) {
+        continue
+      }
+
+      previews.push(URL.createObjectURL(file))
+
       const fileExt = file.name.split('.').pop()
-      const fileName = `umkm-${Date.now()}.${fileExt}`
 
-      const { error: uploadError } = await supabase.storage
+      const fileName =
+        `umkm-${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2)}.${fileExt}`
+
+      const { error } = await supabase.storage
         .from('images')
         .upload(fileName, file)
 
-      if (uploadError) throw uploadError
+      if (error) throw error
 
-      const { data: { publicUrl } } = supabase.storage
+      const {
+        data: { publicUrl },
+      } = supabase.storage
         .from('images')
         .getPublicUrl(fileName)
 
-      setForm((prev) => ({ ...prev, gambar_url: publicUrl }))
-      setMessage({ type: 'success', text: 'Gambar berhasil diunggah!' })
-    } catch (err: any) {
-      console.error('Upload error:', err)
-      setMessage({
-        type: 'error',
-        text: 'Gagal mengunggah gambar. Pastikan koneksi internet stabil dan format gambar didukung.',
-      })
-    } finally {
-      setUploading(false)
+      uploadedUrls.push(publicUrl)
     }
+
+    setLocalPreview(previews)
+
+    setForm((prev) => ({
+  ...prev,
+
+  gambar_url:
+    prev.gambar_url ||
+    uploadedUrls[0],
+
+  gambar_urls: [
+    ...(prev.gambar_urls || []),
+    ...uploadedUrls,
+  ],
+}))
+
+    setMessage({
+      type: 'success',
+      text: `${uploadedUrls.length} gambar berhasil diunggah`,
+    })
+  } catch (err) {
+    console.error(err)
+
+    setMessage({
+      type: 'error',
+      text: 'Gagal upload gambar',
+    })
+  } finally {
+    setUploading(false)
   }
+}
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -132,6 +188,15 @@ export default function AdminUmkmPage() {
       else finalImageUrl = '/images/lainnya.jpg'
     }
 
+    if ((form.deskripsi || '').length > 600) {
+  setMessage({
+    type: 'error',
+    text: 'Deskripsi maksimal 600 karakter.',
+  })
+  setSaving(false)
+  return
+}
+
     try {
       const supabase = createClient()
 
@@ -144,6 +209,7 @@ export default function AdminUmkmPage() {
             harga: form.harga,
             deskripsi: form.deskripsi,
             gambar_url: finalImageUrl,
+            gambar_urls: form.gambar_urls || [],
             nomor_wa: form.nomor_wa,
             nama_toko: form.nama_toko,
             updated_at: new Date().toISOString(),
@@ -159,6 +225,7 @@ export default function AdminUmkmPage() {
           harga: form.harga,
           deskripsi: form.deskripsi,
           gambar_url: finalImageUrl,
+          gambar_urls: form.gambar_urls || [],
           nomor_wa: form.nomor_wa,
           nama_toko: form.nama_toko,
         })
@@ -205,7 +272,7 @@ export default function AdminUmkmPage() {
           id="add-umkm-btn"
         >
           <span className="material-symbols-outlined text-[18px]">add_circle</span>
-          Tambah UMKM
+          Tambah Produk
         </button>
       </div>
 
@@ -231,7 +298,7 @@ export default function AdminUmkmPage() {
           <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[42rem] max-h-[90vh] overflow-y-auto shadow-ambient-lg border border-outline-variant animate-fade-in-up">
             <div className="flex items-center justify-between mb-lg">
               <h2 className="text-3xl font-bold text-on-surface">
-                {editingId ? 'Edit Data UMKM' : 'Tambah UMKM Baru'}
+                {editingId ? 'Edit Data UMKM' : 'Tambah Produk Baru'}
               </h2>
               <button
                 onClick={() => setShowForm(false)}
@@ -320,28 +387,49 @@ export default function AdminUmkmPage() {
                 <label className="block text-lg font-medium text-on-surface mb-xs">
                   Nomor WhatsApp *
                 </label>
-                <input
-                  required
-                  value={form.nomor_wa || ''}
-                  onChange={(e) => setForm({ ...form, nomor_wa: e.target.value })}
-                  className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface"
-                  placeholder="6281234567890"
-                />
+<input
+  required
+  value={formatPhoneDisplay(form.nomor_wa || '')}
+  onChange={(e) => {
+    let value = e.target.value.replace(/\D/g, '')
+
+    if (value.startsWith('0')) {
+      value = '62' + value.slice(1)
+    }
+
+    setForm({
+      ...form,
+      nomor_wa: value.slice(0, 15),
+    })
+  }}
+  className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface"
+  placeholder="+62 812-3456-7890"
+/>
               </div>
 
               <div>
                 <label className="block text-lg font-medium text-on-surface mb-xs">
                   Deskripsi *
                 </label>
-                <textarea
-                  required
-                  rows={3}
-                  value={form.deskripsi || ''}
-                  onChange={(e) => setForm({ ...form, deskripsi: e.target.value })}
-                  className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none"
-                  placeholder="Deskripsi singkat produk..."
-                />
-              </div>
+<textarea
+  required
+  rows={4}
+  maxLength={600}
+  value={form.deskripsi || ''}
+  onChange={(e) =>
+    setForm({
+      ...form,
+      deskripsi: e.target.value.slice(0, 600),
+    })
+  }
+  className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none"
+  placeholder="Deskripsi singkat produk..."
+/>
+
+<div className="text-sm text-on-surface-variant text-right mt-1">
+  {(form.deskripsi || '').length}/600 karakter
+</div>
+</div>
 
               <div>
                 <label className="block text-lg font-medium text-on-surface mb-xs">
@@ -351,12 +439,25 @@ export default function AdminUmkmPage() {
                   <label className="cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors flex items-center gap-xs text-lg text-on-surface-variant">
                     <span className="material-symbols-outlined text-[18px]">upload</span>
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
-                    <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={handleFileUpload}
+                  />
                   </label>
                   {(localPreview || form.gambar_url) && (
-                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-outline-variant flex-shrink-0">
-                      <img src={localPreview || form.gambar_url || ''} alt="Preview" className="w-full h-full object-cover" />
-                    </div>
+                    <div className="flex flex-wrap gap-2">
+  {localPreview.map((img, i) => (
+    <img
+      key={i}
+      src={img}
+      alt=""
+      className="w-24 h-24 object-cover rounded-xl"
+    />
+  ))}
+</div>
                   )}
                 </div>
               </div>
@@ -408,7 +509,7 @@ export default function AdminUmkmPage() {
             </span>
             <p className="text-on-surface-variant text-2xl mt-md">Belum ada data UMKM.</p>
             <p className="text-outline text-lg mt-xs">
-              Klik tombol &quot;Tambah UMKM&quot; untuk menambah data baru.
+              Klik tombol &quot;Tambah Produk&quot; untuk menambah data baru.
             </p>
           </div>
         ) : (

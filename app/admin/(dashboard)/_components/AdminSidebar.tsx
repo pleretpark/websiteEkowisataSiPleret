@@ -111,7 +111,7 @@ export default function AdminSidebar({
               className="flex md:hidden items-center gap-xs text-primary font-bold tracking-tight text-lg hover:text-primary-container transition-colors"
             >
               <Image
-                src="/images/logo-prelet.png"
+                src="/images/logo-pleret.png"
                 alt="Logo Ekowisata"
                 width={30}
                 height={30}
