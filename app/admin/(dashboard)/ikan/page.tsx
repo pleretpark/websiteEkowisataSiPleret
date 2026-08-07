@@ -61,7 +61,7 @@ export default function AdminIkanPage() {
       setSpots(spotData || [])
 
     } catch {
-      showToast('error', 'Gagal memuat data.')
+      setErrorModal({ show: true, title: 'Error', message: 'Gagal memuat data.' })
     } finally {
       setLoading(false)
     }
@@ -145,7 +145,7 @@ export default function AdminIkanPage() {
       setShowForm(false)
       fetchData()
     } catch {
-      showToast('error', 'Gagal menyimpan data.')
+      setErrorModal({ show: true, title: 'Error', message: 'Gagal menyimpan data.' })
     } finally {
       setSaving(false)
     }
@@ -164,7 +164,7 @@ export default function AdminIkanPage() {
       showToast('success', 'Data ikan berhasil dihapus.')
       fetchData()
     } catch {
-      showToast('error', 'Gagal menghapus data.')
+      setErrorModal({ show: true, title: 'Error', message: 'Gagal menghapus data.' })
     } finally {
       setDeleteConfirmId(null)
     }
@@ -182,6 +182,13 @@ export default function AdminIkanPage() {
           Tambah Ikan Baru
         </button>
       </div>
+
+      {toast && (
+        <div className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${toast.type === 'success' ? 'bg-tertiary-fixed/30 text-tertiary' : 'bg-error-container text-on-error-container'}`}>
+          <span className="material-symbols-outlined text-[18px]">{toast.type === 'success' ? 'check_circle' : 'error'}</span>
+          {toast.text}
+        </div>
+      )}
 
       {/* Form Modal */}
       {showForm && (
@@ -385,31 +392,7 @@ export default function AdminIkanPage() {
         </div>
       )}    </div>
 
-      {/* Pop-up Success/Error Modal */}
-      {toast && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-gutter animate-fade-in">
-          <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[26rem] shadow-ambient-lg border border-outline-variant animate-fade-in-up text-center">
-            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-lg ${toast.type === 'success' ? 'bg-tertiary/15 text-tertiary' : 'bg-error/15 text-error'
-              }`}>
-              <span className="material-symbols-outlined text-4xl">
-                {toast.type === 'success' ? 'check_circle' : 'error'}
-              </span>
-            </div>
-            <h3 className="text-2xl font-bold text-on-surface mb-xs">
-              {toast.type === 'success' ? 'Berhasil' : 'Gagal'}
-            </h3>
-            <p className="text-on-surface-variant text-lg leading-relaxed mb-lg">
-              {toast.text}
-            </p>
-            <button
-              onClick={() => setToast(null)}
-              className="w-full bg-surface-container-high text-on-surface font-bold py-sm rounded-xl hover:bg-surface-container-highest transition-colors"
-            >
-              Tutup
-            </button>
-          </div>
-        </div>
-      )}
+
 
       {/* Pop-up Delete Confirmation Modal */}
       {deleteConfirmId && (

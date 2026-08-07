@@ -38,7 +38,7 @@ export default function AdminSpotWisataPage() {
       setItems(data || [])
     } catch (err: any) {
       console.error('Fetch error:', err)
-      setMessage({ type: 'error', text: 'Gagal memuat data Spot Wisata.' })
+      setErrorModal({ show: true, title: 'Error', message: 'Gagal memuat data Spot Wisata.' })
     } finally {
       setLoading(false)
     }
@@ -136,7 +136,7 @@ export default function AdminSpotWisataPage() {
       setShowForm(false); fetchItems()
     } catch (err: any) {
       console.error('Submit error:', err)
-      setMessage({ type: 'error', text: `Gagal menyimpan data: ${err?.message || 'Terjadi kesalahan.'}` })
+      setErrorModal({ show: true, title: 'Error', message: `Gagal menyimpan data: ${err?.message || 'Terjadi kesalahan.'}` })
     } finally { setSaving(false) }
   }
 
@@ -150,7 +150,7 @@ export default function AdminSpotWisataPage() {
       fetchItems()
     } catch (err: any) {
       console.error('Delete error:', err)
-      setMessage({ type: 'error', text: 'Gagal menghapus data.' })
+      setErrorModal({ show: true, title: 'Error', message: 'Gagal menghapus data.' })
     }
   }
 
@@ -167,9 +167,9 @@ export default function AdminSpotWisataPage() {
         </button>
       </div>
 
-      {message && (
-        <div className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${message.type === 'success' ? 'bg-tertiary-fixed/30 text-tertiary' : 'bg-error-container text-on-error-container'}`}>
-          <span className="material-symbols-outlined text-[18px]">{message.type === 'success' ? 'check_circle' : 'error'}</span>
+      {message && message.type === 'success' && (
+        <div className="rounded-xl p-sm mb-md text-lg flex items-center gap-xs bg-tertiary-fixed/30 text-tertiary">
+          <span className="material-symbols-outlined text-[18px]">check_circle</span>
           {message.text}
         </div>
       )}
