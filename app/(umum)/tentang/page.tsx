@@ -212,6 +212,32 @@ export default function TentangPage() {
         </div>
       </section>
 
+    {/* Peta Administrasi */}
+<section className="py-xl bg-surface-container-low">
+  <div className="max-w-[1600px] mx-auto px-gutter">
+    <div className="text-center mb-lg">
+      <h2 className="text-3xl font-bold text-on-surface">
+        Peta Administrasi Kelurahan Tingkir Tengah
+      </h2>
+      <p className="text-on-surface-variant mt-sm max-w-3xl mx-auto">
+        Bendungan Si Pleret didukung oleh berbagai potensi lokal, mulai dari sektor perikanan, UMKM, hingga wisata berbasis masyarakat.
+        Untuk memberikan gambaran yang lebih jelas, berikut peta administrasi Kelurahan Tingkir Tengah yang menunjukkan batas wilayah sebagai
+        bagian dari profile wilayah Ekowisata.
+      </p>
+    </div>
+
+    <div className="bg-surface-container-lowest rounded-3xl p-lg border border-outline-variant shadow-sm">
+      <Image
+        src="/images/Tingkir Tengah ADM.png"
+        alt="Peta Administrasi Kelurahan Tingkir Tengah"
+        width={1200}
+        height={900}
+        className="w-full h-auto rounded-2xl"
+      />
+    </div>
+  </div>
+</section>  
+
       {/* Quote */}
       <section className="py-xl">
         <div className="max-w-[1600px] mx-auto px-gutter">

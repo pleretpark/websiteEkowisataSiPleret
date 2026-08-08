@@ -253,14 +253,16 @@ export default async function HomePage() {
                     <span className="text-primary font-bold text-xl">
                       {formatPrice(item.harga)}
                     </span>
-                    <a
-                      href={`https://wa.me/${item.nomor_wa}?text=Halo, saya tertarik dengan produk ${item.nama_produk}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
-                    >
-                      Beli
-                    </a>
+<Link
+  href={`/umkm/detail-produk?id=${item.id}`}
+  className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
+>
+  Detail Produk
+
+  <span className="material-symbols-outlined text-base">
+    arrow_forward
+  </span>
+</Link>
                   </div>
                 </div>
               </div>
