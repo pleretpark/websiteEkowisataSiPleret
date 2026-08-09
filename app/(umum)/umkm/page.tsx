@@ -245,41 +245,43 @@ export default function UMKMPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-xl">
-        <div className="max-w-[1600px] mx-auto px-gutter">
-          <div className="bg-surface-container rounded-3xl p-xl flex flex-col md:flex-row items-center gap-lg">
-            <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
-                Dukung Kearifan Lokal
-              </h2>
-              <p className="text-on-surface-variant text-lg mt-md leading-relaxed">
-                Setiap pembelian langsung mendukung mata pencaharian keluarga di
-                Tingkir Tengah. Bersama, kita melestarikan tradisi dan membangun
-                masa depan yang berkelanjutan.
-              </p>
-              <div className="flex flex-wrap gap-sm mt-lg">
-                <a
-                  href="#"
-                  className="bg-primary text-on-primary font-bold px-xl py-sm rounded-full hover:shadow-xl transition-all"
-                >
-                  Jadi Mitra
-                </a>
-                <a
-                  href="/tentang"
-                  className="border-2 border-primary text-primary font-bold px-xl py-sm rounded-full hover:bg-primary hover:text-on-primary transition-all"
-                >
-                  Pelajari Dampak Kami
-                </a>
-              </div>
-            </div>
-            <div className="w-32 h-32 bg-tertiary-fixed-dim rounded-full flex items-center justify-center shadow-ambient">
-              <span className="material-symbols-outlined text-5xl text-on-tertiary-fixed">
-                eco
-              </span>
-            </div>
-          </div>
+<section className="py-xl">
+  <div className="max-w-[1600px] mx-auto px-gutter">
+    <div className="bg-surface-container rounded-3xl p-xl flex flex-col md:flex-row items-center gap-lg">
+      <div className="flex-1">
+        <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
+          Dukung Kearifan Lokal
+        </h2>
+
+        <p className="text-on-surface-variant text-lg mt-md leading-relaxed">
+          Setiap pembelian langsung mendukung mata pencaharian keluarga di
+          Tingkir Tengah. Bersama, kita melestarikan tradisi dan membangun
+          masa depan yang berkelanjutan.
+        </p>
+
+        <div className="mt-lg">
+          <a
+            href="https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20ingin%20mendaftarkan%20produk%20UMKM%20ke%20website%20Ekowisata%20Tingkir%20Tengah."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-xs bg-primary text-on-primary font-bold px-xl py-sm rounded-full hover:shadow-xl transition-all"
+          >
+            Daftarkan Produk
+            <span className="material-symbols-outlined text-base">
+              arrow_forward
+            </span>
+          </a>
         </div>
-      </section>
+      </div>
+
+      <div className="w-32 h-32 bg-tertiary-fixed-dim rounded-full flex items-center justify-center shadow-ambient">
+        <span className="material-symbols-outlined text-5xl text-on-tertiary-fixed">
+          eco
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
     </>
   )
 }
