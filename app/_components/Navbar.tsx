@@ -15,7 +15,7 @@ const navLinks = [
       { href: '/detail-ikan', label: 'Ensiklopedia Ikan' },
     ],
   },
-  { href: '/berita', label: 'Berita' },
+  { href: '/berita', label: 'Kabar Desa' },
   { href: '/tentang', label: 'Tentang' },
 ]
 
@@ -54,7 +54,7 @@ export default function Navbar() {
             height={36}
             className="rounded-full"
           />
-          Ekowisata Tingkir Tengah
+          Bendungan Si Pleret
         </Link>
 
         {/* Desktop Nav */}

@@ -11,7 +11,7 @@ export const menuItems = [
   { href: '/admin/umkm', icon: 'storefront', label: 'Manajemen UMKM' },
   { href: '/admin/spot-wisata', icon: 'eco', label: 'Peta Lokasi' },
   { href: '/admin/ikan', icon: 'phishing', label: 'Detail Ikan' },
-  { href: '/admin/berita', icon: 'newspaper', label: 'Berita & Artikel' },
+  { href: '/admin/berita', icon: 'newspaper', label: 'Kabar Desa' },
 ]
 
 export default function AdminSidebar({
@@ -39,7 +39,6 @@ export default function AdminSidebar({
         {/* Brand */}
         <div className="p-gutter border-b border-outline-variant">
           <h2 className="text-2xl font-bold text-primary">Admin Portal</h2>
-          <p className="text-lg text-on-surface-variant">Tingkir Tengah</p>
         </div>
 
         {/* Navigation */}
@@ -123,19 +122,8 @@ export default function AdminSidebar({
 
           {/* User profile actions */}
           <div className="flex items-center gap-md">
-            <button className="relative">
-              <span className="material-symbols-outlined text-outline hover:text-primary transition-colors">
-                notifications
-              </span>
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-error text-on-error rounded-full text-[10px] flex items-center justify-center font-bold">
-                3
-              </span>
-            </button>
             <div className="flex items-center gap-xs">
               <span className="text-lg text-on-surface font-medium hidden sm:block">
-                Admin Profile
-              </span>
-              <span className="text-base text-outline hidden sm:block uppercase">
                 Super Admin
               </span>
               <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
