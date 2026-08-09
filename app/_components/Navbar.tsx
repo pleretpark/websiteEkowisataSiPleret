@@ -53,7 +53,7 @@ export default function Navbar() {
           }`}
         >
           <Image
-            src={isTransparent ? "/images/logo-full-white.png" : "/images/logo-pleret.png"}
+            src={isTransparent ? "/images/Logo-Full-White.png" : "/images/logo-pleret.png"}
             alt="Logo Ekowisata"
             width={36}
             height={36}
