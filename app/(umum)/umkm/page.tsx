@@ -188,9 +188,9 @@ export default function UMKMPage() {
                           className="bg-primary text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
                         >
                           Detail Produk
-                          <span className="material-symbols-outlined text-base">
+                          {/* <span className="material-symbols-outlined text-base">
                             arrow_forward
-                          </span>
+                          </span> */}
                         </span>
                       </div>
                     </div>
@@ -203,40 +203,28 @@ export default function UMKMPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-xl">
-        <div className="max-w-[1600px] mx-auto px-gutter">
-          <div className="bg-surface-container rounded-3xl p-xl flex flex-col md:flex-row items-center gap-lg">
-            <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
-                Dukung Kearifan Lokal
-              </h2>
+      <section className="py-xl mb-xl">
+        <div className="max-w-[1400px] mx-auto px-gutter">
+          <div className="bg-surface-container rounded-3xl py-lg px-md flex flex-col items-center text-center">
+            <h2 className="text-xl md:text-2xl font-bold text-on-surface mb-xs">
+              Dukung UMKM Lokal
+            </h2>
 
-              <p className="text-on-surface-variant text-lg mt-md leading-relaxed">
-                Setiap pembelian langsung mendukung mata pencaharian keluarga di
-                Tingkir Tengah. Bersama, kita melestarikan tradisi dan membangun
-                masa depan yang berkelanjutan.
-              </p>
+            <p className="text-on-surface-variant text-sm md:text-base leading-relaxed max-w-[55rem] mb-md">
+              Setiap pembelian langsung mendukung mata pencaharian keluarga di Tingkir Tengah. Bersama, kita melestarikan tradisi dan membangun masa depan yang berkelanjutan.
+            </p>
 
-              <div className="mt-lg">
-                <a
-                  href="https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20ingin%20mendaftarkan%20produk%20UMKM%20ke%20website%20Ekowisata%20Tingkir%20Tengah."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-xs bg-primary text-on-primary font-bold px-xl py-sm rounded-full hover:shadow-xl transition-all"
-                >
-                  Daftarkan Produk
-                  <span className="material-symbols-outlined text-base">
-                    arrow_forward
-                  </span>
-                </a>
-              </div>
-            </div>
-
-            <div className="w-32 h-32 bg-tertiary-fixed-dim rounded-full flex items-center justify-center shadow-ambient">
-              <span className="material-symbols-outlined text-5xl text-on-tertiary-fixed">
-                eco
+            <a
+              href="https://wa.me/6281392382113?text=Halo%20Admin,%20saya%20ingin%20mendaftarkan%20produk%20UMKM%20ke%20website%20Ekowisata%20Tingkir%20Tengah."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-xs border-2 border-primary text-primary hover:bg-primary hover:text-on-primary font-medium px-lg py-2.5 rounded-full transition-all"
+            >
+              <span className="material-symbols-outlined text-[20px]">
+                storefront
               </span>
-            </div>
+              Daftarkan Produk Anda
+            </a>
           </div>
         </div>
       </section>

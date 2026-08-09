@@ -82,17 +82,18 @@ export default async function HomePage() {
           ============================== */}
       <section className="relative">
         <div className="relative w-full h-[500px] md:h-[700px] lg:h-[870px] overflow-hidden">
-          <Image
-            src="/images/hero-banner.png"
-            alt="Pesona Air Tawar Tingkir Tengah - kolam ikan dan vegetasi tropis"
-            fill
-            sizes="100vw"
-            className="object-cover transition-transform duration-1000 hover:scale-105"
-            priority
-            loading="eager"
+          <video
+            src="/data/video-landing.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-center items-center px-gutter md:px-xl max-w-[1600px] mx-auto text-center">
+          {/* Dark and warm overlay */}
+          <div className="absolute inset-0 bg-[#3d2314]/30 mix-blend-multiply z-0" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30 z-0" />
+          <div className="absolute inset-0 flex flex-col justify-center items-center px-gutter md:px-xl max-w-[1600px] mx-auto text-center pt-20 md:pt-0">
             <div className="flex flex-col items-center max-w-[48rem]">
               <h2 className="text-xl md:text-2xl lg:text-3xl text-white/90 italic font-medium mb-2 drop-shadow-md tracking-wide uppercase">
                 Selamat Datang di Wisata
@@ -116,9 +117,12 @@ export default async function HomePage() {
               </p>
               <a
                 href="#jelajahi"
-                className="inline-flex items-center gap-xs bg-primary-fixed text-on-primary-fixed text-lg md:text-xl font-bold px-8 py-4 rounded-full shadow-lg hover:bg-primary-container hover:text-on-primary-container transition-all transform hover:scale-105 active:scale-95"
+                className="inline-flex items-center justify-center text-white/90 hover:text-white transition-colors animate-bounce mt-4"
+                aria-label="Scroll down"
               >
-                Mulai Jelajahi
+                <span className="material-symbols-outlined text-[48px] drop-shadow-md">
+                  expand_more
+                </span>
               </a>
             </div>
           </div>
