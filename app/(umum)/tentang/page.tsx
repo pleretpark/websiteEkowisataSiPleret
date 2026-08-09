@@ -36,56 +36,39 @@ const pillars = [
 export default function TentangPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="mt-md px-gutter max-w-[1600px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center py-xl">
-          <div>
-            <span className="inline-block bg-primary-fixed text-on-primary-fixed text-sm font-bold px-md py-1 rounded-full mb-md">
-              🌿 Warisan Kami
-            </span>
-            <h1 className="text-3xl md:text-5xl font-bold text-on-surface leading-tight tracking-tight">
-              Menjaga Budaya,
-              <br />
-              Merawat Alam.
-            </h1>
-            <p className="text-on-surface-variant text-lg mt-md leading-relaxed max-w-[28rem]">
-              Terletak di jantung Salatiga, Tingkir Tengah lebih dari sekadar
-              destinasi. Ini adalah bukti hidup bagaimana kearifan lokal dan
-              pariwisata berkelanjutan bisa berdansa harmonis.
-            </p>
-            <div className="flex flex-wrap gap-sm mt-lg">
-              <a
-                href="#story"
-                className="bg-primary text-on-primary font-bold px-xl py-sm rounded-full hover:shadow-xl hover:scale-105 transition-all active:scale-95"
-              >
-                Temukan Kisah Kami
-              </a>
-              <a
-                href="#pillars"
-                className="border-2 border-primary text-primary font-bold px-xl py-sm rounded-full hover:bg-primary hover:text-on-primary transition-all"
-              >
-                Kenali Warga Lokal
-              </a>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="relative z-10 rounded-3xl overflow-hidden shadow-ambient-lg">
-              <Image
-                src="/images/about-hero.png"
-                alt="Desa Tingkir Tengah - pemandangan alam"
-                width={600}
-                height={400}
-                className="w-full object-cover"
-              />
-            </div>
-            <div className="absolute bottom-4 right-4 z-20 bg-primary text-on-primary rounded-2xl px-md py-sm shadow-lg flex items-center gap-xs">
-              <span className="material-symbols-outlined">verified</span>
-              <div>
-                <span className="font-bold text-lg">100%</span>
-                <span className="text-sm ml-1 opacity-90">Community Driven</span>
-              </div>
-            </div>
-          </div>
+      {/* Header */}
+      <header className="px-gutter max-w-[1000px] mx-auto pt-lg pb-xl mt-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
+          Tentang <span className="text-[#003d37] italic font-medium">Tingkir Tengah</span>
+        </h1>
+        <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
+          Terletak di jantung Salatiga, Tingkir Tengah lebih dari sekadar destinasi. Ini adalah bukti hidup bagaimana kearifan lokal dan pariwisata berkelanjutan bisa berdansa harmonis.
+        </p>
+        <div className="flex flex-wrap justify-center gap-sm mt-lg">
+          <a
+            href="#story"
+            className="bg-primary text-on-primary font-bold px-xl py-sm rounded-full hover:shadow-xl hover:scale-105 transition-all active:scale-95"
+          >
+            Temukan Kisah Kami
+          </a>
+          <a
+            href="#pillars"
+            className="border-2 border-primary text-primary font-bold px-xl py-sm rounded-full hover:bg-primary hover:text-on-primary transition-all"
+          >
+            Kenali Warga Lokal
+          </a>
+        </div>
+      </header>
+
+      {/* Hero Image */}
+      <section className="px-gutter max-w-[1200px] mx-auto mb-xl">
+        <div className="relative z-10 rounded-3xl overflow-hidden shadow-ambient-lg h-[300px] md:h-[500px]">
+          <Image
+            src="/images/about-hero.png"
+            alt="Desa Tingkir Tengah - pemandangan alam"
+            fill
+            className="object-cover"
+          />
         </div>
       </section>
 

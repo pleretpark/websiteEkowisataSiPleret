@@ -92,22 +92,33 @@ export default async function HomePage() {
             loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-center items-start px-gutter md:px-xl max-w-[1600px] mx-auto">
-            <div className="max-w-[42rem]">
-              <h1 className="text-3xl md:text-5xl lg:text-[48px] leading-tight md:leading-[56px] font-bold text-white mb-sm drop-shadow-lg tracking-tight">
-                Pesona Air Tawar Tingkir
+          <div className="absolute inset-0 flex flex-col justify-center items-center px-gutter md:px-xl max-w-[1600px] mx-auto text-center">
+            <div className="flex flex-col items-center max-w-[48rem]">
+              <h2 className="text-xl md:text-2xl lg:text-3xl text-white/90 italic font-medium mb-2 drop-shadow-md tracking-wide uppercase">
+                Selamat Datang di Wisata
+              </h2>
+              <h1 className="text-4xl md:text-6xl lg:text-[72px] leading-tight md:leading-tight font-bold text-white mb-6 drop-shadow-lg tracking-tight">
+                Bendungan Si Pleret
               </h1>
-              <p className="text-base md:text-lg text-white/90 mb-lg leading-relaxed max-w-[32rem] drop-shadow-md">
+              <div className="mb-6">
+                <Image 
+                  src="/images/logo-warna.png" 
+                  alt="Logo Bendungan Si Pleret" 
+                  width={100} 
+                  height={100} 
+                  className="rounded-full"
+                />
+              </div>
+              <p className="text-base md:text-xl text-white/95 mb-10 leading-relaxed max-w-[40rem] drop-shadow-md">
                 Temukan harmoni alam dan kearifan lokal dalam setiap tetes air.
                 Ekowisata berkelanjutan yang memberdayakan masyarakat dan
                 melestarikan ekosistem perikanan darat.
               </p>
               <a
                 href="#jelajahi"
-                className="inline-flex items-center gap-xs bg-primary-fixed text-on-primary-fixed text-lg md:text-2xl font-semibold px-xl py-sm rounded-full shadow-lg hover:bg-primary-container hover:text-on-primary-container transition-all transform active:scale-95"
+                className="inline-flex items-center gap-xs bg-primary-fixed text-on-primary-fixed text-lg md:text-xl font-bold px-8 py-4 rounded-full shadow-lg hover:bg-primary-container hover:text-on-primary-container transition-all transform hover:scale-105 active:scale-95"
               >
-                Mulai Penjelajahan
-                
+                Mulai Jelajahi
               </a>
             </div>
           </div>
@@ -156,8 +167,8 @@ export default async function HomePage() {
       {/* ==============================
           TENTANG SINGKAT / ABOUT SECTION
           ============================== */}
-      <section id="jelajahi" className="mt-32 md:mt-40 py-xl">
-        <div className="max-w-[1600px] mx-auto px-gutter">
+      <section id="jelajahi" className="mt-0 md:mt-0 py-xl">
+        <div className="max-w-[1500px] mx-auto px-gutter">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
             {/* Wrapper kembali mengambil lebar penuh dari kolom grid */}
             <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg w-full">
@@ -171,7 +182,7 @@ export default async function HomePage() {
             </div>
             <div className="space-y-md">
               <span className="inline-block bg-primary-fixed text-on-primary-fixed text-sm font-bold px-md py-1 rounded-full">
-                🌿 Tentang Kami
+                Tentang Kami
               </span>
               <h2 className="text-2xl md:text-4xl font-bold text-on-surface leading-tight tracking-tight">
                 Menjaga Budaya, Merawat Alam
@@ -198,7 +209,7 @@ export default async function HomePage() {
           UMKM SECTION
           ============================== */}
       <section className="py-xl bg-surface-container-low">
-        <div className="max-w-[1600px] mx-auto px-gutter">
+        <div className="max-w-[1500px] mx-auto px-gutter">
           <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
             <div>
               <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
@@ -253,16 +264,16 @@ export default async function HomePage() {
                     <span className="text-primary font-bold text-xl">
                       {formatPrice(item.harga)}
                     </span>
-<Link
-  href={`/umkm/detail-produk?id=${item.id}`}
-  className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
->
-  Detail Produk
+                    <Link
+                      href={`/umkm/detail-produk?id=${item.id}`}
+                      className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
+                    >
+                      Detail Produk
 
-  <span className="material-symbols-outlined text-base">
-    arrow_forward
-  </span>
-</Link>
+                      {/* <span className="material-symbols-outlined text-base">
+                        arrow_forward
+                      </span> */}
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -275,11 +286,14 @@ export default async function HomePage() {
           KABAR DESA & ACARA SECTION
           ============================== */}
       <section className="py-xl">
-        <div className="max-w-[1600px] mx-auto px-gutter">
+        <div className="max-w-[1500px] mx-auto px-gutter">
           <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-primary">
+              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
                 Kabar Desa & Acara
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
+                Informasi Terbaru
               </h2>
             </div>
             <Link
@@ -331,7 +345,7 @@ export default async function HomePage() {
                     className="inline-flex items-center gap-1 text-primary font-semibold text-sm mt-md group-hover:underline"
                   >
                     Baca Selengkapnya
-                    <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    {/* <span className="material-symbols-outlined text-[16px]">arrow_forward</span> */}
                   </Link>
                 </div>
               </div>
@@ -370,7 +384,7 @@ export default async function HomePage() {
               menggabungkan pariwisata berbasis alam dengan pemberdayaan ekonomi
               mikro untuk menciptakan masa depan yang lebih hijau.
             </p>
-            <div className="grid grid-cols-2 gap-md">
+            {/* <div className="grid grid-cols-2 gap-md">
               <div className="p-md bg-white rounded-2xl shadow-ambient">
                 <span className="text-secondary font-bold text-4xl block">25+</span>
                 <span className="text-on-surface-variant text-sm font-medium">
@@ -383,7 +397,7 @@ export default async function HomePage() {
                   Pengunjung/Thn
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

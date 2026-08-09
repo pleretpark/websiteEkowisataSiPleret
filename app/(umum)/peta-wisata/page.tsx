@@ -71,22 +71,18 @@ export default function PetaWisataPage() {
   return (
     <>
       {/* Header */}
-      <section className="mt-md px-gutter max-w-[1600px] mx-auto py-lg">
-        <span className="inline-block bg-secondary-fixed text-on-secondary-fixed text-sm font-bold px-md py-1 rounded-full mb-md">
-          Peta Interaktif
-        </span>
-        <h1 className="text-3xl md:text-5xl font-bold text-on-surface leading-tight tracking-tight">
-          Jelajahi Spot Ekowisata
+      <header className="px-gutter max-w-[1000px] mx-auto pt-lg pb-xl mt-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
+          Peta <span className="text-[#003d37] italic font-medium">Wisata</span>
         </h1>
-        <p className="text-on-surface-variant text-lg mt-md max-w-[42rem] leading-relaxed">
-          Temukan lokasi kolam pemancingan, restoran ikan, pusat edukasi, dan
-          titik strategis lainnya di Kelurahan Tingkir Tengah.
+        <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
+          Temukan lokasi kolam pemancingan, restoran ikan, pusat edukasi, dan titik strategis lainnya di Kelurahan Tingkir Tengah.
         </p>
-      </section>
+      </header>
 
       {/* Category Filters */}
       <section className="px-gutter max-w-[1600px] mx-auto mb-md">
-        <div className="flex flex-wrap gap-xs">
+        <div className="flex flex-wrap justify-center gap-xs">
           {categoryFilters.map((cat) => (
             <button
               key={cat}
