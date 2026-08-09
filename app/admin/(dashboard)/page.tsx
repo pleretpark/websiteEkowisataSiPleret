@@ -128,7 +128,7 @@ export default async function  DashboardPage() {
           <div>
             <h3 className="font-semibold text-on-surface text-xl">Panduan Penggunaan</h3>
             <p className="text-on-surface-variant text-xl mt-xs leading-relaxed">
-              Gunakan menu di sidebar kiri untuk mengelola data Produk, Spot Wisata, dan Berita.
+              Gunakan menu di sidebar kiri untuk mengelola data Produk, Peta Lokasi, Detail Ikan, dan Kabar Desa.
               Setiap perubahan akan langsung ditampilkan di website publik setelah disimpan.
               Pastikan untuk mengisi semua kolom wajib sebelum menyimpan data.
             </p>

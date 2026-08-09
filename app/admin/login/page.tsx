@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@tingkirtengah.id"
+                placeholder="Gunakan Email Terdaftar"
                 required
                 className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary focus:border-primary text-xl text-on-surface placeholder:text-outline transition-all"
               />

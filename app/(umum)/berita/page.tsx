@@ -96,18 +96,13 @@ export default async function BeritaPage({
   return (
     <div className="bg-[#fafafa] min-h-screen">
       {/* Title Header Section */}
-      <header className="px-gutter max-w-[1600px] mx-auto pt-lg pb-md">
-        <div className="max-w-[48rem]">
-          <span className="inline-block bg-primary text-on-primary text-xs font-bold px-md py-1 rounded-full mb-xs">
-            WARTA DESA
-          </span>
-          <h1 className="text-3xl md:text-5xl font-bold text-[#003d37] leading-tight tracking-tight mt-xs">
-            Kabar Terbaru Dari Desa
-          </h1>
-          <p className="text-on-surface-variant text-base md:text-lg mt-sm leading-relaxed">
-            Jelajahi perkembangan terbaru, inovasi UMKM, dan kegiatan pelestarian lingkungan yang menginspirasi di jantung Tingkir Tengah.
-          </p>
-        </div>
+      <header className="px-gutter max-w-[1000px] mx-auto pt-lg pb-xl mt-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
+          Berita <span className="text-[#003d37] italic font-medium">& Acara</span>
+        </h1>
+        <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
+          Pusat informasi resmi mengenai kegiatan, pembangunan, dan pengumuman terkini di lingkungan Ekowisata Tingkir Tengah.
+        </p>
       </header>
 
       {/* Spotlight Card */}
@@ -199,7 +194,7 @@ export default async function BeritaPage({
                             {item.konten}
                           </p>
                         </div>
-                        
+
                         {/* Share and Detail Link */}
                         <div className="mt-md pt-sm border-t border-outline-variant/40 flex justify-between items-center text-xs font-semibold text-on-surface-variant">
                           <span className="hover:text-primary flex items-center gap-1 cursor-pointer">
@@ -222,9 +217,8 @@ export default async function BeritaPage({
                   {/* Previous Page */}
                   <Link
                     href={`/berita?page=${currentPage - 1}`}
-                    className={`w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant transition-colors hover:bg-surface-container ${
-                      currentPage === 1 ? 'pointer-events-none opacity-50' : ''
-                    }`}
+                    className={`w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant transition-colors hover:bg-surface-container ${currentPage === 1 ? 'pointer-events-none opacity-50' : ''
+                      }`}
                   >
                     <span className="material-symbols-outlined text-[18px]">chevron_left</span>
                   </Link>
@@ -234,11 +228,10 @@ export default async function BeritaPage({
                       <Link
                         key={pageNum}
                         href={`/berita?page=${pageNum}`}
-                        className={`w-10 h-10 flex items-center justify-center rounded-full border font-bold text-sm transition-colors ${
-                          currentPage === pageNum
+                        className={`w-10 h-10 flex items-center justify-center rounded-full border font-bold text-sm transition-colors ${currentPage === pageNum
                             ? 'bg-primary border-primary text-on-primary shadow-sm'
                             : 'border-outline-variant text-on-surface-variant hover:bg-surface-container'
-                        }`}
+                          }`}
                       >
                         {pageNum}
                       </Link>
@@ -247,9 +240,8 @@ export default async function BeritaPage({
                   {/* Next Page */}
                   <Link
                     href={`/berita?page=${currentPage + 1}`}
-                    className={`w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant transition-colors hover:bg-surface-container ${
-                      currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
-                    }`}
+                    className={`w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant transition-colors hover:bg-surface-container ${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
+                      }`}
                   >
                     <span className="material-symbols-outlined text-[18px]">chevron_right</span>
                   </Link>

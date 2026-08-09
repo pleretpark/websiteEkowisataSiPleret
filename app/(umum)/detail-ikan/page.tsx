@@ -33,19 +33,15 @@ export default function DetailIkanPage() {
 
   return (
     <>
-      <section className="mt-md px-gutter max-w-[1600px] mx-auto py-lg">
-        <span className="inline-block bg-primary-fixed text-on-primary-fixed text-sm font-bold px-md py-1 rounded-full mb-md">
-          Edukasi & Konservasi
-        </span>
-        <h1 className="text-3xl md:text-5xl font-bold text-on-surface leading-tight tracking-tight">
-          Ensiklopedia Ikan
-          <br />
-          Tingkir Tengah
+      {/* Header */}
+      <header className="px-gutter max-w-[1000px] mx-auto pt-lg pb-xl mt-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
+          Ensiklopedia <span className="text-[#003d37] italic font-medium">Ikan</span>
         </h1>
-        <p className="text-on-surface-variant text-lg mt-md max-w-[48rem] leading-relaxed">
+        <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
           Kenali berbagai jenis ikan yang dibudidayakan dan dilestarikan di kawasan ekowisata Tingkir Tengah. Pelajari asal usul, kandungan gizi, dan fakta menariknya.
         </p>
-      </section>
+      </header>
 
       <section className="px-gutter max-w-[1600px] mx-auto pb-xl">
         {loading ? (
