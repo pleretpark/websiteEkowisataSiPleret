@@ -1,10 +1,7 @@
-import Image from 'next/image'
+'use client'
 
-const timeline = [
-  { year: '1990', event: 'Fondasi Pengrajin Lokal' },
-  { year: '2015', event: 'Peluncuran Inisiatif Eko-Wisata' },
-  { year: '2024', event: 'Pengakuan Global untuk UMKM' },
-]
+import Image from 'next/image'
+import { useState } from 'react'
 
 const pillars = [
   {
@@ -26,221 +23,250 @@ const pillars = [
     color: 'bg-secondary-fixed/20 text-secondary',
   },
   {
-    icon: 'groups',
-    title: '50k+ Pengunjung',
-    description: 'Menjadi tuan rumah wisatawan dari lebih dari 20 negara, memupuk pertukaran budaya.',
+    icon: 'school',
+    title: 'Pusat Edukasi Lingkungan',
+    description: 'Memberikan lokakarya lingkungan mingguan untuk sekolah-sekolah di sekitar wilayah Tingkir.',
     color: 'bg-tertiary-fixed/20 text-tertiary',
   },
 ]
 
 export default function TentangPage() {
+  const [showFullStory, setShowFullStory] = useState(false);
+
   return (
     <>
-      {/* Header */}
-      <header className="px-gutter max-w-[1000px] mx-auto pt-lg pb-xl mt-12 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
-          Tentang <span className="text-[#003d37] italic font-medium">Tingkir Tengah</span>
+      {/* 1. HEADER & VIDEO PROFIL */}
+      <header className="pt-xl pb-lg md:pt-[100px] text-center px-gutter max-w-[1000px] mx-auto">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] leading-tight tracking-tight mb-sm">
+          Tentang Tingkir Tengah 
+          <br />
+          <span className="text-[#003d37] italic font-medium">& Bendungan Si Pleret</span>
         </h1>
-        <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
-          Terletak di jantung Salatiga, Tingkir Tengah lebih dari sekadar destinasi. Ini adalah bukti hidup bagaimana kearifan lokal dan pariwisata berkelanjutan bisa berdansa harmonis.
+        <p className="text-on-surface-variant text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-xl">
+          Sebuah ruang di mana kearifan lokal, kelestarian alam, dan pariwisata berkelanjutan bersatu dalam harmoni. Selamat datang di kebanggaan Kota Salatiga.
         </p>
-        <div className="flex flex-wrap justify-center gap-sm mt-lg">
-          <a
-            href="#story"
-            className="bg-primary text-on-primary font-bold px-xl py-sm rounded-full hover:shadow-xl hover:scale-105 transition-all active:scale-95"
-          >
-            Temukan Kisah Kami
-          </a>
-          <a
-            href="#pillars"
-            className="border-2 border-primary text-primary font-bold px-xl py-sm rounded-full hover:bg-primary hover:text-on-primary transition-all"
-          >
-            Kenali Warga Lokal
-          </a>
+
+        {/* Video Profil Wrapper */}
+        <div id="profil-video" className="relative z-10 rounded-3xl overflow-hidden shadow-ambient-lg aspect-video bg-surface-container-low border border-outline-variant max-w-[900px] mx-auto">
+          {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
+          <iframe
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/kaCPjx0F3aw"
+            title="Video Profil Ekowisata Tingkir Tengah"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
         </div>
+        <p className="mt-4 text-sm text-on-surface-variant/70 italic">
+          Karya persembahan Tim KKN-T 96 Universitas Diponegoro
+        </p>
       </header>
 
-      {/* Hero Image */}
-      <section className="px-gutter max-w-[1200px] mx-auto mb-xl">
-        <div className="relative z-10 rounded-3xl overflow-hidden shadow-ambient-lg h-[300px] md:h-[500px]">
-          <Image
-            src="/images/about-hero.png"
-            alt="Desa Tingkir Tengah - pemandangan alam"
-            fill
-            className="object-cover"
-          />
-        </div>
-      </section>
+      {/* Pembatas Dekoratif */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-outline-variant to-transparent my-md"></div>
 
-      {/* Story + Vision */}
+      {/* 2. KISAH JAKA TINGKIR (SEJARAH) */}
       <section id="story" className="py-xl bg-surface-container-low">
-        <div className="max-w-[1600px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl">
-          {/* Timeline */}
-          <div>
-            <h2 className="text-2xl font-bold text-on-surface mb-lg">
+        <div className="max-w-[1200px] mx-auto px-gutter">
+          <div className="text-center mb-xl">
+            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
+              Sejarah & Legenda
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-sm">
               Kisah Tingkir Tengah
             </h2>
-            <p className="text-on-surface-variant text-base leading-relaxed mb-lg">
-              Dari awal yang sederhana hingga menjadi mercusuar inovasi
-              berkelanjutan, perjalanan kami didefinisikan oleh ketangguhan
-              masyarakat kami.
-            </p>
-            <div className="space-y-sm">
-              {timeline.map((item) => (
-                <div
-                  key={item.year}
-                  className="flex items-center gap-md p-md bg-surface-container-lowest rounded-2xl border border-outline-variant hover:shadow-ambient transition-all"
-                >
-                  <span className="text-primary font-bold text-lg min-w-[60px]">
-                    {item.year}
-                  </span>
-                  <span className="text-on-surface font-medium">{item.event}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Vision */}
-          <div className="bg-primary rounded-3xl p-xl text-on-primary">
-            <h2 className="text-2xl font-bold mb-md">Visi Kami</h2>
-            <p className="text-on-primary/90 text-base leading-relaxed mb-lg">
-              Kami membayangkan Ekowisata Tingkir Tengah sebagai model global
-              untuk pariwisata berbasis komunitas di mana pelestarian lingkungan
-              dan kemakmuran ekonomi tidak saling eksklusif. Kami berupaya
-              memberdayakan setiap rumah tangga lokal, memastikan warisan kami
-              bertahan untuk generasi mendatang.
-            </p>
-            <div className="grid grid-cols-2 gap-md">
-              <div className="bg-white/10 rounded-2xl p-md backdrop-blur-sm">
-                <span className="material-symbols-outlined text-2xl mb-xs block">
-                  diversity_3
-                </span>
-                <h4 className="font-semibold mb-1">Kesetaraan Sosial</h4>
-                <p className="text-sm text-on-primary/80">
-                  Pembagian keuntungan langsung untuk lebih dari 50 keluarga lokal.
-                </p>
-              </div>
-              <div className="bg-white/10 rounded-2xl p-md backdrop-blur-sm">
-                <span className="material-symbols-outlined text-2xl mb-xs block">
-                  recycling
-                </span>
-                <h4 className="font-semibold mb-1">Hidup Minim Limbah</h4>
-                <p className="text-sm text-on-primary/80">
-                  Menerapkan sistem kompos organik seluruh desa.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Community First */}
-      <section className="py-xl">
-        <div className="max-w-[1600px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
-          <div className="rounded-3xl overflow-hidden shadow-ambient-lg">
-            <Image
-              src="/images/community.png"
-              alt="Komunitas Tingkir Tengah"
-              width={600}
-              height={400}
-              className="w-full object-cover"
-            />
-          </div>
-          <div className="bg-secondary-fixed/20 rounded-3xl p-xl">
-            <h3 className="text-2xl font-bold text-on-surface mb-md">
-              Mengutamakan Komunitas
+            <h3 className="text-xl md:text-2xl text-primary font-medium max-w-3xl mx-auto leading-relaxed">
+              Perjalanan Jaka Tingkir dan Asal Usul Bendungan Si Pleret
             </h3>
-            <p className="text-on-surface-variant text-base leading-relaxed">
-              90% staf dan pemandu wisata kami adalah penduduk Tingkir Tengah,
-              yang terlatih untuk memberikan pengalaman autentik sambil
-              melestarikan cara hidup mereka. Setiap kunjungan berkontribusi
-              langsung pada ekonomi lokal dan pelestarian budaya.
-            </p>
           </div>
-        </div>
-      </section>
 
-      {/* How We Empower */}
-      <section id="pillars" className="py-xl bg-surface-container-low">
-        <div className="max-w-[1600px] mx-auto px-gutter">
-          <div className="text-center mb-xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-on-surface">
-              Bagaimana Kami Memberdayakan
-            </h2>
-            <p className="text-on-surface-variant text-lg mt-md max-w-[42rem] mx-auto">
-              Komitmen kami terhadap lingkungan dan komunitas dibangun di atas
-              empat pilar utama pertumbuhan berkelanjutan.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-            {pillars.map((pillar) => (
-              <div
-                key={pillar.title}
-                className="bg-surface-container-lowest rounded-3xl p-xl border border-outline-variant hover:shadow-ambient-hover transition-all duration-500 group"
-              >
-                <span
-                  className={`material-symbols-outlined text-4xl ${pillar.color} p-sm rounded-2xl inline-block mb-md`}
-                >
-                  {pillar.icon}
-                </span>
-                <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">
-                  {pillar.title}
-                </h3>
-                <p className="text-on-surface-variant text-base mt-xs leading-relaxed">
-                  {pillar.description}
-                </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl items-start">
+            <div className="lg:col-span-5 relative">
+              <div className="sticky top-28 rounded-3xl overflow-hidden shadow-ambient-lg aspect-[3/4] bg-surface-container border border-outline-variant group">
+                <Image
+                  src="/images/jakatingkir.png"
+                  alt="Ilustrasi Jaka Tingkir"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <p className="text-white font-medium">Ilustrasi Mas Karebet (Jaka Tingkir)</p>
+                </div>
               </div>
-            ))}
+            </div>
+
+            <div className="lg:col-span-7 space-y-md text-on-surface-variant text-base md:text-lg leading-relaxed text-justify">
+              <p>Pada abad ke-16, ketika Kesultanan Demak menjadi pusat pemerintahan dan penyebaran Islam di Pulau Jawa, hiduplah seorang pemuda bernama Mas Karebet yang kelak lebih dikenal sebagai Jaka Tingkir. Ia berasal dari daerah Tingkir, yang kini menjadi bagian dari Kota Salatiga, Jawa Tengah.</p>
+              <p>Dikisahkan bahwa pada suatu waktu Jaka Tingkir memutuskan melakukan perjalanan menuju Keraton Demak. Ketika melintasi wilayah Dusun Payaman, ia menjumpai aliran sungai yang deras. Masyarakat setempat saat itu kesulitan memanfaatkan air sungai; meluap saat hujan dan kekeringan saat kemarau.</p>
+              <p>Melihat hal tersebut, Jaka Tingkir merasa iba. Sebelum melanjutkan perjalanannya, ia membantu masyarakat menyusun batu-batu besar untuk membentuk sebuah bendung sederhana.</p>
+              
+              <div className="mt-md">
+                {!showFullStory ? (
+                  <button
+                    onClick={() => setShowFullStory(true)}
+                    className="inline-flex items-center gap-xs bg-primary/10 text-primary font-bold px-6 py-3 rounded-full hover:bg-primary hover:text-on-primary transition-all"
+                  >
+                    Lanjutkan Membaca Cerita
+                    <span className="material-symbols-outlined text-xl">menu_book</span>
+                  </button>
+                ) : (
+                  <div className="space-y-md animate-in fade-in slide-in-from-top-4 duration-700 mt-md pt-md border-t border-outline-variant/50">
+                    <p>Bendung susunan batu tersebut dipercaya menjadi cikal bakal Bendungan Si Pleret. Nama &quot;Pleret&quot; sendiri konon berasal dari suara gemuruh air yang mengalir deras berbunyi &quot;pleret... pleret...&quot;.</p>
+                    <p>Setelah membantu masyarakat, Jaka Tingkir melanjutkan perjalanan ke Demak, dan di kemudian hari diangkat menjadi Sultan Pajang. Bagi masyarakat Dusun Payaman, bendungan ini bukan sekadar peninggalan masa lalu, melainkan simbol kepedulian, gotong royong, dan pelestarian sumber daya air yang masih terus dijaga hingga hari ini.</p>
+                    <button
+                      onClick={() => setShowFullStory(false)}
+                      className="inline-flex items-center gap-xs text-primary font-bold hover:text-primary-container transition-colors mt-2"
+                    >
+                      Sembunyikan Cerita
+                      <span className="material-symbols-outlined text-xl">expand_less</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-    {/* Peta Administrasi */}
-<section className="py-xl bg-surface-container-low">
-  <div className="max-w-[1600px] mx-auto px-gutter">
-    <div className="text-center mb-lg">
-      <h2 className="text-3xl font-bold text-on-surface">
-        Peta Administrasi Kelurahan Tingkir Tengah
-      </h2>
-      <p className="text-on-surface-variant mt-sm max-w-3xl mx-auto">
-        Bendungan Si Pleret didukung oleh berbagai potensi lokal, mulai dari sektor perikanan, UMKM, hingga wisata berbasis masyarakat.
-        Untuk memberikan gambaran yang lebih jelas, berikut peta administrasi Kelurahan Tingkir Tengah yang menunjukkan batas wilayah sebagai
-        bagian dari profile wilayah Ekowisata.
-      </p>
-    </div>
-
-    <div className="bg-surface-container-lowest rounded-3xl p-lg border border-outline-variant shadow-sm">
-      <Image
-        src="/images/Tingkir Tengah ADM.png"
-        alt="Peta Administrasi Kelurahan Tingkir Tengah"
-        width={1200}
-        height={900}
-        className="w-full h-auto rounded-2xl"
-      />
-    </div>
-  </div>
-</section>  
-
-      {/* Quote */}
+      {/* 3. PETA ADMINISTRASI (LOKASI) */}
       <section className="py-xl">
         <div className="max-w-[1600px] mx-auto px-gutter">
-          <div className="bg-primary rounded-3xl p-xl md:p-[64px] text-on-primary relative overflow-hidden">
-            <div className="absolute top-8 left-8 text-8xl opacity-20 font-bold">&ldquo;</div>
-            <blockquote className="relative z-10">
-              <p className="text-2xl md:text-4xl font-bold leading-tight italic">
-                &ldquo;Tingkir Tengah bukan sekadar tempat kami tinggal; ini
-                adalah warisan yang kami jaga. Kami tidak mewarisi bumi dari
-                leluhur, kami meminjamnya dari anak cucu kami.&rdquo;
+          <div className="bg-surface-container-lowest rounded-3xl p-lg md:p-xl border border-outline-variant shadow-sm flex flex-col md:flex-row items-center gap-xl">
+            {/* Right: Text and Download Button */}
+            <div className="flex-1 text-center md:text-left order-2 md:order-1">
+              <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-xs block">
+                Pemetaan Wilayah
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-md">
+                Peta Administrasi Tingkir Tengah
+              </h2>
+              <p className="text-on-surface-variant text-lg leading-relaxed max-w-2xl mb-lg mx-auto md:mx-0">
+                Bendungan Si Pleret didukung oleh berbagai potensi lokal, mulai dari sektor perikanan, UMKM, hingga pariwisata.
+                Pelajari lebih detail batas wilayah dan pembagian area ekowisata kami melalui peta administrasi berikut.
               </p>
-              <footer className="mt-lg flex items-center gap-md">
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-2xl">person</span>
+
+              <a
+                href="/data/tingkir-tengah-ADM.pdf"
+                download="Peta_Administrasi_Tingkir_Tengah.pdf"
+                className="inline-flex items-center justify-center gap-sm bg-primary text-on-primary px-8 py-4 rounded-full font-bold shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
+              >
+                <span className="material-symbols-outlined text-[24px]">download</span>
+                Unduh Peta Skala Penuh
+              </a>
+            </div>
+
+            {/* Left: PDF Preview */}
+            <div className="w-full md:w-5/12 flex-shrink-0 order-1 md:order-2">
+              <div className="aspect-[4/3] bg-surface-container rounded-2xl overflow-hidden border border-outline-variant relative group shadow-md p-2">
+                <iframe
+                  src="/data/tingkir-tengah-ADM.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                  className="w-full h-full border border-outline-variant/30 pointer-events-none rounded-xl bg-white"
+                  title="Preview Peta Administrasi"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. JEJAK LANGKAH KKN (KONTRIBUSI TIM) */}
+      <section className="py-xl bg-surface-container-low">
+        <div className="max-w-[1200px] mx-auto px-gutter">
+          <div className="text-center mb-xl">
+            <span className="text-tertiary font-bold tracking-widest uppercase text-sm mb-xs block">
+              Pengabdian Kami
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-sm">
+              Jejak Langkah KKN-T 96 Undip
+            </h2>
+            <p className="mt-md text-on-surface-variant max-w-3xl mx-auto text-base md:text-lg leading-relaxed text-center">
+              Website ini dan pengembangan ekowisata Bendungan Si Pleret merupakan wujud nyata dedikasi Tim KKN-T 96 Universitas Diponegoro. 
+              Setiap senyum warga, peluh di lapangan, dan kebersamaan yang terjalin adalah kenangan abadi yang kami rekam dalam jejak ini.
+            </p>
+          </div>
+
+          {/* Kolase Foto Polaroid (Scrapbook Style - Referensi Poster) */}
+          <div className="relative flex flex-col md:block items-center gap-8 md:gap-0 mt-16 mb-8 h-auto md:h-[700px] w-full max-w-[1200px] mx-auto overflow-hidden md:overflow-visible">
+            
+            {/* Background Dekoratif Tengah (Logo Terlihat Jelas) */}
+            <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none z-0">
+              <div className="relative w-[300px] md:w-[450px] lg:w-[500px] aspect-square drop-shadow-2xl">
+                <Image 
+                  src="/images/logo-warna.png" 
+                  alt="Logo Tingkir Tengah" 
+                  fill 
+                  className="object-contain" 
+                />
+              </div>
+            </div>
+
+            {/* Foto 1 (Kiri Atas) */}
+            <div className="md:absolute md:left-[5%] md:top-[5%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl -rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-10">
+              <div className="relative w-full aspect-square bg-gray-200">
+                <Image src="/images/foto1-pleret.jpg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              </div>
+            </div>
+
+            {/* Foto 2 (Kanan Atas) */}
+            <div className="md:absolute md:right-[5%] md:top-[8%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl rotate-3 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-10">
+              <div className="relative w-full aspect-square bg-gray-200">
+                <Image src="/images/foto1-sosmas.jpg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              </div>
+            </div>
+
+            {/* Foto 3 (Kiri Tengah) */}
+            <div className="md:absolute md:left-[0%] md:top-[45%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-10">
+              <div className="relative w-full aspect-square bg-gray-200">
+                <Image src="/images/foto3-ekowis.jpeg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              </div>
+            </div>
+
+            {/* Foto 4 (Kanan Tengah) */}
+            <div className="md:absolute md:right-[0%] md:top-[50%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl -rotate-3 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-10">
+              <div className="relative w-full aspect-square bg-gray-200">
+                <Image src="/images/foto2-ekowis.jpeg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              </div>
+            </div>
+
+            {/* Foto 5 (Kiri Bawah) */}
+            <div className="md:absolute md:left-[20%] md:bottom-[5%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl -rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-20">
+              <div className="relative w-full aspect-square bg-gray-200">
+                <Image src="/images/foto1-ekowis.jpeg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              </div>
+            </div>
+
+            {/* Foto 6 (Kanan Bawah) */}
+            <div className="md:absolute md:right-[20%] md:bottom-[10%] w-[260px] md:w-[350px] bg-white p-3 rounded-sm shadow-xl rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-20">
+              <div className="relative w-full aspect-[4/3] bg-gray-200">
+                <Image src="/images/foto1-sosmas.jpg" alt="KKN Foto" fill className="object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 object-right"  />
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
+      {/* 5. KUTIPAN INSPIRATIF (PENUTUP) */}
+      <section className="py-xl">
+        <div className="max-w-[1200px] mx-auto px-gutter">
+          <div className="bg-primary rounded-3xl p-xl md:p-[64px] text-on-primary relative overflow-hidden shadow-xl">
+            <div className="absolute -top-10 -left-6 text-[200px] leading-none opacity-20 font-serif font-black">&ldquo;</div>
+            <blockquote className="relative z-10">
+              <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-snug italic max-w-4xl">
+                &ldquo;Tingkir Tengah bukan sekadar tempat kami tinggal; ini
+                adalah warisan yang harus kami jaga. Kami tidak mewarisi alam ini dari
+                leluhur, melainkan meminjamnya dari anak cucu kami kelak.&rdquo;
+              </p>
+              <footer className="mt-xl flex items-center gap-md">
+                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 relative">
+                  <Image src="/images/paksolichin.jpeg" alt="Pak Solichin" fill className="object-cover" />
                 </div>
                 <div>
-                  <cite className="not-italic font-bold text-lg">Mbah Joyo</cite>
-                  <p className="text-sm text-on-primary/80">
-                    Tetua Desa &amp; Penjaga Budaya
-                  </p>
+                  <cite className="not-italic font-bold text-xl block">Bapak Solichin</cite>
+                  <span className="text-sm text-primary-container/80 font-medium">
+                    Ketua Kelompok Pembudidaya Ikan (Pokdakan)
+                  </span>
                 </div>
               </footer>
             </blockquote>

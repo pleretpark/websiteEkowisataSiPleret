@@ -35,7 +35,7 @@ export default function DetailIkanPage() {
     <>
       {/* Header */}
       <header className="px-gutter max-w-[1000px] mx-auto pt-lg pb-xl mt-12 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
           Ensiklopedia <span className="text-[#003d37] italic font-medium">Ikan</span>
         </h1>
         <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
