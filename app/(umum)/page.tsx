@@ -127,45 +127,6 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-
-        {/* Floating Search Bar
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-[56rem] px-gutter z-20">
-          <div className="bg-white rounded-full p-sm shadow-2xl flex flex-col md:flex-row items-center gap-sm">
-            <div className="flex-1 w-full relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">
-                search
-              </span>
-              <input
-                className="w-full bg-white border border-outline-variant rounded-full pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface placeholder:text-outline"
-                placeholder="Cari kolam pancing atau UMKM..."
-                type="text"
-                id="hero-search-input"
-              />
-            </div>
-            <div className="flex-1 w-full relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">
-                category
-              </span>
-              <select
-                className="w-full bg-white border border-outline-variant rounded-full pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface appearance-none"
-                id="hero-category-select"
-              >
-                <option>Semua Kategori</option>
-                <option>Olahan Ikan</option>
-                <option>Kerajinan Tangan</option>
-                <option>Wisata Edukasi</option>
-              </select>
-            </div>
-            <Link
-              href="/umkm"
-              className="w-full md:w-auto bg-secondary-container text-on-secondary-container px-xl py-3 rounded-full font-bold flex items-center justify-center gap-xs hover:shadow-lg transition-all active:scale-95"
-              id="hero-search-btn"
-            >
-              <span className="material-symbols-outlined">search</span>
-              Cari
-            </Link>
-          </div>
-        </div> */}
       </section>
 
       {/* ==============================
@@ -175,27 +136,24 @@ export default async function HomePage() {
         <div className="max-w-[1500px] mx-auto px-gutter">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
             {/* Wrapper kembali mengambil lebar penuh dari kolom grid */}
-            <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg w-full">
-              <Image
-                src="/images/about-hero.png"
-                alt="Panorama Tingkir Tengah"
-                width={1000}
-                height={600}
-                className="w-full h-[250px] md:h-[350px] lg:h-[450px] object-cover"
-              />
+            <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg w-full aspect-video bg-surface-container-low border border-outline-variant">
+              {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/kaCPjx0F3aw"
+                title="Video Profil Ekowisata Tingkir Tengah"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
             </div>
             <div className="space-y-md">
-              <span className="inline-block bg-primary-fixed text-on-primary-fixed text-sm font-bold px-md py-1 rounded-full">
-                Tentang Kami
-              </span>
               <h2 className="text-2xl md:text-4xl font-bold text-on-surface leading-tight tracking-tight">
-                Menjaga Budaya, Merawat Alam
+                Ekowisata Tingkir Tengah
               </h2>
               <p className="text-on-surface-variant text-base leading-relaxed">
-                Terletak di jantung Salatiga, Tingkir Tengah lebih dari sekadar
-                destinasi wisata. Ini adalah bukti hidup bagaimana kearifan lokal dan
-                pariwisata berkelanjutan bisa berdansa harmonis. Kami berkomitmen
-                untuk memberdayakan masyarakat dan melestarikan ekosistem perikanan darat.
+                <strong className="text-on-surface font-semibold block mb-2">Dipersembahkan oleh Tim KKN-T 96 Universitas Diponegoro</strong>
+                Terletak di jantung Kota Salatiga, Tingkir Tengah menyajikan harmoni sempurna antara pelestarian alam dan pemberdayaan masyarakat. Saksikan video profil ini untuk mengenal lebih dekat pesona, budaya, dan potensi ekowisata yang kami kembangkan bersama warga setempat.
               </p>
               <Link
                 href="/tentang"
@@ -371,7 +329,7 @@ export default async function HomePage() {
             />
             <div className="relative z-10 glass p-sm rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-4/5 lg:w-3/4 mx-auto">
               <Image
-                src="/images/community.png"
+                src="/images/paksolichin.jpeg"
                 alt="Komunitas UMKM Tingkir Tengah bekerja bersama"
                 width={600}
                 height={400}

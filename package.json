@@ -17,6 +17,7 @@
     "@tiptap/extension-placeholder": "^3.29.2",
     "@tiptap/react": "^3.29.2",
     "@tiptap/starter-kit": "^3.29.2",
+    "framer-motion": "^13.0.0",
     "leaflet": "^1.9.4",
     "next": "16.2.9",
     "pg": "^8.22.0",
