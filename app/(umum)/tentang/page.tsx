@@ -149,66 +149,6 @@ export default function TentangPage() {
         </div>
       </section>
 
-      {/* Community First
-      <section className="py-xl">
-        <div className="max-w-[1600px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
-          <div className="rounded-3xl overflow-hidden shadow-ambient-lg">
-            <Image
-              src="/images/community.png"
-              alt="Komunitas Tingkir Tengah"
-              width={600}
-              height={400}
-              className="w-full object-cover"
-            />
-          </div>
-          <div className="bg-secondary-fixed/20 rounded-3xl p-xl">
-            <h3 className="text-2xl font-bold text-on-surface mb-md">
-              Mengutamakan Komunitas
-            </h3>
-            <p className="text-on-surface-variant text-base leading-relaxed">
-              90% staf dan pemandu wisata kami adalah penduduk Tingkir Tengah,
-              yang terlatih untuk memberikan pengalaman autentik sambil
-              melestarikan cara hidup mereka. Setiap kunjungan berkontribusi
-              langsung pada ekonomi lokal dan pelestarian budaya.
-            </p>
-          </div>
-        </div>
-      </section> */}
-
-      {/* How We Empower
-      <section id="pillars" className="py-xl bg-surface-container-low">
-        <div className="max-w-[1600px] mx-auto px-gutter">
-          <div className="text-center mb-xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-on-surface">
-              Bagaimana Kami Memberdayakan
-            </h2>
-            <p className="text-on-surface-variant text-lg mt-md max-w-[42rem] mx-auto">
-              Komitmen kami terhadap lingkungan dan komunitas dibangun di atas
-              empat pilar utama pertumbuhan berkelanjutan.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-            {pillars.map((pillar) => (
-              <div
-                key={pillar.title}
-                className="bg-surface-container-lowest rounded-3xl p-xl border border-outline-variant hover:shadow-ambient-hover transition-all duration-500 group"
-              >
-                <span
-                  className={`material-symbols-outlined text-4xl ${pillar.color} p-sm rounded-2xl inline-block mb-md`}
-                >
-                  {pillar.icon}
-                </span>
-                <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">
-                  {pillar.title}
-                </h3>
-                <p className="text-on-surface-variant text-base mt-xs leading-relaxed">
-                  {pillar.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* Peta Administrasi */}
       <section className="py-xl bg-surface-container-low">
