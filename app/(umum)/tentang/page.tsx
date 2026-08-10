@@ -51,7 +51,7 @@ export default function TentangPage() {
           {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
           <iframe
             className="w-full h-full"
-            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+            src="https://www.youtube.com/embed/kaCPjx0F3aw"
             title="Video Profil Ekowisata Tingkir Tengah"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
