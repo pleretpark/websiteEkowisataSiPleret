@@ -127,45 +127,6 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-
-        {/* Floating Search Bar
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-[56rem] px-gutter z-20">
-          <div className="bg-white rounded-full p-sm shadow-2xl flex flex-col md:flex-row items-center gap-sm">
-            <div className="flex-1 w-full relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">
-                search
-              </span>
-              <input
-                className="w-full bg-white border border-outline-variant rounded-full pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface placeholder:text-outline"
-                placeholder="Cari kolam pancing atau UMKM..."
-                type="text"
-                id="hero-search-input"
-              />
-            </div>
-            <div className="flex-1 w-full relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">
-                category
-              </span>
-              <select
-                className="w-full bg-white border border-outline-variant rounded-full pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary text-on-surface appearance-none"
-                id="hero-category-select"
-              >
-                <option>Semua Kategori</option>
-                <option>Olahan Ikan</option>
-                <option>Kerajinan Tangan</option>
-                <option>Wisata Edukasi</option>
-              </select>
-            </div>
-            <Link
-              href="/umkm"
-              className="w-full md:w-auto bg-secondary-container text-on-secondary-container px-xl py-3 rounded-full font-bold flex items-center justify-center gap-xs hover:shadow-lg transition-all active:scale-95"
-              id="hero-search-btn"
-            >
-              <span className="material-symbols-outlined">search</span>
-              Cari
-            </Link>
-          </div>
-        </div> */}
       </section>
 
       {/* ==============================
@@ -187,9 +148,6 @@ export default async function HomePage() {
               ></iframe>
             </div>
             <div className="space-y-md">
-              <span className="inline-block bg-primary-fixed text-on-primary-fixed text-sm font-bold px-md py-1 rounded-full">
-                Video Profil
-              </span>
               <h2 className="text-2xl md:text-4xl font-bold text-on-surface leading-tight tracking-tight">
                 Ekowisata Tingkir Tengah
               </h2>

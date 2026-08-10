@@ -79,7 +79,7 @@ export default function UMKMPage() {
     <>
       {/* Header */}
       <header className="px-gutter max-w-[1000px] mx-auto pt-lg pb-xl mt-12 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
           Katalog <span className="text-[#003d37] italic font-medium">UMKM</span>
         </h1>
         <p className="text-on-surface-variant text-base md:text-lg leading-relaxed mb-md max-w-[800px] mx-auto">
