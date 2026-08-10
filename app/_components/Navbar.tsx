@@ -50,13 +50,15 @@ export default function Navbar() {
           className={`flex items-center gap-xs font-bold tracking-tight text-lg md:text-2xl transition-colors ${isTransparent ? 'text-white hover:text-white/80' : 'text-primary hover:text-primary-container'
             }`}
         >
-          <Image
-            src={isTransparent ? "/images/logo-full-white.png" : "/images/logo-pleret.png"}
-            alt="Logo Ekowisata"
-            width={36}
-            height={36}
-            className="rounded-full"
-          />
+          <div className="relative w-8 h-8 md:w-10 md:h-10">
+            <Image
+              src={isTransparent ? "/images/logo-putih.png" : "/images/logo-pleret.png"}
+              alt="Logo Ekowisata"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+          </div>
           Bendungan Si Pleret
         </Link>
 
