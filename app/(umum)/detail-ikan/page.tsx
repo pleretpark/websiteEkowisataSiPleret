@@ -39,7 +39,7 @@ export default function DetailIkanPage() {
           Ensiklopedia <span className="text-[#003d37] italic font-medium">Ikan</span>
         </h1>
         <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
-          Kenali berbagai jenis ikan yang dibudidayakan dan dilestarikan di kawasan ekowisata Tingkir Tengah. Pelajari asal usul, kandungan gizi, dan fakta menariknya.
+          Kenali berbagai jenis ikan yang dibudidayakan dan dilestarikan di kawasan ekowisata Bendungan Si Pleret. Pelajari asal usul, kandungan gizi, dan fakta menariknya.
         </p>
       </header>
 

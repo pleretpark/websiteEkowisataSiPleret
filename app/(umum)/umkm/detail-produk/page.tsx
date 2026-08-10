@@ -152,7 +152,7 @@ function DetailProdukContent() {
 
           <a
             href={`https://wa.me/${product.nomor_wa}?text=${encodeURIComponent(
-            `Halo ${product.nama_toko}, saya tertarik untuk memesan produk ${product.nama_produk} yang ada di website Ekowisata Tingkir Tengah`
+            `Halo ${product.nama_toko}, saya tertarik untuk memesan produk ${product.nama_produk} yang ada di website Bendungan Si Pleret`
           )}`}
           target="_blank"
           rel="noopener noreferrer"

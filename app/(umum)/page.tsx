@@ -141,7 +141,7 @@ export default async function HomePage() {
               <iframe
                 className="w-full h-full"
                 src="https://www.youtube.com/embed/kaCPjx0F3aw"
-                title="Video Profil Ekowisata Tingkir Tengah"
+                title="Video Profil Bendungan Si Pleret"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen

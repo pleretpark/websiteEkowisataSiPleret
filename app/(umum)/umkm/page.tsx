@@ -215,7 +215,7 @@ export default function UMKMPage() {
             </p>
 
             <a
-              href="https://wa.me/6281392382113?text=Halo%20Admin,%20saya%20ingin%20mendaftarkan%20produk%20UMKM%20ke%20website%20Ekowisata%20Tingkir%20Tengah."
+              href="https://wa.me/6281392382113?text=Halo%20Admin,%20saya%20ingin%20mendaftarkan%20produk%20UMKM%20ke%20website%20Bendungan%20Si%20Pleret."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-xs border-2 border-primary text-primary hover:bg-primary hover:text-on-primary font-medium px-lg py-2.5 rounded-full transition-all"

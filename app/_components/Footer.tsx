@@ -65,7 +65,7 @@ export default function Footer() {
             </h5>
             <div className="flex flex-col gap-xs text-sm text-on-surface-variant font-medium">
               <a 
-                href={`https://wa.me/6281392382113?text=${encodeURIComponent('Halo pengelola Ekowisata Tingkir Tengah, saya ingin bertanya terkait...')}`}
+                href={`https://wa.me/6281392382113?text=${encodeURIComponent('Halo pengelola Ekowisata Bendungan Si Pleret, saya ingin bertanya terkait...')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-sm hover:text-primary transition-colors"

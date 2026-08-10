@@ -101,7 +101,7 @@ export default async function BeritaPage({
           Berita <span className="text-[#003d37] italic font-medium">& Acara</span>
         </h1>
         <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
-          Pusat informasi resmi mengenai kegiatan, pembangunan, dan pengumuman terkini di lingkungan Ekowisata Tingkir Tengah.
+          Pusat informasi resmi mengenai kegiatan, pembangunan, dan pengumuman terkini di lingkungan Ekowisata Bendungan Si Pleret.
         </p>
       </header>
 

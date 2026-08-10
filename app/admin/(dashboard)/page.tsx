@@ -63,7 +63,7 @@ export default async function  DashboardPage() {
       <div className="mb-lg">
         <h1 className="text-5xl font-bold text-on-surface">Dashboard</h1>
         <p className="text-on-surface-variant text-xl mt-xs">
-          Ringkasan data dan kelola konten Ekowisata Tingkir Tengah.
+          Ringkasan data dan kelola konten Bendungan Si Pleret.
         </p>
       </div>
 
