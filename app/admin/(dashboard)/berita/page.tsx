@@ -220,6 +220,11 @@ export default function AdminBeritaPage() {
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
                     <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                   </label>
+                  <label className="cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors flex items-center gap-xs text-lg text-on-surface-variant">
+                    <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+                    {uploading ? 'Mengunggah...' : 'Buka Kamera'}
+                    <input type="file" accept="image/*" capture="environment" className="hidden" onChange={handleFileUpload} />
+                  </label>
                   {(localPreview || form.foto_cover) && (
                     <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-outline-variant flex-shrink-0">
                       <img src={localPreview || form.foto_cover || ''} alt="Preview" className="w-full h-full object-cover" />

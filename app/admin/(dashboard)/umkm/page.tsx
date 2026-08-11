@@ -439,13 +439,25 @@ async function handleFileUpload(
                   <label className="cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors flex items-center gap-xs text-lg text-on-surface-variant">
                     <span className="material-symbols-outlined text-[18px]">upload</span>
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    className="hidden"
-                    onChange={handleFileUpload}
-                  />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      className="hidden"
+                      onChange={handleFileUpload}
+                    />
+                  </label>
+                  <label className="cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors flex items-center gap-xs text-lg text-on-surface-variant">
+                    <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+                    {uploading ? 'Mengunggah...' : 'Buka Kamera'}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      capture="environment"
+                      multiple
+                      className="hidden"
+                      onChange={handleFileUpload}
+                    />
                   </label>
                   {(localPreview || form.gambar_url) && (
                     <div className="flex flex-wrap gap-2">

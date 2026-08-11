@@ -278,21 +278,33 @@ export default function AdminIkanPage() {
                 </label>
                 
                 {!form.gambar_url ? (
-                  <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors items-center gap-xs text-lg text-on-surface-variant font-medium mt-sm">
-                    <span className="material-symbols-outlined text-[18px]">upload_file</span>
-                    {uploadingImage ? 'Mengunggah...' : 'Pilih Gambar'}
-                    <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} disabled={uploadingImage} />
-                  </label>
+                  <div className="flex gap-2 mt-sm">
+                    <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors items-center gap-xs text-lg text-on-surface-variant font-medium">
+                      <span className="material-symbols-outlined text-[18px]">upload_file</span>
+                      {uploadingImage ? 'Mengunggah...' : 'Pilih Gambar'}
+                      <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} disabled={uploadingImage} />
+                    </label>
+                    <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors items-center gap-xs text-lg text-on-surface-variant font-medium">
+                      <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+                      {uploadingImage ? 'Mengunggah...' : 'Buka Kamera'}
+                      <input type="file" accept="image/jpeg,image/png,image/webp" capture="environment" className="hidden" onChange={handleFileUpload} disabled={uploadingImage} />
+                    </label>
+                  </div>
                 ) : (
                   <div className="flex flex-col gap-sm mt-xs">
                     <div className="relative w-64 h-40 rounded-xl overflow-hidden border border-outline-variant">
                       <img src={form.gambar_url} alt="Preview" className="w-full h-full object-contain bg-surface-container-lowest" />
                     </div>
-                    <div className="flex items-center gap-md">
+                    <div className="flex flex-wrap items-center gap-md">
                       <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-2 hover:bg-surface-container-high transition-colors items-center gap-xs text-base text-on-surface font-medium">
                         <span className="material-symbols-outlined text-[18px]">upload_file</span>
                         {uploadingImage ? 'Mengunggah...' : 'Ganti Gambar'}
                         <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} disabled={uploadingImage} />
+                      </label>
+                      <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-2 hover:bg-surface-container-high transition-colors items-center gap-xs text-base text-on-surface font-medium">
+                        <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+                        {uploadingImage ? 'Mengunggah...' : 'Kamera'}
+                        <input type="file" accept="image/jpeg,image/png,image/webp" capture="environment" className="hidden" onChange={handleFileUpload} disabled={uploadingImage} />
                       </label>
                       <button 
                         type="button" 
