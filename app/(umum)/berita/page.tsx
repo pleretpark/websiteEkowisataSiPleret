@@ -165,48 +165,50 @@ export default async function BeritaPage({
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-md">
                 {paginatedNews.map((item) => {
                   return (
-                    <Link
+                    <div
                       key={item.id}
-                      href={`/berita/${item.slug}`}
-                      className="group bg-white border border-outline-variant/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient transition-all duration-500 flex flex-col h-full"
+                      className="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient-hover transition-all duration-500 flex flex-col h-full"
                     >
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="relative h-52 overflow-hidden bg-surface-container flex-shrink-0">
                         <Image
                           src={item.foto_cover && !item.foto_cover.includes('unsplash') ? item.foto_cover : '/images/sosialisasi.jpg'}
                           alt={item.judul}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
+                        {/* Date Badge */}
+                        <div className="absolute bottom-3 left-3 bg-primary text-on-primary text-xs font-bold px-sm py-1 rounded-full shadow-sm">
+                          {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                          })}
+                        </div>
+                        {item.is_sorotan && (
+                          <div className="absolute top-3 left-3 bg-tertiary text-on-tertiary text-xs font-bold px-sm py-1 rounded-full flex items-center gap-1 shadow-md">
+                            <span className="material-symbols-outlined text-[14px]">star</span>
+                            Sorotan
+                          </div>
+                        )}
                       </div>
                       <div className="p-md flex flex-col flex-grow justify-between">
                         <div>
-                          <div className="flex items-center text-on-surface-variant/60 text-xs font-semibold mb-xs">
-                            {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric',
-                            })}
-                          </div>
-                          <h3 className="text-base md:text-lg font-bold text-[#003d37] group-hover:text-primary transition-colors leading-tight line-clamp-2 mt-xs">
+                          <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2">
                             {item.judul}
                           </h3>
-                          <p className="text-on-surface-variant text-sm mt-xs line-clamp-2 leading-relaxed">
-                            {item.konten}
+                          <p className="text-on-surface-variant text-sm mt-xs line-clamp-2">
+                            {item.konten ? item.konten.substring(0, 120) + (item.konten.length > 120 ? '...' : '') : ''}
                           </p>
                         </div>
-
-                        {/* Share and Detail Link */}
-                        <div className="mt-md pt-sm border-t border-outline-variant/40 flex justify-between items-center text-xs font-semibold text-on-surface-variant">
-                          <span className="hover:text-primary flex items-center gap-1 cursor-pointer">
-                            <span className="material-symbols-outlined text-[16px]">share</span>
-                          </span>
-                          <span className="text-primary hover:underline flex items-center gap-0.5">
-                            Detail
-                            <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-                          </span>
-                        </div>
+                        <Link
+                          href={`/berita/${item.slug}`}
+                          className="inline-flex items-center gap-1 text-primary font-semibold text-sm mt-md hover:underline"
+                        >
+                          Baca Selengkapnya
+                        </Link>
                       </div>
-                    </Link>
+                    </div>
                   )
                 })}
               </div>
