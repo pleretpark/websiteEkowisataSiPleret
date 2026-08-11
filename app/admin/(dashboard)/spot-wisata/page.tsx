@@ -66,13 +66,13 @@ export default function AdminSpotWisataPage() {
     const file = e.target.files?.[0]
     if (!file) return
 
-    // Batasi ukuran file maksimal 1 MB (1.048.576 bytes)
-    const maxFileSize = 1 * 1024 * 1024
+    // Batasi ukuran file maksimal 5 MB (5.242.880 bytes)
+    const maxFileSize = 5 * 1024 * 1024
     if (file.size > maxFileSize) {
-      setErrorModal({ show: true, title: 'Gagal', message: 'Ukuran file maksimal 1MB' })
+      setErrorModal({ show: true, title: 'Gagal', message: 'Ukuran file maksimal 5MB' })
       setMessage({
         type: 'error',
-        text: 'Ukuran file gambar terlalu besar. Maksimal ukuran file adalah 1 MB.',
+        text: 'Ukuran file gambar terlalu besar. Maksimal ukuran file adalah 5 MB.',
       })
       // Reset input file agar dapat dipilih kembali
       e.target.value = ''
@@ -254,7 +254,7 @@ export default function AdminSpotWisataPage() {
               {/* Image Upload */}
               <div>
                 <label className="block text-lg font-bold text-on-surface mb-xs">
-                  Foto Lokasi (Maks 1MB)
+                  Foto Lokasi (Maks 5MB)
                 </label>
                 
                 {!(localPreview || form.gambar_url) ? (

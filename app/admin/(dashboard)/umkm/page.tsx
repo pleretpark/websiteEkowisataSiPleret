@@ -114,7 +114,7 @@ async function handleFileUpload(
     const previews: string[] = []
 
     for (const file of files) {
-      const maxFileSize = 1 * 1024 * 1024
+      const maxFileSize = 5 * 1024 * 1024
 
       if (file.size > maxFileSize) {
         continue
