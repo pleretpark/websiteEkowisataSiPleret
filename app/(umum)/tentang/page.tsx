@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import ScrollReveal from '@/app/_components/ScrollReveal'
 
 const pillars = [
   {
@@ -37,27 +38,31 @@ export default function TentangPage() {
     <>
       {/* 1. HEADER & VIDEO PROFIL */}
       <header className="pt-xl pb-lg md:pt-[100px] text-center px-gutter max-w-[1000px] mx-auto">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] leading-tight tracking-tight mb-sm">
-          Tentang Tingkir Tengah 
-          <br />
-          <span className="text-[#003d37] italic font-medium">& Bendungan Si Pleret</span>
-        </h1>
-        <p className="text-on-surface-variant text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-xl">
-          Sebuah ruang di mana kearifan lokal, kelestarian alam, dan pariwisata berkelanjutan bersatu dalam harmoni. Selamat datang di kebanggaan Kota Salatiga.
-        </p>
+        <ScrollReveal variant="fade-down" duration={800}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] leading-tight tracking-tight mb-sm">
+            Tentang Tingkir Tengah 
+            <br />
+            <span className="text-[#003d37] italic font-medium">& Bendungan Si Pleret</span>
+          </h1>
+          <p className="text-on-surface-variant text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-xl">
+            Sebuah ruang di mana kearifan lokal, kelestarian alam, dan pariwisata berkelanjutan bersatu dalam harmoni. Selamat datang di kebanggaan Kota Salatiga.
+          </p>
+        </ScrollReveal>
 
         {/* Video Profil Wrapper */}
-        <div id="profil-video" className="relative z-10 rounded-3xl overflow-hidden shadow-ambient-lg aspect-video bg-surface-container-low border border-outline-variant max-w-[900px] mx-auto">
-          {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
-          <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/kaCPjx0F3aw"
-            title="Video Profil Ekowisata Tingkir Tengah"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
-        </div>
+        <ScrollReveal variant="zoom-in" delay={200} duration={900}>
+          <div id="profil-video" className="relative z-10 rounded-3xl overflow-hidden shadow-ambient-lg aspect-video bg-surface-container-low border border-outline-variant max-w-[900px] mx-auto">
+            {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/kaCPjx0F3aw"
+              title="Video Profil Ekowisata Tingkir Tengah"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </ScrollReveal>
         <p className="mt-4 text-sm text-on-surface-variant/70 italic">
           Karya persembahan Tim KKN-T 96 Universitas Diponegoro
         </p>
@@ -69,34 +74,39 @@ export default function TentangPage() {
       {/* 2. KISAH JAKA TINGKIR (SEJARAH) */}
       <section id="story" className="py-xl bg-surface-container-low">
         <div className="max-w-[1200px] mx-auto px-gutter">
-          <div className="text-center mb-xl">
-            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
-              Sejarah & Legenda
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-sm">
-              Kisah Tingkir Tengah
-            </h2>
-            <h3 className="text-xl md:text-2xl text-primary font-medium max-w-3xl mx-auto leading-relaxed">
-              Perjalanan Jaka Tingkir dan Asal Usul Bendungan Si Pleret
-            </h3>
-          </div>
+          <ScrollReveal variant="fade-up">
+            <div className="text-center mb-xl">
+              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
+                Sejarah & Legenda
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-sm">
+                Kisah Tingkir Tengah
+              </h2>
+              <h3 className="text-xl md:text-2xl text-primary font-medium max-w-3xl mx-auto leading-relaxed">
+                Perjalanan Jaka Tingkir dan Asal Usul Bendungan Si Pleret
+              </h3>
+            </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl items-start">
-            <div className="lg:col-span-5 relative">
-              <div className="sticky top-28 rounded-3xl overflow-hidden shadow-ambient-lg aspect-[3/4] bg-surface-container border border-outline-variant group">
-                <Image
-                  src="/images/jakatingkir.png"
-                  alt="Ilustrasi Jaka Tingkir"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <p className="text-white font-medium">Ilustrasi Mas Karebet (Jaka Tingkir)</p>
+            <ScrollReveal variant="fade-right" duration={900} className="lg:col-span-5">
+              <div className="relative">
+                <div className="sticky top-28 rounded-3xl overflow-hidden shadow-ambient-lg aspect-[3/4] bg-surface-container border border-outline-variant group">
+                  <Image
+                    src="/images/jakatingkir.png"
+                    alt="Ilustrasi Jaka Tingkir"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <p className="text-white font-medium">Ilustrasi Mas Karebet (Jaka Tingkir)</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="lg:col-span-7 space-y-md text-on-surface-variant text-base md:text-lg leading-relaxed text-justify">
+            <ScrollReveal variant="fade-left" delay={200} duration={800} className="lg:col-span-7">
+              <div className="space-y-md text-on-surface-variant text-base md:text-lg leading-relaxed text-justify">
               <p>Pada abad ke-16, ketika Kesultanan Demak menjadi pusat pemerintahan dan penyebaran Islam di Pulau Jawa, hiduplah seorang pemuda bernama Mas Karebet yang kelak lebih dikenal sebagai Jaka Tingkir. Ia berasal dari daerah Tingkir, yang kini menjadi bagian dari Kota Salatiga, Jawa Tengah.</p>
               <p>Dikisahkan bahwa pada suatu waktu Jaka Tingkir memutuskan melakukan perjalanan menuju Keraton Demak. Ketika melintasi wilayah Dusun Payaman, ia menjumpai aliran sungai yang deras. Masyarakat setempat saat itu kesulitan memanfaatkan air sungai; meluap saat hujan dan kekeringan saat kemarau.</p>
               <p>Melihat hal tersebut, Jaka Tingkir merasa iba. Sebelum melanjutkan perjalanannya, ia membantu masyarakat menyusun batu-batu besar untuk membentuk sebuah bendung sederhana.</p>
@@ -125,6 +135,7 @@ export default function TentangPage() {
                 )}
               </div>
             </div>
+          </ScrollReveal>
           </div>
         </div>
       </section>
@@ -132,7 +143,8 @@ export default function TentangPage() {
       {/* 3. PETA ADMINISTRASI (LOKASI) */}
       <section className="py-xl">
         <div className="max-w-[1600px] mx-auto px-gutter">
-          <div className="bg-surface-container-lowest rounded-3xl p-lg md:p-xl border border-outline-variant shadow-sm flex flex-col md:flex-row items-center gap-xl">
+          <ScrollReveal variant="blur-in" duration={800}>
+            <div className="bg-surface-container-lowest rounded-3xl p-lg md:p-xl border border-outline-variant shadow-sm flex flex-col md:flex-row items-center gap-xl">
             {/* Right: Text and Download Button */}
             <div className="flex-1 text-center md:text-left order-2 md:order-1">
               <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-xs block">
@@ -147,7 +159,7 @@ export default function TentangPage() {
               </p>
 
               <a
-                href="/data/tingkir-tengah-ADM.pdf"
+                href="/data/Tingkir-Tengah-ADM.pdf"
                 download="Peta_Administrasi_Tingkir_Tengah.pdf"
                 className="inline-flex items-center justify-center gap-sm bg-primary text-on-primary px-8 py-4 rounded-full font-bold shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
               >
@@ -167,24 +179,27 @@ export default function TentangPage() {
               </div>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* 4. JEJAK LANGKAH KKN (KONTRIBUSI TIM) */}
       <section className="py-xl bg-surface-container-low">
         <div className="max-w-[1200px] mx-auto px-gutter">
-          <div className="text-center mb-xl">
-            <span className="text-tertiary font-bold tracking-widest uppercase text-sm mb-xs block">
-              Pengabdian Kami
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-sm">
-              Jejak Langkah KKN-T 96 Undip
-            </h2>
-            <p className="mt-md text-on-surface-variant max-w-3xl mx-auto text-base md:text-lg leading-relaxed text-center">
-              Website ini dan pengembangan ekowisata Bendungan Si Pleret merupakan wujud nyata dedikasi Tim KKN-T 96 Universitas Diponegoro. 
-              Setiap senyum warga, peluh di lapangan, dan kebersamaan yang terjalin adalah kenangan abadi yang kami rekam dalam jejak ini.
-            </p>
-          </div>
+          <ScrollReveal variant="fade-up">
+            <div className="text-center mb-xl">
+              <span className="text-tertiary font-bold tracking-widest uppercase text-sm mb-xs block">
+                Pengabdian Kami
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-sm">
+                Jejak Langkah KKN-T 96 Undip
+              </h2>
+              <p className="mt-md text-on-surface-variant max-w-3xl mx-auto text-base md:text-lg leading-relaxed text-center">
+                Website ini dan pengembangan ekowisata Bendungan Si Pleret merupakan wujud nyata dedikasi Tim KKN-T 96 Universitas Diponegoro. 
+                Setiap senyum warga, peluh di lapangan, dan kebersamaan yang terjalin adalah kenangan abadi yang kami rekam dalam jejak ini.
+              </p>
+            </div>
+          </ScrollReveal>
 
           {/* Kolase Foto Polaroid (Scrapbook Style - Referensi Poster) */}
           <div className="relative flex flex-col md:block items-center gap-8 md:gap-0 mt-16 mb-8 h-auto md:h-[700px] w-full max-w-[1200px] mx-auto overflow-hidden md:overflow-visible">
@@ -250,27 +265,29 @@ export default function TentangPage() {
       {/* 5. KUTIPAN INSPIRATIF (PENUTUP) */}
       <section className="py-xl">
         <div className="max-w-[1200px] mx-auto px-gutter">
-          <div className="bg-primary rounded-3xl p-xl md:p-[64px] text-on-primary relative overflow-hidden shadow-xl">
-            <div className="absolute -top-10 -left-6 text-[200px] leading-none opacity-20 font-serif font-black">&ldquo;</div>
-            <blockquote className="relative z-10">
-              <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-snug italic max-w-4xl">
-                &ldquo;Tingkir Tengah bukan sekadar tempat kami tinggal; ini
-                adalah warisan yang harus kami jaga. Kami tidak mewarisi alam ini dari
-                leluhur, melainkan meminjamnya dari anak cucu kami kelak.&rdquo;
-              </p>
-              <footer className="mt-xl flex items-center gap-md">
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 relative">
-                  <Image src="/images/paksolichin.jpeg" alt="Pak Solichin" fill className="object-cover" />
-                </div>
-                <div>
-                  <cite className="not-italic font-bold text-xl block">Bapak Solichin</cite>
-                  <span className="text-sm text-primary-container/80 font-medium">
-                    Ketua Kelompok Pembudidaya Ikan (Pokdakan)
-                  </span>
-                </div>
-              </footer>
-            </blockquote>
-          </div>
+          <ScrollReveal variant="slide-up" duration={900}>
+            <div className="bg-primary rounded-3xl p-xl md:p-[64px] text-on-primary relative overflow-hidden shadow-xl">
+              <div className="absolute -top-10 -left-6 text-[200px] leading-none opacity-20 font-serif font-black">&ldquo;</div>
+              <blockquote className="relative z-10">
+                <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-snug italic max-w-4xl">
+                  &ldquo;Tingkir Tengah bukan sekadar tempat kami tinggal; ini
+                  adalah warisan yang harus kami jaga. Kami tidak mewarisi alam ini dari
+                  leluhur, melainkan meminjamnya dari anak cucu kami kelak.&rdquo;
+                </p>
+                <footer className="mt-xl flex items-center gap-md">
+                  <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 relative">
+                    <Image src="/images/paksolichin.jpeg" alt="Pak Solichin" fill className="object-cover" />
+                  </div>
+                  <div>
+                    <cite className="not-italic font-bold text-xl block">Bapak Solichin</cite>
+                    <span className="text-sm text-primary-container/80 font-medium">
+                      Ketua Kelompok Pembudidaya Ikan (Pokdakan)
+                    </span>
+                  </div>
+                </footer>
+              </blockquote>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </>

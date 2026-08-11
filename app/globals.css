@@ -4,7 +4,7 @@
    AQUATIC HARMONY DESIGN SYSTEM
    ============================== */
 
-@theme inline {
+@theme {
   /* --- Primary (Teal) --- */
   --color-primary: #00685f;
   --color-on-primary: #ffffff;
