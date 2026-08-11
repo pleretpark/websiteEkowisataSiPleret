@@ -24,9 +24,9 @@ export const menuItems: MenuItem[] = [
     label: 'Panduan',
     children: [
       { href: '/admin/panduan/website', label: 'Website' },
-      { href: '/admin/panduan/instagram', label: 'Instagram' },
-      { href: '/admin/panduan/tiktok', label: 'Tiktok' },
-      { href: '/admin/panduan/saran', label: 'Kotak Saran' },
+      // { href: '/admin/panduan/instagram', label: 'Instagram' },
+      // { href: '/admin/panduan/tiktok', label: 'Tiktok' },
+      // { href: '/admin/panduan/saran', label: 'Kotak Saran' },
     ]
   }
 ]
