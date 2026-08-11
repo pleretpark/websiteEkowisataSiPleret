@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import type { Berita } from '@/lib/types'
+import ScrollReveal from '@/app/_components/ScrollReveal'
 
 // Aligned high-fidelity fallback sample data matching the main page
 const sampleBerita: Berita[] = [
@@ -122,49 +123,55 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
       <div className="max-w-[800px] mx-auto px-gutter py-xl">
         
         {/* Header Section */}
-        <div className="mb-lg">
-          <div className="flex items-center gap-sm mb-md text-sm">
-            <span className="flex items-center gap-1 text-on-surface-variant font-medium">
-              <span className="material-symbols-outlined text-[16px]">calendar_today</span>
-              {new Date(berita.tanggal_publikasi).toLocaleDateString('id-ID', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
-              })}
-            </span>
+        <ScrollReveal variant="fade-down" duration={700}>
+          <div className="mb-lg">
+            <div className="flex items-center gap-sm mb-md text-sm">
+              <span className="flex items-center gap-1 text-on-surface-variant font-medium">
+                <span className="material-symbols-outlined text-[16px]">calendar_today</span>
+                {new Date(berita.tanggal_publikasi).toLocaleDateString('id-ID', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric'
+                })}
+              </span>
+            </div>
+            <h1 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-primary leading-tight mb-sm">
+              {berita.judul}
+            </h1>
+            <div className="flex items-center text-on-surface-variant text-base">
+              <span className="material-symbols-outlined text-[18px] mr-1">person</span>
+              <span>Ditulis oleh <span className="font-semibold text-on-surface">{berita.author}</span></span>
+            </div>
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-primary leading-tight mb-sm">
-            {berita.judul}
-          </h1>
-          <div className="flex items-center text-on-surface-variant text-base">
-            <span className="material-symbols-outlined text-[18px] mr-1">person</span>
-            <span>Ditulis oleh <span className="font-semibold text-on-surface">{berita.author}</span></span>
-          </div>
-        </div>
+        </ScrollReveal>
 
         {/* Cover Image or Document */}
         {berita.foto_cover && (
-          <div className="w-full mb-xl flex justify-center">
-            {berita.foto_cover.toLowerCase().endsWith('.pdf') ? (
-              <iframe 
-                src={`${berita.foto_cover}#toolbar=0`} 
-                className="w-full aspect-[1/1.4] md:aspect-auto md:h-[800px] rounded-xl" 
-              />
-            ) : (
-              <img
-                src={berita.foto_cover}
-                alt={berita.judul}
-                className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
-              />
-            )}
-          </div>
+          <ScrollReveal variant="blur-in" delay={100} duration={800}>
+            <div className="w-full mb-xl flex justify-center">
+              {berita.foto_cover.toLowerCase().endsWith('.pdf') ? (
+                <iframe 
+                  src={`${berita.foto_cover}#toolbar=0`} 
+                  className="w-full aspect-[1/1.4] md:aspect-auto md:h-[800px] rounded-xl" 
+                />
+              ) : (
+                <img
+                  src={berita.foto_cover}
+                  alt={berita.judul}
+                  className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+                />
+              )}
+            </div>
+          </ScrollReveal>
         )}
 
         {/* Article Content */}
-        <div 
-          className="prose prose-lg max-w-none text-justify prose-p:text-justify prose-p:text-on-surface-variant prose-p:leading-relaxed prose-headings:text-primary prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-xl prose-h2:mb-md prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-primary-container/30 prose-blockquote:p-md prose-blockquote:rounded-r-xl prose-blockquote:text-primary prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:shadow-sm mb-2xl"
-          dangerouslySetInnerHTML={{ __html: formatContent(berita.konten) }}
-        />
+        <ScrollReveal variant="fade-up" delay={200} duration={800}>
+          <div 
+            className="prose prose-lg max-w-none text-justify prose-p:text-justify prose-p:text-on-surface-variant prose-p:leading-relaxed prose-headings:text-primary prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-xl prose-h2:mb-md prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-primary-container/30 prose-blockquote:p-md prose-blockquote:rounded-r-xl prose-blockquote:text-primary prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:shadow-sm mb-2xl"
+            dangerouslySetInnerHTML={{ __html: formatContent(berita.konten) }}
+          />
+        </ScrollReveal>
 
 
       </div>

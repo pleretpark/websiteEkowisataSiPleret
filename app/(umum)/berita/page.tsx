@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import ScrollReveal from '@/app/_components/ScrollReveal'
 
 // High-fidelity fallback sample data based on the design mockup
 const sampleBerita = [
@@ -97,12 +98,14 @@ export default async function BeritaPage({
     <div className="bg-[#fafafa] min-h-screen">
       {/* Title Header Section */}
       <header className="px-gutter max-w-[1000px] mx-auto pt-lg pb-xl mt-12 text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
-          Berita <span className="text-[#003d37] italic font-medium">& Acara</span>
-        </h1>
-        <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
-          Pusat informasi resmi mengenai kegiatan, pembangunan, dan pengumuman terkini di lingkungan Ekowisata Tingkir Tengah.
-        </p>
+        <ScrollReveal variant="fade-down" duration={700}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] leading-tight tracking-tight mt-xs mb-sm">
+            Berita <span className="text-[#003d37] italic font-medium">& Acara</span>
+          </h1>
+          <p className="text-on-surface-variant text-base md:text-lg leading-relaxed">
+            Pusat informasi resmi mengenai kegiatan, pembangunan, dan pengumuman terkini di lingkungan Ekowisata Tingkir Tengah.
+          </p>
+        </ScrollReveal>
       </header>
 
       {/* Spotlight Card */}

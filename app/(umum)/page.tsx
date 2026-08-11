@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { UMKM, Berita } from '@/lib/types'
+import ScrollReveal from '@/app/_components/ScrollReveal'
 
 // Sample data for when Supabase isn't configured yet
 const sampleUmkm: UMKM[] = [
@@ -136,33 +137,37 @@ export default async function HomePage() {
         <div className="max-w-[1500px] mx-auto px-gutter">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
             {/* Wrapper kembali mengambil lebar penuh dari kolom grid */}
-            <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg w-full aspect-video bg-surface-container-low border border-outline-variant">
-              {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/kaCPjx0F3aw"
-                title="Video Profil Ekowisata Tingkir Tengah"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
-            </div>
-            <div className="space-y-md">
-              <h2 className="text-2xl md:text-4xl font-bold text-on-surface leading-tight tracking-tight">
-                Ekowisata Tingkir Tengah
-              </h2>
-              <p className="text-on-surface-variant text-base leading-relaxed">
-                <strong className="text-on-surface font-semibold block mb-2">Dipersembahkan oleh Tim KKN-T 96 Universitas Diponegoro</strong>
-                Terletak di jantung Kota Salatiga, Tingkir Tengah menyajikan harmoni sempurna antara pelestarian alam dan pemberdayaan masyarakat. Saksikan video profil ini untuk mengenal lebih dekat pesona, budaya, dan potensi ekowisata yang kami kembangkan bersama warga setempat.
-              </p>
-              <Link
-                href="/tentang"
-                className="inline-flex items-center gap-xs text-primary font-semibold hover:underline decoration-2 underline-offset-4"
-              >
-                Selengkapnya Tentang Kami
-                <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-              </Link>
-            </div>
+            <ScrollReveal variant="fade-right" duration={800}>
+              <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg w-full aspect-video bg-surface-container-low border border-outline-variant">
+                {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/kaCPjx0F3aw"
+                  title="Video Profil Ekowisata Tingkir Tengah"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal variant="fade-left" delay={200} duration={800}>
+              <div className="space-y-md">
+                <h2 className="text-2xl md:text-4xl font-bold text-on-surface leading-tight tracking-tight">
+                  Ekowisata Tingkir Tengah
+                </h2>
+                <p className="text-on-surface-variant text-base leading-relaxed">
+                  <strong className="text-on-surface font-semibold block mb-2">Dipersembahkan oleh Tim KKN-T 96 Universitas Diponegoro</strong>
+                  Terletak di jantung Kota Salatiga, Tingkir Tengah menyajikan harmoni sempurna antara pelestarian alam dan pemberdayaan masyarakat. Saksikan video profil ini untuk mengenal lebih dekat pesona, budaya, dan potensi ekowisata yang kami kembangkan bersama warga setempat.
+                </p>
+                <Link
+                  href="/tentang"
+                  className="inline-flex items-center gap-xs text-primary font-semibold hover:underline decoration-2 underline-offset-4"
+                >
+                  Selengkapnya Tentang Kami
+                  <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -172,31 +177,32 @@ export default async function HomePage() {
           ============================== */}
       <section className="py-xl bg-surface-container-low">
         <div className="max-w-[1500px] mx-auto px-gutter">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
-            <div>
-              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
-                Produk Lokal
-              </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
-                Geliat Ekonomi UMKM
-              </h2>
+          <ScrollReveal variant="fade-up">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+              <div>
+                <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
+                  Produk Lokal
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
+                  Geliat Ekonomi UMKM
+                </h2>
+              </div>
+              <Link
+                href="/umkm"
+                className="text-primary font-semibold flex items-center gap-xs hover:underline decoration-2 underline-offset-4"
+              >
+                Lihat Semua Produk
+                <span className="material-symbols-outlined">trending_flat</span>
+              </Link>
             </div>
-            <Link
-              href="/umkm"
-              className="text-primary font-semibold flex items-center gap-xs hover:underline decoration-2 underline-offset-4"
-            >
-              Lihat Semua Produk
-              <span className="material-symbols-outlined">trending_flat</span>
-            </Link>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
             {umkmData.map((item, index) => (
-              <div
-                key={item.id}
-                className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-sm shadow-sm hover:shadow-ambient-hover transition-all duration-500 overflow-hidden"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
+              <ScrollReveal key={item.id} variant="fade-up" delay={index * 120} duration={600}>
+                <div
+                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-sm shadow-sm hover:shadow-ambient-hover transition-all duration-500 overflow-hidden h-full"
+                >
                 <div className="relative overflow-hidden rounded-xl h-64 mb-sm bg-surface-container">
                   <Image
                     src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
@@ -238,7 +244,8 @@ export default async function HomePage() {
                     </Link>
                   </div>
                 </div>
-              </div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -249,29 +256,31 @@ export default async function HomePage() {
           ============================== */}
       <section className="py-xl">
         <div className="max-w-[1500px] mx-auto px-gutter">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
-            <div>
-              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
-                Kabar Desa & Acara
-              </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
-                Informasi Terbaru
-              </h2>
-            </div>
-            <Link
-              href="/berita"
-              className="text-primary font-semibold flex items-center gap-xs hover:underline decoration-2 underline-offset-4"
-            >
-              Lihat Semua Berita
-              <span className="material-symbols-outlined">trending_flat</span>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
-            {beritaData.map((item) => (
-              <div
-                key={item.id}
-                className="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient-hover transition-all duration-500"
+          <ScrollReveal variant="fade-up">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+              <div>
+                <span className="text-primary font-bold tracking-widest uppercase text-sm mb-xs block">
+                  Kabar Desa & Acara
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold text-on-surface">
+                  Informasi Terbaru
+                </h2>
+              </div>
+              <Link
+                href="/berita"
+                className="text-primary font-semibold flex items-center gap-xs hover:underline decoration-2 underline-offset-4"
               >
+                Lihat Semua Berita
+                <span className="material-symbols-outlined">trending_flat</span>
+              </Link>
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
+            {beritaData.map((item, index) => (
+              <ScrollReveal key={item.id} variant="blur-in" delay={index * 120} duration={600}>
+                <div
+                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient-hover transition-all duration-500 h-full"
+                >
                 <div className="relative h-52 overflow-hidden bg-surface-container">
                   <Image
                     src={item.foto_cover && !item.foto_cover.includes('unsplash') ? item.foto_cover : '/images/sosialisasi.jpg'}
@@ -310,7 +319,8 @@ export default async function HomePage() {
                     {/* <span className="material-symbols-outlined text-[16px]">arrow_forward</span> */}
                   </Link>
                 </div>
-              </div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -321,46 +331,36 @@ export default async function HomePage() {
           ============================== */}
       <section className="py-xl bg-surface-container-low overflow-hidden">
         <div className="max-w-[1600px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
-          <div className="relative">
-            <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 rounded-full animate-float blur-2xl" />
-            <div
-              className="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full animate-float blur-3xl"
-              style={{ animationDelay: '2s' }}
-            />
-            <div className="relative z-10 glass p-sm rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-4/5 lg:w-3/4 mx-auto">
-              <Image
-                src="/images/foto-pleret.jpeg"
-                alt="Komunitas UMKM Tingkir Tengah bekerja bersama"
-                width={600}
-                height={400}
-                className="rounded-xl shadow-inner w-full"
+          <ScrollReveal variant="fade-right" duration={900}>
+            <div className="relative">
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 rounded-full animate-float blur-2xl" />
+              <div
+                className="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full animate-float blur-3xl"
+                style={{ animationDelay: '2s' }}
               />
+              <div className="relative z-10 glass p-sm rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-4/5 lg:w-3/4 mx-auto">
+                <Image
+                  src="/images/foto-pleret.jpeg"
+                  alt="Komunitas UMKM Tingkir Tengah bekerja bersama"
+                  width={600}
+                  height={400}
+                  className="rounded-xl shadow-inner w-full"
+                />
+              </div>
             </div>
-          </div>
-          <div className="space-y-md">
-            <h2 className="text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tight">
-              Bersama Membangun Negeri dari Desa
-            </h2>
-            <p className="text-lg text-on-surface-variant leading-relaxed">
-              Tingkir Tengah bukan sekadar destinasi, tapi sebuah gerakan. Kami
-              menggabungkan pariwisata berbasis alam dengan pemberdayaan ekonomi
-              mikro untuk menciptakan masa depan yang lebih hijau.
-            </p>
-            {/* <div className="grid grid-cols-2 gap-md">
-              <div className="p-md bg-white rounded-2xl shadow-ambient">
-                <span className="text-secondary font-bold text-4xl block">25+</span>
-                <span className="text-on-surface-variant text-sm font-medium">
-                  UMKM Aktif
-                </span>
-              </div>
-              <div className="p-md bg-white rounded-2xl shadow-ambient">
-                <span className="text-tertiary font-bold text-4xl block">150k</span>
-                <span className="text-on-surface-variant text-sm font-medium">
-                  Pengunjung/Thn
-                </span>
-              </div>
-            </div> */}
-          </div>
+          </ScrollReveal>
+          <ScrollReveal variant="fade-left" delay={200} duration={900}>
+            <div className="space-y-md">
+              <h2 className="text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tight">
+                Bersama Membangun Negeri dari Desa
+              </h2>
+              <p className="text-lg text-on-surface-variant leading-relaxed">
+                Tingkir Tengah bukan sekadar destinasi, tapi sebuah gerakan. Kami
+                menggabungkan pariwisata berbasis alam dengan pemberdayaan ekonomi
+                mikro untuk menciptakan masa depan yang lebih hijau.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </>
