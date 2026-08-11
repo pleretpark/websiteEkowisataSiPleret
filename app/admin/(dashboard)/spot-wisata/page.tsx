@@ -79,6 +79,13 @@ export default function AdminSpotWisataPage() {
       return
     }
 
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+    if (!allowedTypes.includes(file.type)) {
+      setErrorModal({ show: true, title: 'Format Tidak Didukung', message: 'Silakan unggah gambar dengan format JPG, PNG, atau WEBP.' })
+      e.target.value = ''
+      return
+    }
+
     setLocalPreview(URL.createObjectURL(file))
     setUploading(true)
     setMessage(null)
@@ -261,7 +268,7 @@ export default function AdminSpotWisataPage() {
                   <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors items-center gap-xs text-lg text-on-surface-variant font-medium mt-sm">
                     <span className="material-symbols-outlined text-[18px]">upload_file</span>
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
-                    <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                    <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} />
                   </label>
                 ) : (
                   <div className="flex flex-col gap-sm mt-xs">
@@ -272,7 +279,7 @@ export default function AdminSpotWisataPage() {
                       <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-2 hover:bg-surface-container-high transition-colors items-center gap-xs text-base text-on-surface font-medium">
                         <span className="material-symbols-outlined text-[18px]">upload_file</span>
                         {uploading ? 'Mengunggah...' : 'Ganti Gambar'}
-                        <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                        <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} />
                       </label>
                       <button 
                         type="button" 
