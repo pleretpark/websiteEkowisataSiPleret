@@ -8,12 +8,24 @@ function getSupabaseClient() {
   );
 }
 
+function getLocalDateString() {
+  const now = new Date();
+  // Vercel server uses UTC by default. Convert to UTC+7 (WIB).
+  const offsetMs = 7 * 60 * 60 * 1000;
+  // Get UTC time by extracting from ISO string, then construct a new date
+  // A safer approach:
+  const localTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Jakarta"}));
+  // Construct YYYY-MM-DD manually to avoid locale formatting inconsistencies
+  const year = localTime.getFullYear();
+  const month = String(localTime.getMonth() + 1).padStart(2, '0');
+  const day = String(localTime.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 export async function GET() {
   try {
     const supabase = getSupabaseClient();
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const dateStr = today.toISOString();
+    const dateStr = getLocalDateString();
 
     const { data: todayVisitor } = await supabase
       .from('Visitor')
@@ -40,9 +52,7 @@ export async function GET() {
 export async function POST() {
   try {
     const supabase = getSupabaseClient();
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const dateStr = today.toISOString();
+    const dateStr = getLocalDateString();
 
     const { data: existing } = await supabase
       .from('Visitor')
