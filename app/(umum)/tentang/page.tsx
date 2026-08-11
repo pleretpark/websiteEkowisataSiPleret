@@ -147,7 +147,7 @@ export default function TentangPage() {
               </p>
 
               <a
-                href="/data/tingkir-tengah-ADM.pdf"
+                href="/data/Tingkir-Tengah-ADM.pdf"
                 download="Peta_Administrasi_Tingkir_Tengah.pdf"
                 className="inline-flex items-center justify-center gap-sm bg-primary text-on-primary px-8 py-4 rounded-full font-bold shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
               >

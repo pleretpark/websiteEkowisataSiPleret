@@ -6,12 +6,29 @@ import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
 
-export const menuItems = [
+type MenuItem = {
+  href?: string
+  icon: string
+  label: string
+  children?: { href: string; label: string }[]
+}
+
+export const menuItems: MenuItem[] = [
   { href: '/admin', icon: 'dashboard', label: 'Dashboard' },
   { href: '/admin/umkm', icon: 'storefront', label: 'Manajemen UMKM' },
   { href: '/admin/spot-wisata', icon: 'eco', label: 'Peta Lokasi' },
   { href: '/admin/ikan', icon: 'phishing', label: 'Detail Ikan' },
   { href: '/admin/berita', icon: 'newspaper', label: 'Kabar Desa' },
+  {
+    icon: 'menu_book',
+    label: 'Panduan',
+    children: [
+      { href: '/admin/panduan/website', label: 'Website' },
+      { href: '/admin/panduan/instagram', label: 'Instagram' },
+      { href: '/admin/panduan/tiktok', label: 'Tiktok' },
+      { href: '/admin/panduan/saran', label: 'Kotak Saran' },
+    ]
+  }
 ]
 
 export default function AdminSidebar({
@@ -22,6 +39,7 @@ export default function AdminSidebar({
   userEmail: string
 }) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>('Panduan Penggunaan')
   const pathname = usePathname()
   const router = useRouter()
 
@@ -44,12 +62,52 @@ export default function AdminSidebar({
         {/* Navigation */}
         <nav className="flex-1 py-md px-sm space-y-xs overflow-y-auto">
           {menuItems.map((item) => {
+            if (item.children) {
+              const isOpen = openDropdown === item.label
+              return (
+                <div key={item.label} className="space-y-1">
+                  <button
+                    onClick={() => setOpenDropdown(isOpen ? null : item.label)}
+                    className="w-full flex items-center justify-between px-md py-xs rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-200"
+                  >
+                    <div className="flex items-center gap-sm">
+                      <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+                      <span className="text-lg">{item.label}</span>
+                    </div>
+                    <span className={`material-symbols-outlined text-[20px] transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+                      expand_more
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div className="pl-12 pr-sm space-y-1 mt-1">
+                      {item.children.map(child => {
+                        const isChildActive = pathname === child.href
+                        return (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className={`block py-2 px-3 rounded-lg text-base transition-colors ${
+                              isChildActive
+                                ? 'bg-primary/10 text-primary font-medium'
+                                : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface'
+                            }`}
+                          >
+                            {child.label}
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
+              )
+            }
+
             const isActive = pathname === item.href ||
-              (item.href !== '/admin' && pathname.startsWith(item.href))
+              (item.href && item.href !== '/admin' && pathname.startsWith(item.href))
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={item.href!}
                 className={`flex items-center gap-sm px-md py-xs rounded-xl transition-all duration-200 ${
                   isActive
                     ? 'bg-primary text-on-primary shadow-md font-semibold'
@@ -67,20 +125,6 @@ export default function AdminSidebar({
 
         {/* Bottom Actions */}
         <div className="p-sm border-t border-outline-variant space-y-xs">
-          <Link
-            href="/"
-            className="flex items-center gap-sm px-md py-xs rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all text-lg"
-          >
-            <span className="material-symbols-outlined text-[20px]">home</span>
-            Lihat Website
-          </Link>
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-sm px-md py-xs rounded-xl text-error bg-error/10 hover:bg-error hover:text-on-error transition-all text-lg font-medium"
-          >
-            <span className="material-symbols-outlined text-[20px]">logout</span>
-            Logout
-          </button>
           <div className="px-md py-xs">
             <p className="text-base text-outline truncate">{userEmail}</p>
           </div>
@@ -120,10 +164,10 @@ export default function AdminSidebar({
             </Link>
           </div>
 
-          {/* User profile actions */}
-          <div className="flex items-center gap-md">
+          {/* User profile & actions */}
+          <div className="flex items-center gap-sm md:gap-md">
             <div className="flex items-center gap-xs">
-              <span className="text-lg text-on-surface font-medium hidden sm:block">
+              <span className="text-base md:text-lg text-on-surface font-medium hidden sm:block">
                 Super Admin
               </span>
               <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
@@ -132,6 +176,16 @@ export default function AdminSidebar({
                 </span>
               </div>
             </div>
+            
+            {/* Logout Button in Header */}
+            <button
+              onClick={handleLogout}
+              className="flex items-center justify-center w-9 h-9 md:w-auto md:h-auto md:px-sm md:py-xs rounded-full md:rounded-lg text-error bg-error/10 hover:bg-error hover:text-on-error transition-all"
+              title="Logout"
+            >
+              <span className="material-symbols-outlined text-[20px]">logout</span>
+              <span className="hidden md:block font-medium ml-1">Logout</span>
+            </button>
           </div>
 
           {/* Mobile Menu Dropdown */}
@@ -139,12 +193,53 @@ export default function AdminSidebar({
             <div className="md:hidden absolute top-full left-0 w-full bg-surface/95 backdrop-blur-xl border-b border-outline-variant shadow-ambient-lg animate-fade-in-up">
               <div className="flex flex-col px-gutter py-md gap-sm">
                 {menuItems.map((item) => {
+                  if (item.children) {
+                    const isOpen = openDropdown === item.label
+                    return (
+                      <div key={item.label} className="flex flex-col gap-1">
+                        <button
+                          onClick={() => setOpenDropdown(isOpen ? null : item.label)}
+                          className="flex items-center justify-between py-xs px-sm rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container font-medium text-base transition-colors"
+                        >
+                          <div className="flex items-center gap-sm">
+                            <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+                            {item.label}
+                          </div>
+                          <span className={`material-symbols-outlined text-[20px] transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+                            expand_more
+                          </span>
+                        </button>
+                        {isOpen && (
+                          <div className="flex flex-col pl-10 pr-sm gap-1 mt-1">
+                            {item.children.map(child => {
+                              const isChildActive = pathname === child.href
+                              return (
+                                <Link
+                                  key={child.href}
+                                  href={child.href}
+                                  onClick={() => setMobileOpen(false)}
+                                  className={`py-2 px-3 rounded-lg text-sm transition-colors ${
+                                    isChildActive
+                                      ? 'bg-primary/10 text-primary font-semibold'
+                                      : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface'
+                                  }`}
+                                >
+                                  {child.label}
+                                </Link>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  }
+
                   const isActive = pathname === item.href ||
-                    (item.href !== '/admin' && pathname.startsWith(item.href))
+                    (item.href && item.href !== '/admin' && pathname.startsWith(item.href))
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      href={item.href!}
                       onClick={() => setMobileOpen(false)}
                       className={`flex items-center gap-sm py-xs px-sm rounded-xl transition-colors text-base font-medium ${
                         isActive
@@ -159,29 +254,7 @@ export default function AdminSidebar({
                     </Link>
                   )
                 })}
-                <div className="border-t border-outline-variant/50 my-xs pt-xs space-y-xs">
-                  <Link
-                    href="/"
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-sm py-xs px-sm rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors text-base"
-                  >
-                    <span className="material-symbols-outlined text-[20px]">home</span>
-                    Lihat Website
-                  </Link>
-                  <button
-                    onClick={() => {
-                      setMobileOpen(false)
-                      handleLogout()
-                    }}
-                    className="w-full flex items-center gap-sm py-xs px-sm rounded-xl text-error bg-error/10 hover:bg-error hover:text-on-error transition-colors text-base font-medium"
-                  >
-                    <span className="material-symbols-outlined text-[20px]">logout</span>
-                    Logout
-                  </button>
-                  <div className="px-sm py-xs">
-                    <p className="text-sm text-outline truncate">{userEmail}</p>
-                  </div>
-                </div>
+
               </div>
             </div>
           )}

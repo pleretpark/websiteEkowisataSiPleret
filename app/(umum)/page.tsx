@@ -230,7 +230,7 @@ export default async function HomePage() {
                       href={`/umkm/detail-produk?id=${item.id}`}
                       className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
                     >
-                      Detail Produk
+                      Detail
 
                       {/* <span className="material-symbols-outlined text-base">
                         arrow_forward
