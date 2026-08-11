@@ -133,48 +133,40 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
               })}
             </span>
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-primary leading-tight mb-xl">
+          <h1 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-primary leading-tight mb-sm">
             {berita.judul}
           </h1>
+          <div className="flex items-center text-on-surface-variant text-base">
+            <span className="material-symbols-outlined text-[18px] mr-1">person</span>
+            <span>Ditulis oleh <span className="font-semibold text-on-surface">{berita.author}</span></span>
+          </div>
         </div>
 
-        {/* Cover Image */}
+        {/* Cover Image or Document */}
         {berita.foto_cover && (
-          <div className="relative w-full h-[300px] md:h-[450px] rounded-3xl overflow-hidden shadow-xl mb-xl">
-            <Image
-              src={berita.foto_cover}
-              alt={berita.judul}
-              fill
-              sizes="(max-width: 800px) 100vw, 800px"
-              className="object-cover"
-              priority
-            />
+          <div className="w-full mb-xl flex justify-center">
+            {berita.foto_cover.toLowerCase().endsWith('.pdf') ? (
+              <iframe 
+                src={`${berita.foto_cover}#toolbar=0`} 
+                className="w-full aspect-[1/1.4] md:aspect-auto md:h-[800px] rounded-xl" 
+              />
+            ) : (
+              <img
+                src={berita.foto_cover}
+                alt={berita.judul}
+                className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+              />
+            )}
           </div>
         )}
 
         {/* Article Content */}
         <div 
-          className="prose prose-lg max-w-none prose-p:text-on-surface-variant prose-p:leading-relaxed prose-headings:text-primary prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-xl prose-h2:mb-md prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-primary-container/30 prose-blockquote:p-md prose-blockquote:rounded-r-xl prose-blockquote:text-primary prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:shadow-sm mb-2xl"
+          className="prose prose-lg max-w-none text-justify prose-p:text-justify prose-p:text-on-surface-variant prose-p:leading-relaxed prose-headings:text-primary prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-xl prose-h2:mb-md prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-primary-container/30 prose-blockquote:p-md prose-blockquote:rounded-r-xl prose-blockquote:text-primary prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:shadow-sm mb-2xl"
           dangerouslySetInnerHTML={{ __html: formatContent(berita.konten) }}
         />
 
-        {/* Tags & Share */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-md py-lg border-b border-outline-variant mb-2xl">
-          <div className="flex flex-wrap items-center gap-sm text-xs font-semibold">
-            <span className="bg-surface-variant text-on-surface-variant px-sm py-1 rounded-full">#KulinerDesa</span>
-            <span className="bg-surface-variant text-on-surface-variant px-sm py-1 rounded-full">#Sustainability</span>
-            <span className="bg-surface-variant text-on-surface-variant px-sm py-1 rounded-full">#TingkirTengah</span>
-          </div>
-          <div className="flex items-center gap-md text-sm font-medium text-on-surface-variant">
-            <span>Bagikan:</span>
-            <button className="hover:text-primary transition-colors flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">share</span>
-            </button>
-            <button className="hover:text-primary transition-colors flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">link</span>
-            </button>
-          </div>
-        </div>
+
       </div>
 
       {/* Related News Section */}

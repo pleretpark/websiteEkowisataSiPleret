@@ -38,10 +38,10 @@ export default function AdminBeritaPage() {
     const file = e.target.files?.[0]
     if (!file) return
 
-    // Batasi ukuran file maksimal 1 MB (1.048.576 bytes)
-    const maxFileSize = 1 * 1024 * 1024
+    // Batasi ukuran file maksimal 5 MB (1.048.576 bytes)
+    const maxFileSize = 5 * 1024 * 1024
     if (file.size > maxFileSize) {
-      showToast('error', 'Ukuran file gambar terlalu besar. Maksimal ukuran file adalah 1 MB.')
+      showToast('error', 'Ukuran file gambar terlalu besar. Maksimal ukuran file adalah 5 MB.')
       e.target.value = ''
       return
     }
@@ -86,17 +86,17 @@ export default function AdminBeritaPage() {
 
   useEffect(() => { fetchItems() }, [fetchItems])
 
-  function openCreate() { 
-    setForm({ ...emptyForm, tanggal_publikasi: new Date().toISOString().split('T')[0] }); 
-    setEditingId(null); 
-    setShowForm(true); 
+  function openCreate() {
+    setForm({ ...emptyForm, tanggal_publikasi: new Date().toISOString().split('T')[0] });
+    setEditingId(null);
+    setShowForm(true);
     setToast(null);
     setLocalPreview(null);
   }
-  function openEdit(item: Berita) { 
-    setForm({ ...item, tanggal_publikasi: item.tanggal_publikasi?.split('T')[0] || '' }); 
-    setEditingId(item.id); 
-    setShowForm(true); 
+  function openEdit(item: Berita) {
+    setForm({ ...item, tanggal_publikasi: item.tanggal_publikasi?.split('T')[0] || '' });
+    setEditingId(item.id);
+    setShowForm(true);
     setToast(null);
     setLocalPreview(item.foto_cover || null);
   }
@@ -148,6 +148,30 @@ export default function AdminBeritaPage() {
     }
   }
 
+  async function toggleSorotan(item: Berita) {
+    const newValue = !item.is_sorotan
+
+    if (newValue) {
+      const sorotanCount = items.filter(i => i.is_sorotan).length
+      if (sorotanCount >= 3) {
+        return
+      }
+    }
+
+    // Optimistic UI update
+    setItems(items.map(i => i.id === item.id ? { ...i, is_sorotan: newValue } : i))
+    
+    const supabase = createClient()
+    const { error } = await supabase
+      .from('berita')
+      .update({ is_sorotan: newValue })
+      .eq('id', item.id)
+
+    if (error) {
+      fetchItems()
+    }
+  }
+
   return (
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-lg gap-md">
@@ -176,7 +200,7 @@ export default function AdminBeritaPage() {
                 <label className="block text-lg font-medium text-on-surface mb-xs">Judul Artikel *</label>
                 <input required value={form.judul || ''} onChange={(e) => setForm({ ...form, judul: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface text-2xl font-semibold" placeholder="Masukkan judul artikel..." />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
                 <div>
                   <label className="block text-lg font-medium text-on-surface mb-xs">Penulis *</label>
                   <input required value={form.author || ''} onChange={(e) => setForm({ ...form, author: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface" placeholder="Nama penulis" />
@@ -184,13 +208,6 @@ export default function AdminBeritaPage() {
                 <div>
                   <label className="block text-lg font-medium text-on-surface mb-xs">Tanggal Publikasi *</label>
                   <input required type="date" value={form.tanggal_publikasi || ''} onChange={(e) => setForm({ ...form, tanggal_publikasi: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface" />
-                </div>
-                <div>
-                  <label className="block text-lg font-medium text-on-surface mb-xs">Sorotan Berita</label>
-                  <label className="flex items-center gap-xs bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 cursor-pointer">
-                    <input type="checkbox" checked={form.is_sorotan || false} onChange={(e) => setForm({ ...form, is_sorotan: e.target.checked })} className="w-5 h-5 text-primary rounded focus:ring-primary" />
-                    <span className="text-on-surface text-lg">Jadikan Sorotan Utama</span>
-                  </label>
                 </div>
               </div>
               <div>
@@ -209,7 +226,7 @@ export default function AdminBeritaPage() {
                     </div>
                   )}
                 </div>
-                <p className="text-base text-outline mt-xs">Maksimal ukuran file: 1 MB. Format: JPG, PNG, WebP.</p>
+                <p className="text-base text-outline mt-xs">Maksimal ukuran file: 5 MB. Format: JPG, PNG, WebP.</p>
               </div>
               <div>
                 <label className="block text-lg font-medium text-on-surface mb-xs">Konten Artikel *</label>
@@ -253,15 +270,19 @@ export default function AdminBeritaPage() {
               </div>
               <div className="flex-1 p-md flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-sm mb-xs">
-                    {item.is_sorotan && (
-                      <span className="text-base px-sm py-0.5 rounded-full font-bold bg-tertiary text-on-tertiary flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[14px]">star</span> SOROTAN
-                      </span>
-                    )}
+                  <div className="flex items-center justify-between gap-sm mb-xs">
                     <span className="text-base text-outline">
                       {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </span>
+                    <button 
+                      onClick={() => toggleSorotan(item)}
+                      disabled={!item.is_sorotan && items.filter(i => i.is_sorotan).length >= 3}
+                      className={`flex items-center gap-1 px-3 py-1 rounded-full border transition-all ${item.is_sorotan ? 'bg-tertiary text-on-tertiary border-tertiary' : 'border-outline-variant text-outline hover:bg-surface-container-high'} ${(!item.is_sorotan && items.filter(i => i.is_sorotan).length >= 3) ? 'opacity-50 cursor-not-allowed hover:bg-transparent' : ''}`}
+                      title={item.is_sorotan ? 'Hapus dari sorotan' : ((!item.is_sorotan && items.filter(i => i.is_sorotan).length >= 3) ? 'Batas maksimal tercapai' : 'Jadikan sorotan')}
+                    >
+                      <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: item.is_sorotan ? "'FILL' 1" : "'FILL' 0" }}>star</span>
+                      {item.is_sorotan && <span className="font-bold text-sm">SOROTAN</span>}
+                    </button>
                   </div>
                   <h3 className="font-semibold text-on-surface text-2xl leading-tight">{item.judul}</h3>
                   <p className="text-lg text-on-surface-variant mt-1 line-clamp-2">{item.konten}</p>
@@ -285,9 +306,8 @@ export default function AdminBeritaPage() {
       {toast && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-gutter animate-fade-in">
           <div className="bg-surface-container-lowest rounded-3xl p-xl w-full max-w-[26rem] shadow-ambient-lg border border-outline-variant animate-fade-in-up text-center">
-            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-lg ${
-              toast.type === 'success' ? 'bg-tertiary/15 text-tertiary' : 'bg-error/15 text-error'
-            }`}>
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-lg ${toast.type === 'success' ? 'bg-tertiary/15 text-tertiary' : 'bg-error/15 text-error'
+              }`}>
               <span className="material-symbols-outlined text-4xl">
                 {toast.type === 'success' ? 'check_circle' : 'error'}
               </span>
@@ -298,7 +318,7 @@ export default function AdminBeritaPage() {
             <p className="text-on-surface-variant text-lg leading-relaxed mb-lg">
               {toast.text}
             </p>
-            <button 
+            <button
               onClick={() => setToast(null)}
               className="w-full py-xs rounded-full bg-primary text-on-primary hover:shadow-lg transition-all text-lg font-semibold"
             >
@@ -320,13 +340,13 @@ export default function AdminBeritaPage() {
               Apakah Anda yakin ingin menghapus artikel <span className="font-semibold text-on-surface">&quot;{deleteConfirmTitle}&quot;</span>? Tindakan ini tidak dapat dibatalkan.
             </p>
             <div className="flex gap-sm">
-              <button 
+              <button
                 onClick={() => setDeleteConfirmId(null)}
                 className="flex-1 py-xs rounded-full border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-all text-lg font-semibold"
               >
                 Batal
               </button>
-              <button 
+              <button
                 onClick={confirmDelete}
                 className="flex-1 py-xs rounded-full bg-error text-on-error hover:bg-error/90 shadow-md hover:shadow-lg transition-all text-lg font-semibold"
               >

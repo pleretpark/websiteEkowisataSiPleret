@@ -187,7 +187,7 @@ export default function UMKMPage() {
                         <span
                           className="bg-primary text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
                         >
-                          Detail Produk
+                          Detail
                           {/* <span className="material-symbols-outlined text-base">
                             arrow_forward
                           </span> */}

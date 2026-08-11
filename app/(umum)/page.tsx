@@ -230,7 +230,7 @@ export default async function HomePage() {
                       href={`/umkm/detail-produk?id=${item.id}`}
                       className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
                     >
-                      Detail Produk
+                      Detail
 
                       {/* <span className="material-symbols-outlined text-base">
                         arrow_forward
@@ -329,7 +329,7 @@ export default async function HomePage() {
             />
             <div className="relative z-10 glass p-sm rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-4/5 lg:w-3/4 mx-auto">
               <Image
-                src="/images/paksolichin.jpeg"
+                src="/images/foto-pleret.jpeg"
                 alt="Komunitas UMKM Tingkir Tengah bekerja bersama"
                 width={600}
                 height={400}
