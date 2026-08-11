@@ -155,7 +155,7 @@ export default function UMKMPage() {
                     className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-md shadow-sm hover:shadow-ambient transition-all duration-300 flex flex-col h-full animate-fade-in-up"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="relative overflow-hidden rounded-xl h-48 mb-sm bg-surface-container">
+                    <div className="relative overflow-hidden rounded-xl h-48 mb-sm bg-surface-container shrink-0">
                       <Image
                         src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
                         alt={item.nama_produk}
@@ -180,7 +180,7 @@ export default function UMKMPage() {
                           {item.deskripsi}
                         </p>
                       </div>
-                      <div className="mt-md flex items-center justify-between gap-xs">
+                      <div className="mt-auto pt-md flex items-center justify-between gap-xs">
                         <span className="text-primary font-bold text-lg">
                           {formatPrice(item.harga)}
                         </span>

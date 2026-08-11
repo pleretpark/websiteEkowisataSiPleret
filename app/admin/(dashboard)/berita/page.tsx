@@ -46,6 +46,13 @@ export default function AdminBeritaPage() {
       return
     }
 
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+    if (!allowedTypes.includes(file.type)) {
+      showToast('error', 'Silakan unggah gambar dengan format JPG, PNG, atau WEBP.')
+      e.target.value = ''
+      return
+    }
+
     setLocalPreview(URL.createObjectURL(file))
     setUploading(true)
     try {
@@ -218,7 +225,7 @@ export default function AdminBeritaPage() {
                   <label className="cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors flex items-center gap-xs text-lg text-on-surface-variant">
                     <span className="material-symbols-outlined text-[18px]">upload</span>
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
-                    <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                    <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} />
                   </label>
 
                   {(localPreview || form.foto_cover) && (

@@ -226,7 +226,7 @@ export default function AdminSpotWisataPage() {
                 <LocationPicker 
                   lat={form.latitude || -7.361834} 
                   lng={form.longitude || 110.526024} 
-                  onChange={(lat, lng) => setForm({ ...form, latitude: lat, longitude: lng })} 
+                  onChange={(lat, lng) => setForm(prev => ({ ...prev, latitude: lat, longitude: lng }))} 
                 />
               </div>
 
@@ -324,8 +324,8 @@ export default function AdminSpotWisataPage() {
           </div>
         ) : (
           items.map((item) => (
-            <div key={item.id} className="bg-surface-container-lowest rounded-3xl border border-outline-variant shadow-sm overflow-hidden hover:shadow-ambient-hover transition-all group">
-              <div className="relative h-48 overflow-hidden">
+            <div key={item.id} className="bg-surface-container-lowest rounded-3xl border border-outline-variant shadow-sm overflow-hidden hover:shadow-ambient-hover transition-all group flex flex-col h-full">
+              <div className="relative h-48 overflow-hidden shrink-0">
                 {item.gambar_url ? (
                   <Image src={item.gambar_url} alt={item.nama_lokasi} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                 ) : (
@@ -339,7 +339,7 @@ export default function AdminSpotWisataPage() {
                   </span>
                 </div>
               </div>
-              <div className="p-md">
+              <div className="p-md flex flex-col flex-grow">
                 <h3 className="font-semibold text-on-surface text-2xl">{item.nama_lokasi}</h3>
                 <p className="text-lg text-on-surface-variant mt-1 line-clamp-2">{item.deskripsi}</p>
                 {item.jam_operasional && (
@@ -348,7 +348,7 @@ export default function AdminSpotWisataPage() {
                     {item.jam_operasional}
                   </p>
                 )}
-                <div className="flex items-center justify-between mt-md">
+                <div className="flex items-center justify-between mt-auto pt-md">
                   <span className="text-base bg-surface-container-high px-sm py-1 rounded-full text-on-surface-variant">{item.kategori}</span>
                   <div className="flex gap-xs">
                     <button onClick={() => openEdit(item)} className="w-8 h-8 rounded-lg bg-primary-fixed/20 text-primary hover:bg-primary hover:text-on-primary transition-all flex items-center justify-center" title="Edit">

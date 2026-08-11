@@ -201,9 +201,9 @@ export default async function HomePage() {
             {umkmData.map((item, index) => (
               <ScrollReveal key={item.id} variant="fade-up" delay={index * 120} duration={600}>
                 <div
-                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-sm shadow-sm hover:shadow-ambient-hover transition-all duration-500 overflow-hidden h-full"
+                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-sm shadow-sm hover:shadow-ambient-hover transition-all duration-500 overflow-hidden h-full flex flex-col"
                 >
-                <div className="relative overflow-hidden rounded-xl h-64 mb-sm bg-surface-container">
+                <div className="relative overflow-hidden rounded-xl h-64 mb-sm bg-surface-container shrink-0">
                   <Image
                     src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
                     alt={item.nama_produk}
@@ -228,7 +228,7 @@ export default async function HomePage() {
                       {item.deskripsi}
                     </p>
                   </div>
-                  <div className="mt-md flex items-center justify-between">
+                  <div className="mt-auto pt-md flex items-center justify-between">
                     <span className="text-primary font-bold text-xl">
                       {formatPrice(item.harga)}
                     </span>
