@@ -87,8 +87,8 @@ export default function AdminIkanPage() {
     if (!e.target.files || e.target.files.length === 0) return
     const file = e.target.files[0]
 
-    if (file.size > 1024 * 1024) {
-      setErrorModal({ show: true, title: 'Gagal', message: 'Ukuran file maksimal 1MB' })
+    if (file.size > 5 * 1024 * 1024) {
+      setErrorModal({ show: true, title: 'Gagal', message: 'Ukuran file maksimal 5MB' })
       return
     }
 
@@ -274,7 +274,7 @@ export default function AdminIkanPage() {
 
               <div>
                 <label className="block text-lg font-bold text-on-surface mb-xs">
-                  Gambar Ikan (Maks 1MB)
+                  Gambar Ikan (Maks 5MB)
                 </label>
                 
                 {!form.gambar_url ? (

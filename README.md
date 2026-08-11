@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Website Ekowisata Tingkir Tengah & Bendungan Si Pleret
 
-## Getting Started
+Proyek website resmi untuk **Ekowisata Tingkir Tengah (Bendungan Si Pleret)**, Kota Salatiga. Website ini dikembangkan sebagai bentuk dedikasi dan pengabdian masyarakat oleh **Tim KKN-T 96 Universitas Diponegoro**.
 
-First, run the development server:
+Website ini berfungsi sebagai portal informasi wisata, promosi produk UMKM lokal, pusat berita/kegiatan desa, serta memiliki sistem manajemen konten (CMS) internal untuk memudahkan pengurus desa mengelola data.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Fitur Utama
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Halaman Publik (Pengunjung)
+- **Beranda (Landing Page):** Tampilan interaktif dengan video profil, ringkasan UMKM, berita terbaru, dan animasi *ScrollReveal* yang halus.
+- **Profil & Sejarah (Tentang Kami):** Menampilkan legenda Jaka Tingkir, sejarah Bendungan Si Pleret, peta wilayah administrasi, serta rekam jejak pengabdian tim KKN.
+- **Katalog UMKM:** Menampilkan daftar produk dan jasa UMKM lokal Tingkir Tengah beserta kategori dan detail kontak.
+- **Berita & Acara:** Portal publikasi untuk mengumumkan acara desa, kegiatan pelestarian, dan informasi wisata. Terdapat fitur "Sorotan Utama" untuk berita penting.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Dasbor Admin (CMS)
+- **Manajemen UMKM:** Tambah, edit, dan hapus data pelaku UMKM.
+- **Kelola Berita:** Publikasi artikel dengan *rich-text editor*. Admin dapat menentukan **maksimal 3 Berita Sorotan** (dengan fitur tombol bintang interaktif) yang akan tampil di halaman depan.
+- **Panduan Pengelolaan:** Halaman panduan interaktif (Budidaya Ikan, UMKM, dan Ekowisata) khusus untuk pengelola.
+- **Statistik Pengunjung:** Pelacakan dan visualisasi data jumlah pengunjung website secara *real-time*.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Teknologi yang Digunakan
 
-## Learn More
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router, React 19)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) dengan skema warna *Aquatic Harmony* (Teal, Azure, Moss).
+- **Animasi:** Animasi kustom menggunakan `IntersectionObserver` (*ScrollReveal*), animasi CSS murni, dan mikro-interaksi (*glassmorphism*, *hover effects*).
+- **Database & Backend:** [Supabase](https://supabase.com/) (PostgreSQL, Authentication, Storage).
+- **Bahasa:** TypeScript.
 
-To learn more about Next.js, take a look at the following resources:
+## Panduan Instalasi & Pengembangan
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Persyaratan
+- Node.js versi 18.17 atau lebih baru.
+- Akun dan Project Supabase (untuk Database & Storage).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Langkah-langkah
+1. **Clone repositori:**
+   ```bash
+   git clone https://github.com/pleretpark/websiteEkowisataSiPleret.git
+   cd websiteEkowisataSiPleret
+   ```
 
-## Deploy on Vercel
+2. **Instal dependensi:**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Konfigurasi Environment:**
+   Buat file `.env.local` di root proyek dan masukkan kredensial Supabase Anda:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=url_supabase_anda
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=anon_key_supabase_anda
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Jalankan server pengembangan:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Buka di Browser:**
+   Akses [http://localhost:3000](http://localhost:3000) untuk melihat hasilnya.
+
+## Log Perubahan (Changelog) Terkini
+- Penambahan sistem animasi `ScrollReveal` yang interaktif pada halaman publik (Beranda, Tentang, Berita, Detail).
+- Optimasi tata letak Grid CSS pada halaman Tentang untuk mencegah gambar mengecil.
+- Peningkatan UI/UX Dasbor Admin:
+  - Implementasi *Rich Text Editor* untuk pembuatan berita.
+  - Penambahan sistem **Bintang Sorotan Berita** (Maksimal 3 berita, otomatis *disable* jika penuh, urutan sorotan berdasarkan waktu pembaruan).
+- Integrasi pelacak statistik pengunjung *real-time* berbasis API (VisitorStats).
+
+---
+*Dibuat oleh D Tim KKN-T 96 Universitas Diponegoro.*

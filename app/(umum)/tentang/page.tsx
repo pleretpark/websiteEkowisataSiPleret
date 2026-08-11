@@ -172,7 +172,7 @@ export default function TentangPage() {
             <div className="w-full md:w-5/12 flex-shrink-0 order-1 md:order-2">
               <div className="aspect-[4/3] bg-surface-container rounded-2xl overflow-hidden border border-outline-variant relative group shadow-md p-2">
                 <iframe
-                  src="/data/tingkir-tengah-ADM.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                  src="/data/Tingkir-Tengah-ADM.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
                   className="w-full h-full border border-outline-variant/30 pointer-events-none rounded-xl bg-white"
                   title="Preview Peta Administrasi"
                 />

@@ -220,6 +220,7 @@ export default function AdminBeritaPage() {
                     {uploading ? 'Mengunggah...' : 'Pilih Gambar'}
                     <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                   </label>
+
                   {(localPreview || form.foto_cover) && (
                     <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-outline-variant flex-shrink-0">
                       <img src={localPreview || form.foto_cover || ''} alt="Preview" className="w-full h-full object-cover" />
