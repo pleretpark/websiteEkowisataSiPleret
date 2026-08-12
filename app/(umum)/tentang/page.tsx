@@ -33,6 +33,7 @@ const pillars = [
 
 export default function TentangPage() {
   const [showFullStory, setShowFullStory] = useState(false);
+  const [activeSdg, setActiveSdg] = useState<number | null>(null);
 
   return (
     <>
@@ -40,7 +41,7 @@ export default function TentangPage() {
       <header className="pt-xl pb-lg md:pt-[100px] text-center px-gutter max-w-[1000px] mx-auto">
         <ScrollReveal variant="fade-down" duration={800}>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] leading-tight tracking-tight mb-sm">
-            Tentang Tingkir Tengah 
+            Tentang Tingkir Tengah
             <br />
             <span className="text-[#003d37] italic font-medium">& Bendungan Si Pleret</span>
           </h1>
@@ -107,35 +108,35 @@ export default function TentangPage() {
 
             <ScrollReveal variant="fade-left" delay={200} duration={800} className="lg:col-span-7">
               <div className="space-y-md text-on-surface-variant text-base md:text-lg leading-relaxed text-justify">
-              <p>Pada abad ke-16, ketika Kesultanan Demak menjadi pusat pemerintahan dan penyebaran Islam di Pulau Jawa, hiduplah seorang pemuda bernama Mas Karebet yang kelak lebih dikenal sebagai Jaka Tingkir. Ia berasal dari daerah Tingkir, yang kini menjadi bagian dari Kota Salatiga, Jawa Tengah.</p>
-              <p>Dikisahkan bahwa pada suatu waktu Jaka Tingkir memutuskan melakukan perjalanan menuju Keraton Demak. Ketika melintasi wilayah Dusun Payaman, ia menjumpai aliran sungai yang deras. Masyarakat setempat saat itu kesulitan memanfaatkan air sungai; meluap saat hujan dan kekeringan saat kemarau.</p>
-              <p>Melihat hal tersebut, Jaka Tingkir merasa iba. Sebelum melanjutkan perjalanannya, ia membantu masyarakat menyusun batu-batu besar untuk membentuk sebuah bendung sederhana.</p>
-              
-              <div className="mt-md">
-                {!showFullStory ? (
-                  <button
-                    onClick={() => setShowFullStory(true)}
-                    className="inline-flex items-center gap-xs bg-primary/10 text-primary font-bold px-6 py-3 rounded-full hover:bg-primary hover:text-on-primary transition-all"
-                  >
-                    Lanjutkan Membaca Cerita
-                    <span className="material-symbols-outlined text-xl">menu_book</span>
-                  </button>
-                ) : (
-                  <div className="space-y-md animate-in fade-in slide-in-from-top-4 duration-700 mt-md pt-md border-t border-outline-variant/50">
-                    <p>Bendung susunan batu tersebut dipercaya menjadi cikal bakal Bendungan Si Pleret. Nama &quot;Pleret&quot; sendiri konon berasal dari suara gemuruh air yang mengalir deras berbunyi &quot;pleret... pleret...&quot;.</p>
-                    <p>Setelah membantu masyarakat, Jaka Tingkir melanjutkan perjalanan ke Demak, dan di kemudian hari diangkat menjadi Sultan Pajang. Bagi masyarakat Dusun Payaman, bendungan ini bukan sekadar peninggalan masa lalu, melainkan simbol kepedulian, gotong royong, dan pelestarian sumber daya air yang masih terus dijaga hingga hari ini.</p>
+                <p>Pada abad ke-16, ketika Kesultanan Demak menjadi pusat pemerintahan dan penyebaran Islam di Pulau Jawa, hiduplah seorang pemuda bernama Mas Karebet yang kelak lebih dikenal sebagai Jaka Tingkir. Ia berasal dari daerah Tingkir, yang kini menjadi bagian dari Kota Salatiga, Jawa Tengah.</p>
+                <p>Dikisahkan bahwa pada suatu waktu Jaka Tingkir memutuskan melakukan perjalanan menuju Keraton Demak. Ketika melintasi wilayah Dusun Payaman, ia menjumpai aliran sungai yang deras. Masyarakat setempat saat itu kesulitan memanfaatkan air sungai; meluap saat hujan dan kekeringan saat kemarau.</p>
+                <p>Melihat hal tersebut, Jaka Tingkir merasa iba. Sebelum melanjutkan perjalanannya, ia membantu masyarakat menyusun batu-batu besar untuk membentuk sebuah bendung sederhana.</p>
+
+                <div className="mt-md">
+                  {!showFullStory ? (
                     <button
-                      onClick={() => setShowFullStory(false)}
-                      className="inline-flex items-center gap-xs text-primary font-bold hover:text-primary-container transition-colors mt-2"
+                      onClick={() => setShowFullStory(true)}
+                      className="inline-flex items-center gap-xs bg-primary/10 text-primary font-bold px-6 py-3 rounded-full hover:bg-primary hover:text-on-primary transition-all"
                     >
-                      Sembunyikan Cerita
-                      <span className="material-symbols-outlined text-xl">expand_less</span>
+                      Lanjutkan Membaca Cerita
+                      <span className="material-symbols-outlined text-xl">menu_book</span>
                     </button>
-                  </div>
-                )}
+                  ) : (
+                    <div className="space-y-md animate-in fade-in slide-in-from-top-4 duration-700 mt-md pt-md border-t border-outline-variant/50">
+                      <p>Bendung susunan batu tersebut dipercaya menjadi cikal bakal Bendungan Si Pleret. Nama &quot;Pleret&quot; sendiri konon berasal dari suara gemuruh air yang mengalir deras berbunyi &quot;pleret... pleret...&quot;.</p>
+                      <p>Setelah membantu masyarakat, Jaka Tingkir melanjutkan perjalanan ke Demak, dan di kemudian hari diangkat menjadi Sultan Pajang. Bagi masyarakat Dusun Payaman, bendungan ini bukan sekadar peninggalan masa lalu, melainkan simbol kepedulian, gotong royong, dan pelestarian sumber daya air yang masih terus dijaga hingga hari ini.</p>
+                      <button
+                        onClick={() => setShowFullStory(false)}
+                        className="inline-flex items-center gap-xs text-primary font-bold hover:text-primary-container transition-colors mt-2"
+                      >
+                        Sembunyikan Cerita
+                        <span className="material-symbols-outlined text-xl">expand_less</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -145,45 +146,135 @@ export default function TentangPage() {
         <div className="max-w-[1600px] mx-auto px-gutter">
           <ScrollReveal variant="blur-in" duration={800}>
             <div className="bg-surface-container-lowest rounded-3xl p-lg md:p-xl border border-outline-variant shadow-sm flex flex-col md:flex-row items-center gap-xl">
-            {/* Right: Text and Download Button */}
-            <div className="flex-1 text-center md:text-left order-2 md:order-1">
-              <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-xs block">
-                Pemetaan Wilayah
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-md">
-                Peta Administrasi Tingkir Tengah
-              </h2>
-              <p className="text-on-surface-variant text-lg leading-relaxed max-w-2xl mb-lg mx-auto md:mx-0">
-                Bendungan Si Pleret didukung oleh berbagai potensi lokal, mulai dari sektor perikanan, UMKM, hingga pariwisata.
-                Pelajari lebih detail batas wilayah dan pembagian area ekowisata kami melalui peta administrasi berikut.
-              </p>
+              {/* Right: Text and Download Button */}
+              <div className="flex-1 text-center md:text-left order-2 md:order-1">
+                <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-xs block">
+                  Pemetaan Wilayah
+                </span>
+                <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-md">
+                  Peta Administrasi Tingkir Tengah
+                </h2>
+                <p className="text-on-surface-variant text-lg leading-relaxed max-w-2xl mb-lg mx-auto md:mx-0">
+                  Bendungan Si Pleret didukung oleh berbagai potensi lokal, mulai dari sektor perikanan, UMKM, hingga pariwisata.
+                  Pelajari lebih detail batas wilayah dan pembagian area ekowisata kami melalui peta administrasi berikut.
+                </p>
 
-              <a
-                href="/data/Tingkir-Tengah-ADM.pdf"
-                download="Peta_Administrasi_Tingkir_Tengah.pdf"
-                className="inline-flex items-center justify-center gap-sm bg-primary text-on-primary px-8 py-4 rounded-full font-bold shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
-              >
-                <span className="material-symbols-outlined text-[24px]">download</span>
-                Unduh Peta Skala Penuh
-              </a>
-            </div>
+                <a
+                  href="/data/Tingkir-Tengah-ADM.pdf"
+                  download="Peta_Administrasi_Tingkir_Tengah.pdf"
+                  className="inline-flex items-center justify-center gap-sm bg-primary text-on-primary px-8 py-4 rounded-full font-bold shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
+                >
+                  <span className="material-symbols-outlined text-[24px]">download</span>
+                  Unduh Peta Skala Penuh
+                </a>
+              </div>
 
-            {/* Left: PDF Preview */}
-            <div className="w-full md:w-5/12 flex-shrink-0 order-1 md:order-2">
-              <div className="aspect-[4/3] bg-surface-container rounded-2xl overflow-hidden border border-outline-variant relative group shadow-md p-2">
-                <iframe
-                  src="/data/Tingkir-Tengah-ADM.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-                  className="w-full h-full border border-outline-variant/30 pointer-events-none rounded-xl bg-white"
-                  title="Preview Peta Administrasi"
-                />
+              {/* Left: PDF Preview */}
+              <div className="w-full md:w-5/12 flex-shrink-0 order-1 md:order-2">
+                <div className="aspect-[4/3] bg-surface-container rounded-2xl overflow-hidden border border-outline-variant relative group shadow-md p-2">
+                  <iframe
+                    src="/data/Tingkir-Tengah-ADM.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                    className="w-full h-full border border-outline-variant/30 pointer-events-none rounded-xl bg-white"
+                    title="Preview Peta Administrasi"
+                  />
+                </div>
               </div>
             </div>
-          </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* 4. JEJAK LANGKAH KKN (KONTRIBUSI TIM) */}
+      {/* Pembatas Dekoratif */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-outline-variant to-transparent my-md"></div>
+
+      {/* 4. KONTRIBUSI TERHADAP SDGs */}
+      <section className="py-xl">
+        <div className="max-w-[1200px] mx-auto px-gutter">
+          <ScrollReveal variant="fade-up">
+            <div className="text-center mb-xl">
+              <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-xs block">
+                Pembangunan Berkelanjutan
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-sm">
+                Kontribusi Terhadap SDGs
+              </h2>
+              <p className="mt-md text-on-surface-variant max-w-3xl mx-auto text-base md:text-lg leading-relaxed text-center">
+                Sebagai kawasan ekowisata, pengembangan Bendungan Si Pleret diselaraskan dengan prinsip-prinsip <span className="font-semibold text-primary">Sustainable Development Goals (SDGs)</span> atau Tujuan Pembangunan Berkelanjutan. Berikut adalah 8 poin fokus utama kami:
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="flex flex-col items-center gap-1 sm:gap-3 md:gap-4 max-w-[900px] mx-auto py-8 px-2 overflow-visible">
+            {/* Baris 1: 2 Balok */}
+            <div className="flex justify-center gap-1 sm:gap-3 md:gap-4">
+              {[
+                { id: 15, desc: 'Ekosistem Darat:\nMenjaga kelestarian lahan hijau.' },
+                { id: 17, desc: 'Kemitraan:\nKolaborasi pengelolaan wisata berkelanjutan.' },
+              ].map((sdg) => (
+                <div
+                  key={sdg.id}
+                  onClick={() => setActiveSdg(activeSdg === sdg.id ? null : sdg.id)}
+                  className={`relative group cursor-pointer transition-all duration-500 origin-center 
+                    ${activeSdg === sdg.id ? 'scale-[1.75] min-[400px]:scale-[1.5] sm:scale-125 md:scale-150 z-50 shadow-2xl rounded-xl' : 'scale-100 z-10 hover:z-20 hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl'} 
+                    w-[64px] h-[64px] min-[400px]:w-[75px] min-[400px]:h-[75px] sm:w-[120px] sm:h-[120px] md:w-[160px] md:h-[160px] bg-white overflow-hidden`}
+                >
+                  <img src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${sdg.id}.jpg`} alt={`SDG ${sdg.id}`} className="w-full h-full object-cover" />
+                  <div className={`absolute inset-0 bg-black/80 flex items-center justify-center p-1 sm:p-3 text-center transition-opacity duration-300 ${activeSdg === sdg.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                    <p className="text-white text-[7px] min-[400px]:text-[8px] sm:text-xs md:text-sm font-medium leading-[1.1] sm:leading-tight whitespace-pre-line">{sdg.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Baris 2: 3 Balok */}
+            <div className="flex justify-center gap-1 sm:gap-3 md:gap-4">
+              {[
+                { id: 11, desc: 'Kawasan Inklusif:\nMewujudkan wisata aman & nyaman.' },
+                { id: 12, desc: 'Konsumsi Bijak:\nPengelolaan sampah bertanggung jawab.' },
+                { id: 13, desc: 'Iklim:\nMenjaga ruang terbuka hijau.' },
+              ].map((sdg) => (
+                <div
+                  key={sdg.id}
+                  onClick={() => setActiveSdg(activeSdg === sdg.id ? null : sdg.id)}
+                  className={`relative group cursor-pointer transition-all duration-500 origin-center 
+                    ${activeSdg === sdg.id ? 'scale-[1.75] min-[400px]:scale-[1.5] sm:scale-125 md:scale-150 z-50 shadow-2xl rounded-xl' : 'scale-100 z-10 hover:z-20 hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl'} 
+                    w-[64px] h-[64px] min-[400px]:w-[75px] min-[400px]:h-[75px] sm:w-[120px] sm:h-[120px] md:w-[160px] md:h-[160px] bg-white overflow-hidden`}
+                >
+                  <img src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${sdg.id}.jpg`} alt={`SDG ${sdg.id}`} className="w-full h-full object-cover" />
+                  <div className={`absolute inset-0 bg-black/80 flex items-center justify-center p-1 sm:p-3 text-center transition-opacity duration-300 ${activeSdg === sdg.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                    <p className="text-white text-[7px] min-[400px]:text-[8px] sm:text-xs md:text-sm font-medium leading-[1.1] sm:leading-tight whitespace-pre-line">{sdg.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Baris 3: 4 Balok */}
+            <div className="flex justify-center gap-1 sm:gap-3 md:gap-4">
+              {[
+                { id: 6, desc: 'Air & Sanitasi:\nPengelolaan fasilitas kebersihan.' },
+                { id: 7, desc: 'Energi Bersih:\nEfisien & dukung lingkungan sehat.' },
+                { id: 8, desc: 'Pekerjaan:\nMendukung UMKM & peluang kerja.' },
+                { id: 14, desc: 'Ekosistem Air:\nMelestarikan keanekaragaman hayati.' },
+              ].map((sdg) => (
+                <div
+                  key={sdg.id}
+                  onClick={() => setActiveSdg(activeSdg === sdg.id ? null : sdg.id)}
+                  className={`relative group cursor-pointer transition-all duration-500 origin-center 
+                    ${activeSdg === sdg.id ? 'scale-[1.75] min-[400px]:scale-[1.5] sm:scale-125 md:scale-150 z-50 shadow-2xl rounded-xl' : 'scale-100 z-10 hover:z-20 hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl'} 
+                    w-[64px] h-[64px] min-[400px]:w-[75px] min-[400px]:h-[75px] sm:w-[120px] sm:h-[120px] md:w-[160px] md:h-[160px] bg-white overflow-hidden`}
+                >
+                  <img src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${sdg.id < 10 ? '0' + sdg.id : sdg.id}.jpg`} alt={`SDG ${sdg.id}`} className="w-full h-full object-cover" />
+                  <div className={`absolute inset-0 bg-black/80 flex items-center justify-center p-1 sm:p-3 text-center transition-opacity duration-300 ${activeSdg === sdg.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                    <p className="text-white text-[7px] min-[400px]:text-[8px] sm:text-xs md:text-sm font-medium leading-[1.1] sm:leading-tight whitespace-pre-line">{sdg.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. JEJAK LANGKAH KKN (KONTRIBUSI TIM) */}
       <section className="py-xl bg-surface-container-low">
         <div className="max-w-[1200px] mx-auto px-gutter">
           <ScrollReveal variant="fade-up">
@@ -195,7 +286,7 @@ export default function TentangPage() {
                 Jejak Langkah KKN-T 96 Undip
               </h2>
               <p className="mt-md text-on-surface-variant max-w-3xl mx-auto text-base md:text-lg leading-relaxed text-center">
-                Website ini dan pengembangan ekowisata Bendungan Si Pleret merupakan wujud nyata dedikasi Tim KKN-T 96 Universitas Diponegoro. 
+                Website ini dan pengembangan ekowisata Bendungan Si Pleret merupakan wujud nyata dedikasi Tim KKN-T 96 Universitas Diponegoro.
                 Setiap senyum warga, peluh di lapangan, dan kebersamaan yang terjalin adalah kenangan abadi yang kami rekam dalam jejak ini.
               </p>
             </div>
@@ -203,61 +294,61 @@ export default function TentangPage() {
 
           {/* Kolase Foto Polaroid (Scrapbook Style - Referensi Poster) */}
           <div className="relative flex flex-col md:block items-center gap-8 md:gap-0 mt-16 mb-8 h-auto md:h-[700px] w-full max-w-[1200px] mx-auto overflow-hidden md:overflow-visible">
-            
+
             {/* Background Dekoratif Tengah (Logo Terlihat Jelas) */}
             <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none z-0">
               <div className="relative w-[300px] md:w-[450px] lg:w-[500px] aspect-square drop-shadow-2xl">
-                <Image 
-                  src="/images/logo-warna.png" 
-                  alt="Logo Tingkir Tengah" 
-                  fill 
-                  className="object-contain" 
+                <Image
+                  src="/images/logo-warna.png"
+                  alt="Logo Tingkir Tengah"
+                  fill
+                  className="object-contain"
                 />
               </div>
             </div>
 
             {/* Foto 1 (Kiri Atas) */}
             <div className="md:absolute md:left-[5%] md:top-[5%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl -rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-10">
-              <div className="relative w-full aspect-square bg-gray-200">
+              <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
                 <Image src="/images/foto1-pleret.jpg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
             </div>
 
             {/* Foto 2 (Kanan Atas) */}
             <div className="md:absolute md:right-[5%] md:top-[8%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl rotate-3 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-10">
-              <div className="relative w-full aspect-square bg-gray-200">
-                <Image src="/images/foto1-sosmas.jpg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
+                <Image src="/images/muldis-bud1.jpg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
             </div>
 
             {/* Foto 3 (Kiri Tengah) */}
             <div className="md:absolute md:left-[0%] md:top-[45%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-10">
-              <div className="relative w-full aspect-square bg-gray-200">
-                <Image src="/images/foto3-ekowis.jpeg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
+                <Image src="/images/pemaparan.jpg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
             </div>
 
             {/* Foto 4 (Kanan Tengah) */}
             <div className="md:absolute md:right-[0%] md:top-[50%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl -rotate-3 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-10">
-              <div className="relative w-full aspect-square bg-gray-200">
-                <Image src="/images/foto2-ekowis.jpeg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
+                <Image src="/images/foto1-sosmas.jpg" alt="KKN Foto" fill className="object-right object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
             </div>
 
             {/* Foto 5 (Kiri Bawah) */}
             <div className="md:absolute md:left-[20%] md:bottom-[5%] w-[260px] md:w-[280px] bg-white p-3 rounded-sm shadow-xl -rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-20">
-              <div className="relative w-full aspect-square bg-gray-200">
-                <Image src="/images/foto1-ekowis.jpeg" alt="KKN Foto" fill className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
+                <Image src="/images/foto1-ekowis.jpeg" alt="KKN Foto" fill className="scale-125 object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
             </div>
 
             {/* Foto 6 (Kanan Bawah) */}
             <div className="md:absolute md:right-[20%] md:bottom-[10%] w-[260px] md:w-[350px] bg-white p-3 rounded-sm shadow-xl rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-20">
-              <div className="relative w-full aspect-[4/3] bg-gray-200">
-                <Image src="/images/foto1-sosmas.jpg" alt="KKN Foto" fill className="object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 object-right"  />
+              <div className="relative w-full aspect-[4/3] bg-gray-200 overflow-hidden">
+                <Image src="/images/penerjunan.jpg" alt="KKN Foto" fill className="object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 object-right" />
               </div>
             </div>
-            
+
           </div>
         </div>
       </section>
