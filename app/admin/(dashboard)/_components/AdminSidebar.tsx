@@ -17,7 +17,7 @@ export const menuItems: MenuItem[] = [
   { href: '/admin', icon: 'dashboard', label: 'Dashboard' },
   { href: '/admin/umkm', icon: 'storefront', label: 'Manajemen UMKM' },
   { href: '/admin/spot-wisata', icon: 'eco', label: 'Peta Lokasi' },
-  { href: '/admin/ikan', icon: 'phishing', label: 'Detail Ikan' },
+  { href: '/admin/ikan', icon: 'phishing', label: 'Data Ikan' },
   { href: '/admin/berita', icon: 'newspaper', label: 'Kabar Desa' },
   {
     icon: 'menu_book',

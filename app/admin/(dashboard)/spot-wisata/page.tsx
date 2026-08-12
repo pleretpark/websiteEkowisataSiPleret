@@ -28,6 +28,7 @@ export default function AdminSpotWisataPage() {
   const [uploading, setUploading] = useState(false)
   const [localPreview, setLocalPreview] = useState<string | null>(null)
   const [errorModal, setErrorModal] = useState({ show: false, title: '', message: '' })
+  const [deleteModal, setDeleteModal] = useState({ show: false, id: '', name: '' })
 
   const fetchItems = useCallback(async () => {
     setLoading(true)
@@ -119,6 +120,11 @@ export default function AdminSpotWisataPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault(); setSaving(true); setMessage(null)
+    if ((form.deskripsi || '').length > 100) {
+      setMessage({ type: 'error', text: 'Deskripsi maksimal 100 karakter.' })
+      setSaving(false)
+      return
+    }
     try {
       const supabase = createClient()
       const payload = {
@@ -148,7 +154,6 @@ export default function AdminSpotWisataPage() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Apakah Anda yakin ingin menghapus spot ini?')) return
     try {
       const supabase = createClient()
       const { error } = await supabase.from('spot_wisata').delete().eq('id', id)
@@ -158,6 +163,8 @@ export default function AdminSpotWisataPage() {
     } catch (err: any) {
       console.error('Delete error:', err)
       setErrorModal({ show: true, title: 'Error', message: 'Gagal menghapus data.' })
+    } finally {
+      setDeleteModal({ show: false, id: '', name: '' })
     }
   }
 
@@ -165,7 +172,7 @@ export default function AdminSpotWisataPage() {
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-lg gap-md">
         <div>
-          <h1 className="text-5xl font-bold text-on-surface">Kelola Spot Wisata</h1>
+          <h1 className="text-5xl font-bold text-on-surface">Kelola Lokasi</h1>
           <p className="text-on-surface-variant text-xl mt-xs">Atur dan kelola titik-titik lokasi ekowisata.</p>
         </div>
         <button onClick={openCreate} className="bg-primary text-on-primary font-bold px-md py-xs rounded-full hover:shadow-xl transition-all flex items-center gap-xs" id="add-spot-btn">
@@ -195,11 +202,10 @@ export default function AdminSpotWisataPage() {
             {/* Message inside modal */}
             {message && (
               <div
-                className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${
-                  message.type === 'success'
+                className={`rounded-xl p-sm mb-md text-lg flex items-center gap-xs ${message.type === 'success'
                     ? 'bg-tertiary-fixed/30 text-tertiary'
                     : 'bg-error-container text-on-error-container'
-                }`}
+                  }`}
               >
                 <span className="material-symbols-outlined text-[18px]">
                   {message.type === 'success' ? 'check_circle' : 'error'}
@@ -223,10 +229,10 @@ export default function AdminSpotWisataPage() {
               </div>
               <div className="mb-md">
                 <label className="block text-lg font-medium text-on-surface mb-xs">Titik Lokasi Peta</label>
-                <LocationPicker 
-                  lat={form.latitude || -7.361834} 
-                  lng={form.longitude || 110.526024} 
-                  onChange={(lat, lng) => setForm(prev => ({ ...prev, latitude: lat, longitude: lng }))} 
+                <LocationPicker
+                  lat={form.latitude || -7.361834}
+                  lng={form.longitude || 110.526024}
+                  onChange={(lat, lng) => setForm(prev => ({ ...prev, latitude: lat, longitude: lng }))}
                 />
               </div>
 
@@ -255,7 +261,17 @@ export default function AdminSpotWisataPage() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-on-surface mb-xs">Deskripsi *</label>
-                <textarea required rows={3} value={form.deskripsi || ''} onChange={(e) => setForm({ ...form, deskripsi: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none" placeholder="Deskripsi lokasi wisata..." />
+                <textarea
+                  required
+                  rows={3}
+                  value={form.deskripsi || ''}
+                  onChange={(e) => setForm({ ...form, deskripsi: e.target.value.slice(0, 200) })}
+                  className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface resize-none"
+                  placeholder="Deskripsi lokasi wisata (maks 100 karakter)..."
+                />
+                <p className="text-sm text-on-surface-variant mt-1 text-right">
+                  {(form.deskripsi || '').length}/100 karakter
+                </p>
               </div>
 
               {/* Image Upload */}
@@ -263,7 +279,7 @@ export default function AdminSpotWisataPage() {
                 <label className="block text-lg font-bold text-on-surface mb-xs">
                   Foto Lokasi (Maks 5MB)
                 </label>
-                
+
                 {!(localPreview || form.gambar_url) ? (
                   <label className="inline-flex cursor-pointer bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 hover:bg-surface-container-high transition-colors items-center gap-xs text-lg text-on-surface-variant font-medium mt-sm">
                     <span className="material-symbols-outlined text-[18px]">upload_file</span>
@@ -281,12 +297,12 @@ export default function AdminSpotWisataPage() {
                         {uploading ? 'Mengunggah...' : 'Ganti Gambar'}
                         <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileUpload} />
                       </label>
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => {
                           setLocalPreview(null);
                           setForm(prev => ({ ...prev, gambar_url: '' }));
-                        }} 
+                        }}
                         className="text-error hover:text-error/80 font-semibold text-base transition-colors"
                       >
                         Hapus Gambar
@@ -354,7 +370,7 @@ export default function AdminSpotWisataPage() {
                     <button onClick={() => openEdit(item)} className="w-8 h-8 rounded-lg bg-primary-fixed/20 text-primary hover:bg-primary hover:text-on-primary transition-all flex items-center justify-center" title="Edit">
                       <span className="material-symbols-outlined text-[16px]">edit</span>
                     </button>
-                    <button onClick={() => handleDelete(item.id)} className="w-8 h-8 rounded-lg bg-error-container/30 text-error hover:bg-error hover:text-on-error transition-all flex items-center justify-center" title="Hapus">
+                    <button onClick={() => setDeleteModal({ show: true, id: item.id, name: item.nama_lokasi })} className="w-8 h-8 rounded-lg bg-error-container/30 text-error hover:bg-error hover:text-on-error transition-all flex items-center justify-center" title="Hapus">
                       <span className="material-symbols-outlined text-[16px]">delete</span>
                     </button>
                   </div>
@@ -364,7 +380,7 @@ export default function AdminSpotWisataPage() {
           ))
         )}
       </div>
-      
+
       {/* Error Modal */}
       {errorModal.show && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-gutter">
@@ -376,12 +392,41 @@ export default function AdminSpotWisataPage() {
             </div>
             <h3 className="text-2xl font-bold text-on-surface mb-2">{errorModal.title}</h3>
             <p className="text-on-surface-variant text-base mb-8">{errorModal.message}</p>
-            <button 
+            <button
               onClick={() => setErrorModal({ show: false, title: '', message: '' })}
               className="w-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-bold py-3 rounded-full transition-colors"
             >
               Tutup
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteModal.show && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[70] flex items-center justify-center p-gutter">
+          <div className="bg-surface-container-lowest rounded-[32px] p-8 w-full max-w-[360px] text-center shadow-ambient-xl animate-fade-in-up">
+            <div className="w-16 h-16 rounded-full bg-error-container/30 mx-auto flex items-center justify-center mb-6">
+              <span className="material-symbols-outlined text-error text-[32px]">warning</span>
+            </div>
+            <h3 className="text-2xl font-bold text-on-surface mb-4">Hapus Data?</h3>
+            <p className="text-on-surface-variant text-base mb-8">
+              Anda yakin ingin menghapus data spot wisata <span className="font-bold text-on-surface">"{deleteModal.name}"</span>? Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div className="flex gap-4">
+              <button 
+                onClick={() => setDeleteModal({ show: false, id: '', name: '' })}
+                className="flex-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-bold py-3.5 rounded-2xl transition-colors"
+              >
+                Batal
+              </button>
+              <button 
+                onClick={() => handleDelete(deleteModal.id)}
+                className="flex-1 bg-error hover:bg-error/90 text-on-error font-bold py-3.5 rounded-2xl transition-colors"
+              >
+                Ya, Hapus
+              </button>
+            </div>
           </div>
         </div>
       )}

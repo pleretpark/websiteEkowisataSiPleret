@@ -84,7 +84,7 @@ export default function MapView({ spots, selectedSpot, onSelectSpot }: MapViewPr
         (position) => {
           if (!isMounted || !map) return
           const { latitude, longitude } = position.coords
-          
+
           if (!userMarker) {
             // Buat marker pin merah untuk user dengan efek berdenyut (pulse/ping)
             const userIcon = L.divIcon({
@@ -169,7 +169,7 @@ export default function MapView({ spots, selectedSpot, onSelectSpot }: MapViewPr
           ` : ''}
           <div class="popup-body">
             <h3 style="font-weight: 700; font-size: 16px; color: #1b1c19; margin: 0 0 6px 0; line-height: 1.3;">${spot.nama_lokasi}</h3>
-            <p style="font-size: 13px; color: #3d4947; margin: 0 0 14px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${spot.deskripsi}</p>
+            <p style="font-size: 13px; color: #3d4947; margin: 0 0 14px 0; line-height: 1.5; word-wrap: break-word;">${spot.deskripsi.length > 100 ? spot.deskripsi.substring(0, 100) + '...' : spot.deskripsi}</p>
             
             <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #f0f4f4; padding-top: 12px;">
               ${spot.jam_operasional ? `
