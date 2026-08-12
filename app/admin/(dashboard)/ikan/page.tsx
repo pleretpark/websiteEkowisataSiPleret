@@ -214,9 +214,9 @@ export default function AdminIkanPage() {
               </div>
 
               <div>
-                <label className="block text-lg font-medium text-on-surface mb-xs">Spot Wisata *</label>
+                <label className="block text-lg font-medium text-on-surface mb-xs">Lokasi Ikan *</label>
                 <select required value={form.spot_wisata_id || ''} onChange={(e) => setForm({ ...form, spot_wisata_id: e.target.value })} className="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary text-on-surface">
-                  <option value="">-- Pilih Lokasi Spot Wisata --</option>
+                  <option value="">-- Pilih Lokasi Ikan --</option>
                   {spots.map((spot) => (
                     <option key={spot.id} value={spot.id}>{spot.nama_lokasi}</option>
                   ))}
