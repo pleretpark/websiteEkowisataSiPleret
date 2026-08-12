@@ -22,26 +22,30 @@ export default async function DashboardPage() {
     ])
 
     if (visitorRes.data) {
-      const todayDate = new Date()
-      todayDate.setHours(0, 0, 0, 0)
-      const currentMonth = todayDate.getMonth()
-      const currentYear = todayDate.getFullYear()
+      const today = new Date()
+      const localTime = new Date(today.toLocaleString("en-US", {timeZone: "Asia/Jakarta"}))
+      const currentYear = localTime.getFullYear()
+      const currentMonth = localTime.getMonth()
+      const todayStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(localTime.getDate()).padStart(2, '0')}`
 
       visitorRes.data.forEach((v: any) => {
+        if (!v.date) return
         const count = v.count || 0
         visitorStats.total += count
         
-        const vDate = new Date(v.date)
-        if (vDate.getTime() === todayDate.getTime()) {
+        if (v.date === todayStr) {
           visitorStats.hariIni += count
         }
-        if (vDate.getMonth() === currentMonth && vDate.getFullYear() === currentYear) {
+        
+        const [vYear, vMonth, vDay] = v.date.split('-').map(Number)
+        
+        if (vYear === currentYear && vMonth === currentMonth + 1) {
           visitorStats.bulanIni += count
         }
         
-        const vDateZero = new Date(vDate)
-        vDateZero.setHours(0,0,0,0)
-        const diffDays = Math.floor((todayDate.getTime() - vDateZero.getTime()) / (1000 * 3600 * 24))
+        const vDateObj = new Date(vYear, vMonth - 1, vDay)
+        const todayDateObj = new Date(currentYear, currentMonth, localTime.getDate())
+        const diffDays = Math.floor((todayDateObj.getTime() - vDateObj.getTime()) / (1000 * 3600 * 24))
         
         if (diffDays >= 0 && diffDays <= 6) {
           visitorStats.mingguIni += count

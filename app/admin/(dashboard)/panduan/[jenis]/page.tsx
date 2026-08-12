@@ -1,10 +1,23 @@
-export default function PanduanPage({ params }: { params: { jenis: string } }) {
-  let title = "Panduan Penggunaan"
+export default async function PanduanPage({ params }: { params: Promise<{ jenis: string }> }) {
+  const { jenis } = await params;
   
-  if (params.jenis === 'website') title = "Buku Panduan Website"
-  if (params.jenis === 'instagram') title = "Buku Panduan Instagram"
-  if (params.jenis === 'tiktok') title = "Buku Panduan Tiktok"
-  if (params.jenis === 'saran') title = "Buku Panduan Kotak Saran"
+  let title = "Panduan Penggunaan"
+  let pdfSrc = "/data/buku-panduan-cth.pdf"
+  
+  if (jenis === 'website') {
+    title = "Buku Panduan Website"
+    pdfSrc = "/data/panduan-website.pdf"
+  }
+  if (jenis === 'instagram') {
+    title = "Buku Panduan Instagram"
+  }
+  if (jenis === 'tiktok') {
+    title = "Buku Panduan Tiktok"
+  }
+  if (jenis === 'saran') {
+    title = "Buku Panduan Kotak Saran"
+    pdfSrc = "/data/panduan-kotaksaran.pdf"
+  }
 
   return (
     <div className="flex flex-col h-full h-[calc(100vh-64px)]">
@@ -16,9 +29,8 @@ export default function PanduanPage({ params }: { params: { jenis: string } }) {
       </div>
 
       <div className="flex-1 bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden shadow-sm relative w-full min-h-[600px]">
-        {/* Placeholder file buku-panduan-cth.pdf */}
         <iframe
-          src="/data/buku-panduan-cth.pdf"
+          src={pdfSrc}
           className="w-full h-full border-none"
           title={title}
         />

@@ -31,7 +31,7 @@ export async function GET() {
       .from('Visitor')
       .select('count')
       .eq('date', dateStr)
-      .single();
+      .maybeSingle();
 
     const { data: allVisitors } = await supabase
       .from('Visitor')
@@ -58,7 +58,7 @@ export async function POST() {
       .from('Visitor')
       .select('count')
       .eq('date', dateStr)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       const { data, error } = await supabase

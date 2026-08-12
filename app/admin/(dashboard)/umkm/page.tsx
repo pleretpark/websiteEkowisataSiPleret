@@ -58,6 +58,7 @@ export default function AdminUmkmPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [uploading, setUploading] = useState(false)
   const [localPreview, setLocalPreview] = useState<string[]>([])
+  const [deleteModal, setDeleteModal] = useState({ show: false, id: '', name: '' })
 
   const fetchItems = useCallback(async () => {
     setLoading(true)
@@ -244,8 +245,6 @@ async function handleFileUpload(
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Apakah Anda yakin ingin menghapus data ini?')) return
-
     try {
       const supabase = createClient()
       const { error } = await supabase.from('umkm').delete().eq('id', id)
@@ -254,6 +253,8 @@ async function handleFileUpload(
       fetchItems()
     } catch {
       setMessage({ type: 'error', text: 'Gagal menghapus data.' })
+    } finally {
+      setDeleteModal({ show: false, id: '', name: '' })
     }
   }
 
@@ -574,7 +575,7 @@ async function handleFileUpload(
                           <span className="material-symbols-outlined text-[16px]">edit</span>
                         </button>
                         <button
-                          onClick={() => handleDelete(item.id)}
+                          onClick={() => setDeleteModal({ show: true, id: item.id, name: item.nama_produk })}
                           className="w-8 h-8 rounded-lg bg-error-container/30 text-error hover:bg-error hover:text-on-error transition-all flex items-center justify-center"
                           title="Hapus"
                         >
@@ -589,6 +590,35 @@ async function handleFileUpload(
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteModal.show && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[70] flex items-center justify-center p-gutter">
+          <div className="bg-surface-container-lowest rounded-[32px] p-8 w-full max-w-[360px] text-center shadow-ambient-xl animate-fade-in-up">
+            <div className="w-16 h-16 rounded-full bg-error-container/30 mx-auto flex items-center justify-center mb-6">
+              <span className="material-symbols-outlined text-error text-[32px]">warning</span>
+            </div>
+            <h3 className="text-2xl font-bold text-on-surface mb-4">Hapus Data?</h3>
+            <p className="text-on-surface-variant text-base mb-8">
+              Anda yakin ingin menghapus data UMKM <span className="font-bold text-on-surface">"{deleteModal.name}"</span>? Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div className="flex gap-4">
+              <button 
+                onClick={() => setDeleteModal({ show: false, id: '', name: '' })}
+                className="flex-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-bold py-3.5 rounded-2xl transition-colors"
+              >
+                Batal
+              </button>
+              <button 
+                onClick={() => handleDelete(deleteModal.id)}
+                className="flex-1 bg-error hover:bg-error/90 text-on-error font-bold py-3.5 rounded-2xl transition-colors"
+              >
+                Ya, Hapus
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

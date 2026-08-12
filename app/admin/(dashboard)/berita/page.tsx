@@ -183,7 +183,7 @@ export default function AdminBeritaPage() {
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-lg gap-md">
         <div>
-          <h1 className="text-5xl font-bold text-on-surface">Berita & Artikel</h1>
+          <h1 className="text-5xl font-bold text-on-surface">Kabar & Artikel Desa</h1>
           <p className="text-on-surface-variant text-xl mt-xs">Kelola konten berita dan artikel informatif.</p>
         </div>
         <button onClick={openCreate} className="bg-primary text-on-primary font-bold px-md py-xs rounded-full hover:shadow-xl transition-all flex items-center gap-xs" id="add-berita-btn">
