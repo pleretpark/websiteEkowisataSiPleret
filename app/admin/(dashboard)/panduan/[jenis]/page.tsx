@@ -8,11 +8,9 @@ export default async function PanduanPage({ params }: { params: Promise<{ jenis:
     title = "Buku Panduan Website"
     pdfSrc = "/data/panduan-website.pdf"
   }
-  if (jenis === 'instagram') {
-    title = "Buku Panduan Instagram"
-  }
-  if (jenis === 'tiktok') {
-    title = "Buku Panduan Tiktok"
+  if (jenis === 'sosial-media') {
+    title = "Buku Panduan Sosial Media"
+    pdfSrc = "/data/panduan-sosmed.pdf"
   }
   if (jenis === 'saran') {
     title = "Buku Panduan Kotak Saran"
@@ -21,11 +19,32 @@ export default async function PanduanPage({ params }: { params: Promise<{ jenis:
 
   return (
     <div className="flex flex-col h-full h-[calc(100vh-64px)]">
-      <div className="mb-4">
-        <h1 className="text-2xl font-bold text-on-surface">{title}</h1>
-        <p className="text-on-surface-variant text-sm mt-1">
-          Pratinjau dokumen panduan. Anda dapat mengunduhnya menggunakan tombol di dalam viewer.
-        </p>
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-on-surface">{title}</h1>
+          <p className="text-on-surface-variant text-sm mt-1">
+            Pratinjau dokumen panduan. Jika dokumen tidak terbuka di HP, silakan gunakan tombol di samping.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <a
+            href={pdfSrc}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors shadow-sm"
+          >
+            <span className="material-symbols-outlined text-[20px]">open_in_new</span>
+            Buka di Tab Baru
+          </a>
+          <a
+            href={pdfSrc}
+            download
+            className="inline-flex items-center justify-center gap-2 bg-surface-container-high text-on-surface px-4 py-2 rounded-lg font-medium hover:bg-surface-container-highest transition-colors shadow-sm"
+          >
+            <span className="material-symbols-outlined text-[20px]">download</span>
+            Unduh
+          </a>
+        </div>
       </div>
 
       <div className="flex-1 bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden shadow-sm relative w-full min-h-[600px]">

@@ -16,7 +16,7 @@ type MenuItem = {
 export const menuItems: MenuItem[] = [
   { href: '/admin', icon: 'dashboard', label: 'Dashboard' },
   { href: '/admin/umkm', icon: 'storefront', label: 'Manajemen UMKM' },
-  { href: '/admin/spot-wisata', icon: 'eco', label: 'Peta Lokasi' },
+  { href: '/admin/spot-wisata', icon: 'location_on', label: 'Peta Lokasi' },
   { href: '/admin/ikan', icon: 'phishing', label: 'Data Ikan' },
   { href: '/admin/berita', icon: 'newspaper', label: 'Kabar Desa' },
   {
@@ -24,8 +24,7 @@ export const menuItems: MenuItem[] = [
     label: 'Panduan',
     children: [
       { href: '/admin/panduan/website', label: 'Website' },
-      // { href: '/admin/panduan/instagram', label: 'Instagram' },
-      // { href: '/admin/panduan/tiktok', label: 'Tiktok' },
+      { href: '/admin/panduan/sosial-media', label: 'Sosial Media' },
       { href: '/admin/panduan/saran', label: 'Kotak Saran' },
     ]
   }
