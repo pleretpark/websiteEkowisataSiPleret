@@ -159,14 +159,25 @@ export default function TentangPage() {
                   Pelajari lebih detail batas wilayah dan pembagian area ekowisata kami melalui peta administrasi berikut.
                 </p>
 
-                <a
-                  href="/data/Tingkir-Tengah-ADM.pdf"
-                  download="Peta_Administrasi_Tingkir_Tengah.pdf"
-                  className="inline-flex items-center justify-center gap-sm bg-primary text-on-primary px-8 py-4 rounded-full font-bold shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
-                >
-                  <span className="material-symbols-outlined text-[24px]">download</span>
-                  Unduh Peta Skala Penuh
-                </a>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                  <a
+                    href="/data/Tingkir-Tengah-ADM.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-sm bg-primary text-on-primary px-6 py-3 rounded-full font-bold shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
+                  >
+                    <span className="material-symbols-outlined text-[24px]">open_in_new</span>
+                    Lihat Peta
+                  </a>
+                  <a
+                    href="/data/Tingkir-Tengah-ADM.pdf"
+                    download="Peta_Administrasi_Tingkir_Tengah.pdf"
+                    className="inline-flex items-center justify-center gap-sm bg-surface-container-high text-on-surface px-6 py-3 rounded-full font-bold shadow-sm hover:bg-surface-container-highest hover:scale-105 active:scale-95 transition-all"
+                  >
+                    <span className="material-symbols-outlined text-[24px]">download</span>
+                    Unduh Peta
+                  </a>
+                </div>
               </div>
 
               {/* Left: PDF Preview */}
@@ -174,7 +185,7 @@ export default function TentangPage() {
                 <div className="aspect-[4/3] bg-surface-container rounded-2xl overflow-hidden border border-outline-variant relative group shadow-md p-2">
                   <iframe
                     src="/data/Tingkir-Tengah-ADM.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-                    className="w-full h-full border border-outline-variant/30 pointer-events-none rounded-xl bg-white"
+                    className="w-full h-full border border-outline-variant/30 rounded-xl bg-white"
                     title="Preview Peta Administrasi"
                   />
                 </div>
