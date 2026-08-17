@@ -167,7 +167,7 @@ export default function AdminSidebar({
           <div className="flex items-center gap-sm md:gap-md">
             <div className="flex items-center gap-xs">
               <span className="text-base md:text-lg text-on-surface font-medium hidden sm:block">
-                Super Admin
+                {userEmail.split('@')[0]}
               </span>
               <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
                 <span className="material-symbols-outlined text-on-primary text-[18px]">
