@@ -13,7 +13,7 @@ export default async function AdminLayout({
   children: React.ReactNode
 }) {
   // Verify authentication server-side
-  let userEmail = 'admin@tingkirtengah.id'
+  let userEmail = 'admin@example.com'
   
   if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
     const supabase = await createClient()
