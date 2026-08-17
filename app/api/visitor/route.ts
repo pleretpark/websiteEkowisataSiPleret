@@ -1,19 +1,21 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { randomUUID } from 'crypto';
 
 function getSupabaseClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-    process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-  );
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!url || !key) {
+    throw new Error('Supabase environment variables are not configured');
+  }
+
+  return createClient(url, key);
 }
 
 function getLocalDateString() {
   const now = new Date();
   // Vercel server uses UTC by default. Convert to UTC+7 (WIB).
-  const offsetMs = 7 * 60 * 60 * 1000;
-  // Get UTC time by extracting from ISO string, then construct a new date
-  // A safer approach:
   const localTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Jakarta"}));
   // Construct YYYY-MM-DD manually to avoid locale formatting inconsistencies
   const year = localTime.getFullYear();
@@ -27,15 +29,31 @@ export async function GET() {
     const supabase = getSupabaseClient();
     const dateStr = getLocalDateString();
 
-    const { data: todayVisitor } = await supabase
+    const { data: todayVisitor, error: todayError } = await supabase
       .from('Visitor')
       .select('count')
       .eq('date', dateStr)
       .maybeSingle();
 
-    const { data: allVisitors } = await supabase
+    if (todayError) {
+      console.error('Error fetching today visitor:', todayError);
+      return NextResponse.json(
+        { success: false, error: todayError.message },
+        { status: 500 }
+      );
+    }
+
+    const { data: allVisitors, error: allError } = await supabase
       .from('Visitor')
       .select('count');
+
+    if (allError) {
+      console.error('Error fetching all visitors:', allError);
+      return NextResponse.json(
+        { success: false, error: allError.message },
+        { status: 500 }
+      );
+    }
     
     const totalCount = (allVisitors || []).reduce((acc, curr) => acc + curr.count, 0);
 
@@ -45,7 +63,11 @@ export async function GET() {
       total: totalCount,
     });
   } catch (error) {
-    return NextResponse.json({ success: false, error: 'Gagal mengambil statistik' }, { status: 500 });
+    console.error('Error in GET /api/visitor:', error);
+    return NextResponse.json(
+      { success: false, error: 'Gagal mengambil statistik' },
+      { status: 500 }
+    );
   }
 }
 
@@ -54,32 +76,63 @@ export async function POST() {
     const supabase = getSupabaseClient();
     const dateStr = getLocalDateString();
 
-    const { data: existing } = await supabase
+    // Check if a record for today already exists
+    const { data: existing, error: fetchError } = await supabase
       .from('Visitor')
-      .select('count')
+      .select('id, count')
       .eq('date', dateStr)
       .maybeSingle();
 
+    if (fetchError) {
+      console.error('Error checking existing visitor record:', fetchError);
+      return NextResponse.json(
+        { success: false, error: fetchError.message },
+        { status: 500 }
+      );
+    }
+
     if (existing) {
+      // Update existing record for today
       const { data, error } = await supabase
         .from('Visitor')
         .update({ count: existing.count + 1 })
-        .eq('date', dateStr)
-        .select()
+        .eq('id', existing.id)
+        .select('count')
         .single();
       
-      return NextResponse.json({ success: true, count: data?.count });
+      if (error) {
+        console.error('Error updating visitor count:', error);
+        return NextResponse.json(
+          { success: false, error: error.message },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({ success: true, count: data.count });
     } else {
+      // Insert new record for today — must provide `id` because the
+      // Prisma-created table has no server-side default for the `id` column.
       const { data, error } = await supabase
         .from('Visitor')
-        .insert({ date: dateStr, count: 1 })
-        .select()
+        .insert({ id: randomUUID(), date: dateStr, count: 1 })
+        .select('count')
         .single();
 
-      return NextResponse.json({ success: true, count: data?.count });
+      if (error) {
+        console.error('Error inserting visitor record:', error);
+        return NextResponse.json(
+          { success: false, error: error.message },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({ success: true, count: data.count });
     }
   } catch (error) {
-    console.error('Error saat mencatat pengunjung:', error);
-    return NextResponse.json({ success: false, error: 'Gagal mencatat pengunjung' }, { status: 500 });
+    console.error('Error in POST /api/visitor:', error);
+    return NextResponse.json(
+      { success: false, error: 'Gagal mencatat pengunjung' },
+      { status: 500 }
+    );
   }
 }

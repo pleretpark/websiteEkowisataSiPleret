@@ -4,14 +4,25 @@ import { useEffect } from 'react';
 
 export default function VisitorTracker() {
   useEffect(() => {
-    // Fungsi ini hanya dipanggil sekali saat komponen dimuat (saat pengunjung membuka web)
     const trackVisitor = async () => {
+      // Cegah penghitungan ganda dalam satu sesi browser (tab/window)
+      if (sessionStorage.getItem('visitor_tracked')) {
+        return;
+      }
+
       try {
-        await fetch('/api/visitor', {
+        const res = await fetch('/api/visitor', {
           method: 'POST',
-          // Menghindari cache agar hitungan tidak ter-cache oleh browser
-          cache: 'no-store', 
+          cache: 'no-store',
         });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            // Tandai bahwa sesi ini sudah dihitung
+            sessionStorage.setItem('visitor_tracked', '1');
+          }
+        }
       } catch (error) {
         console.error('Gagal mencatat pengunjung:', error);
       }
