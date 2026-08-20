@@ -6,11 +6,11 @@ import ScrollReveal from '@/app/_components/ScrollReveal'
 
 // Sample data for when Supabase isn't configured yet
 const sampleUmkm: UMKM[] = [
-  
+
 ]
 
 const sampleBerita: Berita[] = [
-  
+
 ]
 
 function getCategoryStyle(kategori: string) {
@@ -84,7 +84,7 @@ export default async function HomePage() {
       <section className="relative">
         <div className="relative w-full h-[500px] md:h-[700px] lg:h-[870px] overflow-hidden">
           <video
-            src="/data/video-landing.mp4"
+            src="/data/video-landing-3.mp4"
             autoPlay
             loop
             muted
@@ -103,11 +103,11 @@ export default async function HomePage() {
                 Bendungan Si Pleret
               </h1>
               <div className="mb-6">
-                <Image 
-                  src="/images/logo-warna.png" 
-                  alt="Logo Bendungan Si Pleret" 
-                  width={100} 
-                  height={100} 
+                <Image
+                  src="/images/logo-warna.png"
+                  alt="Logo Bendungan Si Pleret"
+                  width={100}
+                  height={100}
                   className="rounded-full"
                 />
               </div>
@@ -140,12 +140,22 @@ export default async function HomePage() {
             <ScrollReveal variant="fade-right" duration={800}>
               <div className="relative rounded-3xl overflow-hidden shadow-ambient-lg w-full aspect-video bg-surface-container-low border border-outline-variant">
                 {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
+                {/* 
                 <iframe
                   className="w-full h-full"
                   src="https://www.youtube.com/embed/kaCPjx0F3aw"
                   title="Video Profil Ekowisata Tingkir Tengah"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+                */}
+                <iframe
+                  className="w-full h-full"
+                  src="https://drive.google.com/file/d/1JrirsXX571rdUoz5nQ0HMyXLFqFAfzPv/preview"
+                  title="Video Profil Ekowisata Tingkir Tengah (Google Drive)"
+                  frameBorder="0"
+                  allow="autoplay; encrypted-media"
                   allowFullScreen
                 ></iframe>
               </div>
@@ -197,53 +207,53 @@ export default async function HomePage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
+          <div className="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-lg">
             {umkmData.map((item, index) => (
               <ScrollReveal key={item.id} variant="fade-up" delay={index * 120} duration={600}>
                 <div
-                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-sm shadow-sm hover:shadow-ambient-hover transition-all duration-500 overflow-hidden h-full flex flex-col"
+                  className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 md:p-sm shadow-sm hover:shadow-ambient-hover transition-all duration-500 overflow-hidden h-full flex flex-col"
                 >
-                <div className="relative overflow-hidden rounded-xl h-64 mb-sm bg-surface-container shrink-0">
-                  <Image
-                    src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
-                    alt={item.nama_produk}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span
-                      className={`${getCategoryStyle(item.kategori)} text-sm px-md py-1 rounded-full font-bold backdrop-blur-md`}
-                    >
-                      {getCategoryLabel(item.kategori)}
-                    </span>
+                  <div className="relative overflow-hidden rounded-xl h-36 md:h-64 mb-2 md:mb-sm bg-surface-container shrink-0">
+                    <Image
+                      src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
+                      alt={item.nama_produk}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute top-2 left-2 md:top-4 md:left-4">
+                      <span
+                        className={`${getCategoryStyle(item.kategori)} text-[10px] md:text-sm px-2 md:px-md py-1 rounded-full font-bold backdrop-blur-md`}
+                      >
+                        {getCategoryLabel(item.kategori)}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="px-xs flex flex-col flex-grow justify-between mt-sm">
-                  <div>
-                    <h3 className="text-xl font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight">
-                      {item.nama_produk}
-                    </h3>
-                    <p className="text-on-surface-variant text-base mt-xs line-clamp-2">
-                      {item.deskripsi}
-                    </p>
-                  </div>
-                  <div className="mt-auto pt-md flex items-center justify-between">
-                    <span className="text-primary font-bold text-xl">
-                      {formatPrice(item.harga)}
-                    </span>
-                    <Link
-                      href={`/umkm/detail-produk?id=${item.id}`}
-                      className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
-                    >
-                      Detail
+                  <div className="px-xs flex flex-col flex-grow justify-between mt-sm">
+                    <div>
+                      <h3 className="text-sm md:text-xl font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight line-clamp-1 md:line-clamp-none">
+                        {item.nama_produk}
+                      </h3>
+                      <p className="text-on-surface-variant text-[11px] md:text-base mt-1 md:mt-xs line-clamp-2">
+                        {item.deskripsi}
+                      </p>
+                    </div>
+                    <div className="mt-auto pt-2 md:pt-md flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0">
+                      <span className="text-primary font-bold text-sm md:text-xl">
+                        {formatPrice(item.harga)}
+                      </span>
+                      <Link
+                        href={`/umkm/detail-produk?id=${item.id}`}
+                        className="bg-primary text-on-primary hover:shadow-lg active:scale-95 font-bold px-3 md:px-md py-1.5 md:py-2 rounded-full transition-all flex items-center justify-center gap-xs text-[11px] md:text-sm w-full md:w-auto"
+                      >
+                        Detail
 
-                      {/* <span className="material-symbols-outlined text-base">
+                        {/* <span className="material-symbols-outlined text-base">
                         arrow_forward
                       </span> */}
-                    </Link>
+                      </Link>
+                    </div>
                   </div>
-                </div>
                 </div>
               </ScrollReveal>
             ))}
@@ -281,14 +291,14 @@ export default async function HomePage() {
                 <div
                   className="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-ambient-hover transition-all duration-500 h-full"
                 >
-                <div className="relative h-52 overflow-hidden bg-surface-container">
-                  <Image
-                    src={item.foto_cover && !item.foto_cover.includes('unsplash') ? item.foto_cover : '/images/sosialisasi.jpg'}
-                    alt={item.judul}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  <div className="relative h-52 overflow-hidden bg-surface-container">
+                    <Image
+                      src={item.foto_cover && !item.foto_cover.includes('unsplash') ? item.foto_cover : '/images/sosialisasi.jpg'}
+                      alt={item.judul}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                     {/* Date Badge */}
                     <div className="absolute bottom-3 left-3 bg-primary text-on-primary text-xs font-bold px-sm py-1 rounded-full">
                       {new Date(item.tanggal_publikasi).toLocaleDateString('id-ID', {
@@ -304,21 +314,21 @@ export default async function HomePage() {
                       </div>
                     )}
                   </div>
-                <div className="p-md">
-                  <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2">
-                    {item.judul}
-                  </h3>
-                  <p className="text-on-surface-variant text-sm mt-xs line-clamp-2">
-                    {item.konten.substring(0, 120)}...
-                  </p>
-                  <Link
-                    href={`/berita/${item.slug}`}
-                    className="inline-flex items-center gap-1 text-primary font-semibold text-sm mt-md group-hover:underline"
-                  >
-                    Baca Selengkapnya
-                    {/* <span className="material-symbols-outlined text-[16px]">arrow_forward</span> */}
-                  </Link>
-                </div>
+                  <div className="p-md">
+                    <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2">
+                      {item.judul}
+                    </h3>
+                    <p className="text-on-surface-variant text-sm mt-xs line-clamp-2">
+                      {item.konten.substring(0, 120)}...
+                    </p>
+                    <Link
+                      href={`/berita/${item.slug}`}
+                      className="inline-flex items-center gap-1 text-primary font-semibold text-sm mt-md group-hover:underline"
+                    >
+                      Baca Selengkapnya
+                      {/* <span className="material-symbols-outlined text-[16px]">arrow_forward</span> */}
+                    </Link>
+                  </div>
                 </div>
               </ScrollReveal>
             ))}
@@ -339,9 +349,19 @@ export default async function HomePage() {
                 style={{ animationDelay: '2s' }}
               />
               <div className="relative z-10 glass p-sm rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-4/5 lg:w-3/4 mx-auto">
-                <Image
+                {/* <Image
                   src="/images/foto-pleret.jpeg"
                   alt="Komunitas UMKM Tingkir Tengah bekerja bersama"
+                  width={600}
+                  height={400}
+                  className="rounded-xl shadow-inner w-full"
+                /> */}
+                <video
+                  src="/data/video-landing-4.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   width={600}
                   height={400}
                   className="rounded-xl shadow-inner w-full"

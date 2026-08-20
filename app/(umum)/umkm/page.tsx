@@ -125,13 +125,13 @@ export default function UMKMPage() {
 
           {/* Product Grid */}
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
+            <div className="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-lg">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="bg-surface-container-lowest rounded-2xl p-sm">
-                  <div className="h-48 rounded-xl animate-shimmer mb-sm" />
-                  <div className="h-5 w-3/4 rounded animate-shimmer mb-xs" />
-                  <div className="h-4 w-full rounded animate-shimmer mb-xs" />
-                  <div className="h-6 w-1/2 rounded animate-shimmer" />
+                <div key={i} className="bg-surface-container-lowest rounded-2xl p-2 md:p-sm">
+                  <div className="h-36 md:h-48 rounded-xl animate-shimmer mb-2 md:mb-sm" />
+                  <div className="h-4 md:h-5 w-3/4 rounded animate-shimmer mb-1 md:mb-xs" />
+                  <div className="h-3 md:h-4 w-full rounded animate-shimmer mb-1 md:mb-xs" />
+                  <div className="h-5 md:h-6 w-1/2 rounded animate-shimmer" />
                 </div>
               ))}
             </div>
@@ -145,17 +145,17 @@ export default function UMKMPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-lg">
+            <div className="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-lg">
               {filteredProducts.map((item, index) => (
                 <Link
                   key={item.id}
-                  href={`/umkm/detail-produk?id=${item.id}`} className="block"
+                  href={`/umkm/detail-produk?id=${item.id}`} className="block h-full"
                 >
                   <div
-                    className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-md shadow-sm hover:shadow-ambient transition-all duration-300 flex flex-col h-full animate-fade-in-up"
+                    className="group bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 md:p-md shadow-sm hover:shadow-ambient transition-all duration-300 flex flex-col h-full animate-fade-in-up"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="relative overflow-hidden rounded-xl h-48 mb-sm bg-surface-container shrink-0">
+                    <div className="relative overflow-hidden rounded-xl h-36 md:h-48 mb-2 md:mb-sm bg-surface-container shrink-0">
                       <Image
                         src={item.gambar_url && !item.gambar_url.includes('unsplash') ? item.gambar_url : `/images/${item.kategori.toLowerCase()}.jpg`}
                         alt={item.nama_produk}
@@ -163,29 +163,29 @@ export default function UMKMPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                       />
-                      <div className="absolute top-3 left-3">
+                      <div className="absolute top-2 left-2 md:top-3 md:left-3">
                         <span
-                          className={`${getCategoryStyle(item.kategori)} text-xs px-sm py-1 rounded-full font-bold backdrop-blur-md`}
+                          className={`${getCategoryStyle(item.kategori)} text-[10px] md:text-xs px-2 md:px-sm py-1 rounded-full font-bold backdrop-blur-md`}
                         >
                           {item.kategori}
                         </span>
                       </div>
                     </div>
-                    <div className="px-xs flex flex-col flex-grow justify-between mt-sm">
+                    <div className="px-1 md:px-xs flex flex-col flex-grow justify-between mt-1 md:mt-sm">
                       <div>
-                        <h3 className="text-lg font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight">
+                        <h3 className="text-sm md:text-lg font-semibold text-on-surface group-hover:text-primary transition-colors leading-tight line-clamp-1 md:line-clamp-none">
                           {item.nama_produk}
                         </h3>
-                        <p className="text-on-surface-variant text-sm mt-xs line-clamp-2">
+                        <p className="text-on-surface-variant text-[11px] md:text-sm mt-1 md:mt-xs line-clamp-2">
                           {item.deskripsi}
                         </p>
                       </div>
-                      <div className="mt-auto pt-md flex items-center justify-between gap-xs">
-                        <span className="text-primary font-bold text-lg">
+                      <div className="mt-auto pt-2 md:pt-md flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-xs">
+                        <span className="text-primary font-bold text-sm md:text-lg">
                           {formatPrice(item.harga)}
                         </span>
                         <span
-                          className="bg-primary text-on-primary font-bold px-md py-2 rounded-full transition-all flex items-center gap-xs text-sm"
+                          className="bg-primary text-on-primary font-bold px-3 md:px-md py-1.5 md:py-2 rounded-full transition-all flex items-center justify-center w-full md:w-auto text-[11px] md:text-sm"
                         >
                           Detail
                           {/* <span className="material-symbols-outlined text-base">

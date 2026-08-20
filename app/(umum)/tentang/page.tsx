@@ -54,13 +54,21 @@ export default function TentangPage() {
         <ScrollReveal variant="zoom-in" delay={200} duration={900}>
           <div id="profil-video" className="relative z-10 rounded-3xl overflow-hidden shadow-ambient-lg aspect-video bg-surface-container-low border border-outline-variant max-w-[900px] mx-auto">
             {/* Ganti URL src di bawah dengan link YouTube yang asli jika sudah selesai */}
-            <iframe
+            {/* <iframe
               className="w-full h-full"
               src="https://www.youtube.com/embed/kaCPjx0F3aw"
               title="Video Profil Ekowisata Tingkir Tengah"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
+            ></iframe> */}
+            <iframe
+                  className="w-full h-full"
+                  src="https://drive.google.com/file/d/1JrirsXX571rdUoz5nQ0HMyXLFqFAfzPv/preview"
+                  title="Video Profil Ekowisata Tingkir Tengah (Google Drive)"
+                  frameBorder="0"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
             ></iframe>
           </div>
         </ScrollReveal>
@@ -356,7 +364,7 @@ export default function TentangPage() {
             {/* Foto 6 (Kanan Bawah) */}
             <div className="md:absolute md:right-[20%] md:bottom-[10%] w-[260px] md:w-[350px] bg-white p-3 rounded-sm shadow-xl rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 cursor-pointer group z-20">
               <div className="relative w-full aspect-[4/3] bg-gray-200 overflow-hidden">
-                <Image src="/images/penerjunan.jpg" alt="KKN Foto" fill className="object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 object-right" />
+                <Image src="/images/penerjunan.JPG" alt="KKN Foto" fill className="object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 object-right" />
               </div>
             </div>
 
