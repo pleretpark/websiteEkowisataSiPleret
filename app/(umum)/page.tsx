@@ -84,7 +84,7 @@ export default async function HomePage() {
       <section className="relative">
         <div className="relative w-full h-[500px] md:h-[700px] lg:h-[870px] overflow-hidden">
           <video
-            src="/data/video-landing-3.mp4"
+            src="/data/video-landing.mp4"
             autoPlay
             loop
             muted
@@ -357,7 +357,7 @@ export default async function HomePage() {
                   className="rounded-xl shadow-inner w-full"
                 /> */}
                 <video
-                  src="/data/video-landing-4.mp4"
+                  src="/data/halo-pleret.mov"
                   autoPlay
                   loop
                   muted
