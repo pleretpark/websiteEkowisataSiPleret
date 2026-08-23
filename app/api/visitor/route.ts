@@ -4,9 +4,18 @@ import { randomUUID } from 'crypto';
 
 function getSupabaseClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!url || !key) {
+  if (!url) {
+    return null;
+  }
+
+  // Gunakan service role key jika tersedia (untuk bypass RLS jika perlu),
+  // fallback ke anon key karena tabel Visitor sudah punya policy publik (FOR ALL USING true).
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!key) {
     return null;
   }
 
@@ -16,8 +25,7 @@ function getSupabaseClient() {
 function getLocalDateString() {
   const now = new Date();
   // Vercel server uses UTC by default. Convert to UTC+7 (WIB).
-  const localTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Jakarta"}));
-  // Construct YYYY-MM-DD manually to avoid locale formatting inconsistencies
+  const localTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
   const year = localTime.getFullYear();
   const month = String(localTime.getMonth() + 1).padStart(2, '0');
   const day = String(localTime.getDate()).padStart(2, '0');
@@ -27,7 +35,6 @@ function getLocalDateString() {
 export async function GET() {
   const supabase = getSupabaseClient();
 
-  // Jika Supabase belum dikonfigurasi, kembalikan nilai 0 tanpa error
   if (!supabase) {
     return NextResponse.json({ success: true, today: 0, total: 0 });
   }
@@ -60,7 +67,7 @@ export async function GET() {
         { status: 500 }
       );
     }
-    
+
     const totalCount = (allVisitors || []).reduce((acc, curr) => acc + curr.count, 0);
 
     return NextResponse.json({
@@ -80,16 +87,14 @@ export async function GET() {
 export async function POST() {
   const supabase = getSupabaseClient();
 
-  // Jika Supabase belum dikonfigurasi, abaikan secara diam-diam
   if (!supabase) {
-    console.warn('Visitor tracking skipped: Supabase environment variables not configured.');
+    console.warn('Visitor tracking skipped: Supabase not configured.');
     return NextResponse.json({ success: true, count: 0 });
   }
 
   try {
     const dateStr = getLocalDateString();
 
-    // Check if a record for today already exists
     const { data: existing, error: fetchError } = await supabase
       .from('Visitor')
       .select('id, count')
@@ -105,14 +110,13 @@ export async function POST() {
     }
 
     if (existing) {
-      // Update existing record for today
       const { data, error } = await supabase
         .from('Visitor')
         .update({ count: existing.count + 1 })
         .eq('id', existing.id)
         .select('count')
         .single();
-      
+
       if (error) {
         console.error('Error updating visitor count:', error);
         return NextResponse.json(
@@ -123,8 +127,7 @@ export async function POST() {
 
       return NextResponse.json({ success: true, count: data.count });
     } else {
-      // Insert new record for today — must provide `id` because the
-      // Prisma-created table has no server-side default for the `id` column.
+      // Harus sertakan `id` karena tabel Prisma tidak punya server-side default UUID.
       const { data, error } = await supabase
         .from('Visitor')
         .insert({ id: randomUUID(), date: dateStr, count: 1 })
