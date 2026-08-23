@@ -128,9 +128,9 @@ export const metadata: Metadata = {
   },
 
   // ─── Verification (isi setelah verifikasi Google Search Console) ──
-  // verification: {
-  //   google: "YOUR_GOOGLE_SITE_VERIFICATION_TOKEN",
-  // },
+  verification: {
+    google: "V_8hQjcW7d9dVKx-7I7sC9K7_EKAqdWB7z3ePYPWbe0",
+  },
 };
 
 
