@@ -7,7 +7,7 @@ function getSupabaseClient() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !key) {
-    throw new Error('Supabase environment variables are not configured');
+    return null;
   }
 
   return createClient(url, key);
@@ -25,8 +25,14 @@ function getLocalDateString() {
 }
 
 export async function GET() {
+  const supabase = getSupabaseClient();
+
+  // Jika Supabase belum dikonfigurasi, kembalikan nilai 0 tanpa error
+  if (!supabase) {
+    return NextResponse.json({ success: true, today: 0, total: 0 });
+  }
+
   try {
-    const supabase = getSupabaseClient();
     const dateStr = getLocalDateString();
 
     const { data: todayVisitor, error: todayError } = await supabase
@@ -72,8 +78,15 @@ export async function GET() {
 }
 
 export async function POST() {
+  const supabase = getSupabaseClient();
+
+  // Jika Supabase belum dikonfigurasi, abaikan secara diam-diam
+  if (!supabase) {
+    console.warn('Visitor tracking skipped: Supabase environment variables not configured.');
+    return NextResponse.json({ success: true, count: 0 });
+  }
+
   try {
-    const supabase = getSupabaseClient();
     const dateStr = getLocalDateString();
 
     // Check if a record for today already exists
