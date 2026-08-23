@@ -21,6 +21,8 @@ export default function VisitorTracker() {
           if (data.success) {
             // Tandai bahwa sesi ini sudah dihitung
             sessionStorage.setItem('visitor_tracked', '1');
+            // Kirim event agar VisitorStats di-refresh dengan data terbaru
+            window.dispatchEvent(new CustomEvent('visitor-tracked'));
           }
         }
       } catch (error) {

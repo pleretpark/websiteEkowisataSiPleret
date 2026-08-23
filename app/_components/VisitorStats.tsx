@@ -1,30 +1,39 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export default function VisitorStats() {
   const [stats, setStats] = useState({ today: 0, total: 0 });
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await fetch('/api/visitor', { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success) {
-            setStats({ today: data.today, total: data.total });
-          }
+  const fetchStats = useCallback(async () => {
+    try {
+      const res = await fetch('/api/visitor', { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          setStats({ today: data.today, total: data.total });
         }
-      } catch (error) {
-        console.error('Failed to fetch visitor stats:', error);
-      } finally {
-        setLoading(false);
       }
-    };
-
-    fetchStats();
+    } catch (error) {
+      console.error('Failed to fetch visitor stats:', error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    // Fetch awal saat komponen dimuat
+    fetchStats();
+
+    // Dengarkan event dari VisitorTracker — refresh setelah pengunjung berhasil dicatat
+    const handleTracked = () => fetchStats();
+    window.addEventListener('visitor-tracked', handleTracked);
+
+    return () => {
+      window.removeEventListener('visitor-tracked', handleTracked);
+    };
+  }, [fetchStats]);
 
   return (
     <div className="bg-surface-container p-sm rounded-xl border border-outline-variant">
